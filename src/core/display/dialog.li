@@ -1,0 +1,106 @@
+module dialog {
+    fn askQuestionItem(messageQuestion: string): int {
+        var messageAnswer: int = 0;
+
+        //while true {
+            sh {
+                while true; do
+                    read -rp "${%messageQuestion} [Type a number value] " %messageAnswer
+                    
+                    REGEX='^[0-9]+$'
+                    
+                    if ! [[ "$%messageAnswer" =~ $REGEX ]] ; then
+                        echo "Error! The '$%messageAnswer' value is not a number." >&2 #; exit 1
+                    else
+                        break
+                    fi
+                done
+            }
+
+            /*
+            if messageAnswer == 0 {
+                eprintln("Incorrect Input. Please messageAnswer the messageQuestion.")
+            } else {
+                break
+            }
+            */
+        //}
+
+        return messageAnswer as int;
+    }
+
+    fn askQuestionText(messageQuestion: string): string {
+        var messageAnswer: string = "";
+
+        while true {
+            sh {
+                read -rp "${%messageQuestion} [Type a text value] " %messageAnswer
+            }
+
+            if messageAnswer == "" {
+                eprintln("Incorrect Input. Please answer the question.");
+            } else {
+                break;
+            }
+        }
+
+        return messageAnswer;
+    }
+    
+    fn askQuestionYesOrNo(messageQuestion: string): bool {
+        var messageAnswer: string = "";
+
+        while true {
+            sh {
+                read -rp "${%messageQuestion} [Y/n] " %messageAnswer
+            }
+
+            if messageAnswer == "Y" || messageAnswer == "y" {
+                return true;
+                break;
+            } else if messageAnswer == "N" || messageAnswer == "n" {
+                return false;
+                break;
+            } else {
+                eprintln("Incorrect Input. Please answer 'Y' for yes or 'N' for no.");
+            }
+        }
+    }
+
+    fn pressKeyAny() {
+        status::warning("Press 'any' key to continue...");
+
+        sh {
+            read -rn1
+        }
+    }
+
+    fn pressKeySpecific(valueKeyMain: string = 'a') {
+        var valueKeyUpper: string = "";
+        var valueKeyLower: string = "";
+        
+        sh {
+            #Check if value is only first character
+            %valueKeyMain="${%valueKeyMain::1}"
+
+            #Convert letter to lower and upper case
+            %valueKeyUpper="${%valueKeyMain^^}"
+            %valueKeyLower="${%valueKeyMain,,}"
+
+            #Testing the values
+            #echo "${%valueKeyMain} | ${%valueKeyUpper} | ${%valueKeyLower}"
+        }
+
+        status::warning("Press '${valueKeyMain}' key to continue...");
+
+        sh {
+            while true; do
+                read -rsn1 messageAnswer
+
+                if [ "$messageAnswer" = "${%valueKeyUpper}" ] || [ "$messageAnswer" = "${%valueKeyLower}" ]; then
+                    break
+                fi
+            done
+        }
+    }
+}

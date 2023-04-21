@@ -1,0 +1,5 @@
+/// This module is dedicated to manipulate strings, output
+/// from the shells and texts from files.
+
+require './content/char.li';
+require './content/str.li';

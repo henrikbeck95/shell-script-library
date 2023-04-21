@@ -1,0 +1,75 @@
+module textTest {
+    var textMessage: string = "Take me down to the Paradise City"
+
+    text::colorBackgroundBrightBlack(textMessage);
+    text::colorBackgroundBrightRed(textMessage);
+    text::colorBackgroundBrightGreen(textMessage);
+    text::colorBackgroundBrightYellow(textMessage);
+    text::colorBackgroundBrightBlue(textMessage);
+    text::colorBackgroundBrightMagenta(textMessage);
+    text::colorBackgroundBrightCyan(textMessage);
+    text::colorBackgroundBrightWhite(textMessage);
+
+    text::colorBackgroundOpaqueBlack(textMessage);
+    text::colorBackgroundOpaqueRed(textMessage);
+    text::colorBackgroundOpaqueGreen(textMessage);
+    text::colorBackgroundOpaqueYellow(textMessage);
+    text::colorBackgroundOpaqueBlue(textMessage);
+    text::colorBackgroundOpaqueMagenta(textMessage);
+    text::colorBackgroundOpaqueCyan(textMessage);
+    text::colorBackgroundOpaqueWhite(textMessage);
+
+    text::colorForegroundBrightBlack(textMessage);
+    text::colorForegroundBrightRed(textMessage);
+    text::colorForegroundBrightGreen(textMessage);
+    text::colorForegroundBrightYellow(textMessage);
+    text::colorForegroundBrightBlue(textMessage);
+    text::colorForegroundBrightMagenta(textMessage);
+    text::colorForegroundBrightCyan(textMessage);
+    text::colorForegroundBrightWhite(textMessage);
+
+    text::colorForegroundOpaqueBlack(textMessage);
+    text::colorForegroundOpaqueRed(textMessage);
+    text::colorForegroundOpaqueGreen(textMessage);
+    text::colorForegroundOpaqueYellow(textMessage);
+    text::colorForegroundOpaqueBlue(textMessage);
+    text::colorForegroundOpaqueMagenta(textMessage);
+    text::colorForegroundOpaqueCyan(textMessage);
+    text::colorForegroundOpaqueWhite(textMessage);
+
+    // ---
+
+    text::formatStyleBold(textMessage);
+    text::formatStyleDefault(textMessage, 0, 0);
+    text::formatStyleDim(textMessage);
+    text::formatStyleHidden(textMessage);
+    text::formatStyleInverse(textMessage);
+    text::formatStyleItalic(textMessage);
+    text::formatStyleReset(textMessage);
+    text::formatStyleStrikethrough(textMessage);
+    text::formatStyleUnderline(textMessage);
+
+    text::formatStyleInverse(
+        text::formatStyleItalic(
+            text::formatStyleStrikethrough(
+                text::formatStyleBold(
+                    text::colorBackgroundBrightGreen(
+                        text::colorForegroundBrightYellow(textMessage)
+                    )
+                )
+            )
+        )
+    );
+
+    text::formatStyleInverse(
+        text::formatStyleItalic(
+            text::formatStyleStrikethrough(
+                text::formatStyleBold(
+                    text::colorBackgroundOpaqueGreen(
+                        text::colorForegroundOpaqueYellow(textMessage)
+                    )
+                )
+            )
+        )
+    );
+}

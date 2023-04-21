@@ -1,0 +1,14 @@
+module numTest {
+    assert(num::isEven(27) == false);
+    assert(num::isEven(27.1) == false);
+    assert(num::isEven(28) == true);
+    assert(num::isEven(28.1) == false);
+
+    assert(num::isOdd(27) == true);
+    assert(num::isOdd(27.1) == false);
+    assert(num::isOdd(28) == false);
+    assert(num::isOdd(28.1) == false);
+
+    assert(num::isPrime(27) == false);
+    assert(num::isPrime(29) == true);
+}

@@ -1,0 +1,39 @@
+module status {
+    fn empty(){
+        text::formatStyleBold(
+            text::colorBackgroundBrightMagenta(
+                text::colorForegroundBrightWhite("\\(°‿o)/¯ This is an empty function. Please fill it with some instructions")
+            )
+        );
+    }
+
+    fn error(textMessage: string){
+        var textIcon: string = "¯\\_(ツ)_/¯"
+
+        text::formatStyleBold(
+            text::colorBackgroundBrightRed(
+                text::colorForegroundBrightWhite("${textIcon} FAILURE! ${textMessage} ${textIcon}")
+            )
+        );
+    }
+
+    fn success(textMessage: string){
+        var textIcon: string = "***"
+
+        text::formatStyleBold(
+            text::colorBackgroundBrightGreen(
+                text::colorForegroundBrightWhite("${textIcon} ${textMessage} ${textIcon}")
+            )
+        );
+    }
+
+    fn warning(textMessage: string){
+        var textIcon: string = "!!!"
+
+        text::formatStyleBold(
+            text::colorBackgroundBrightYellow(
+                text::colorForegroundBrightWhite("${textIcon} ${textMessage} ${textIcon}")
+            )
+        );
+    }
+}

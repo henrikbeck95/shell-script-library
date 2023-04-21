@@ -1,0 +1,9 @@
+module constantsTest {
+    assert(constants::pi() == 3.14159265358979323846);
+    assert(constants::e() == 2.7182818284590452354);
+    assert(constants::phi() == 1.61803398874989484820);
+    assert(constants::tau() == 6.283185307179586);
+    assert(constants::inf_negative() == "-Infinity");
+    assert(constants::inf_positive() == "Infinity");
+    assert(constants::nan() == "NaN");
+}

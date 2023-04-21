@@ -1,0 +1,9 @@
+module special{
+    //fn math_erf() {}
+
+    //fn math_erfc() {}
+
+    //fn math_gamma() {}
+
+    //fn math_lgamma() {}
+}

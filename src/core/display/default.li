@@ -1,0 +1,53 @@
+// These functions do not require module mentions to be used
+
+/// Clear the current line
+fn clear() {
+    sh {
+        #echo -n "\r"
+        #printf "\r"
+        printf "\33[2K\r"
+    }
+}
+
+/// Cotowali programming language does not permit to override functions
+fn printing(textMessage: any) {
+    sh {
+        #echo -n "$%textMessage"
+        printf "%%s" "$%textMessage"
+    }
+}
+
+/// Cotowali programming language does not permit to override functions
+fn printingln(textMessage: any) {
+    sh {
+        #echo -e "$%textMessage"
+        printf "%%s\n" "$%textMessage" 2>/dev/null
+    }
+}
+
+fn printr(timeDelay: float, textMessage: any) {
+    @sleep(timeDelay);
+    clear();
+    printing(textMessage);
+}
+
+fn separator(frequency: int, character: string = "#") {
+    var aux: string = "";
+
+    for i in range(0, frequency){
+        aux += character
+    }
+
+    println(aux);
+}
+
+fn tabular(textMessage: any) {
+    sh {
+        echo "$%textMessage" | \
+            tr : , | \
+            sed -e 's/^/| /' \
+            -e 's/,/,| /g' \
+            -e 's/$/,|/' | \
+            column -t -s,
+    }
+}

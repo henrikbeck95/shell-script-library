@@ -1,0 +1,35 @@
+require './math.li';
+
+// 
+
+println("Math - Constants section");
+require './math/constantsTest.li';
+
+println("Math - Num section");
+require './math/numTest.li';
+
+println("Math - Operator section");
+require './math/operatorTest.li';
+
+// 
+
+println("Math - Angle section");
+require './math/angleTest.li';
+
+println("Math - Elevation section");
+require './math/elevationTest.li';
+
+println("Math - Geometry section");
+require './math/geometryTest.li';
+
+println("Math - Others section");
+require './math/othersTest.li';
+
+println("Math - Random section");
+require './math/randomTest.li';
+
+println("Math - Theoretic section");
+require './math/theoreticTest.li';
+
+println("Math - Trigonometry section");
+require './math/trigonometry.li';

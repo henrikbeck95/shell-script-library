@@ -1,0 +1,43 @@
+module num {
+	//fn isFloat() {}
+	//fn isInteger() {}
+
+	fn isEven(value: float): bool {
+		if value % 2 == 0 {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	fn isOdd(value: float): bool {
+		if value % 2 == 1 {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	fn isPrime(value: int): bool {
+		var i: int = 2;
+		var isNonPrime: bool = false;
+
+		while (i <= value / 2) {
+			if (value % i == 0) {
+				isNonPrime = true;
+				//println("NOW!")
+				break;
+			}
+
+			//println("$i -> value = $value -> isNonPrime = $isNonPrime")
+
+			i += 1
+		}
+
+		if isNonPrime == false {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}

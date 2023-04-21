@@ -1,0 +1,20 @@
+module charTest {
+    assert(char::charGetElementFirstFromDisplay("Henrik Beck") == "H");
+    assert(char::charGetElementLastFromDisplay("Henrik Beck") == "k");
+        assert(char::charRemoveSpaceBlankAllFromDisplay("Henrik      Beck") == "HenrikBeck");
+    assert(char::charRemoveFirstAllFromDisplay("Henrik Beck") == "enrik Beck");
+    assert(char::charRemoveLastAllFromDisplay("Henrik Beck") == "Henrik Bec");
+    assert(char::charRemoveMatchAllFromDisplay("Henrik Beck", "e") == "Hnrik Bck");
+    assert(char::charRemoveMatchAllFromDisplay("Henrik Beck", "ec") == "Hnrik Bk");
+    assert(char::charRemoveMatchAllFromDisplay("[03:06.59]", "[]") == "03:06.59");
+    assert(char::charRemoveMatchAllFromDisplay("[00:03:06.59]", "[]") == "00:03:06.59");
+    assert(char::charRemoveFirstAllFromDisplay("Henrik Beck") == "enrik Beck");
+    assert(char::charRemoveLastAllFromDisplay("Henrik Beck") == "Henrik Bec");
+    assert(char::charReplaceCaseAllFromLowerToUpperFromDisplay("Henrik Beck") == "HENRIK BECK");
+    assert(char::charReplaceCaseAllFromUpperToLowerFromDisplay("HENRIK BECK") == "henrik beck");
+    assert(char::charReplaceSpaceAllFromColonToSpaceFromDisplay("Henrik:Beck") == "Henrik Beck");
+    assert(char::charReplaceSlashAllFromBackwardToForwardFromDisplay("Henrik/Beck") == "Henrik/Beck");
+    assert(char::charReplaceSlashAllFromBackwardToForwardFromDisplay("Henrik\\Beck") == "Henrik/Beck");
+    assert(char::charReplaceSlashAllFromForwardToBackwardFromDisplay("Henrik/Beck") == "Henrik\\Beck");
+    assert(char::charReplaceSlashAllFromForwardToBackwardFromDisplay("Henrik\\Beck") == "Henrik\\Beck");
+}

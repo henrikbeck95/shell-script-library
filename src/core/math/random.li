@@ -1,0 +1,27 @@
+module random{
+    fn generate_number_from_interval_set(numberA: int, numberB: int): float {
+        if numberA == numberB {
+            return numberA;
+        } else {
+            var intervalBegin: int = 0;
+            var intervalEnd: int = 0;
+
+            if numberA < numberB {
+                intervalBegin = numberA;
+                intervalEnd = numberB + 1;
+            } else{
+                intervalBegin = numberB + 1;
+                intervalEnd = numberA;
+            }
+
+            var AUX: int = 0;
+
+            //Generate the random number
+            sh {
+                %AUX="$RANDOM"
+            }
+
+            return (AUX % (intervalEnd - intervalBegin)) + intervalBegin;
+        }
+    }
+}

@@ -1,0 +1,6 @@
+module status {
+    status::empty();
+    status::error("This is an error message");
+    status::success("This is a success message");
+    status::warning("This is a warning message");
+}

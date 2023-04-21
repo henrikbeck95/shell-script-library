@@ -1,0 +1,68 @@
+module trigonometryTest {
+    //println("---***---COS---***---")
+    assert(trigonometry::cos(0) == 1);
+    assert(trigonometry::cos(30) == 0.866025);
+    assert(trigonometry::cos(45) == 0.707107);
+    assert(trigonometry::cos(46) == 0.694658);
+    assert(trigonometry::cos(47) == 0.681998);
+    assert(trigonometry::cos(60) == 0.5);
+    assert(trigonometry::cos(90) == 0);
+    assert(trigonometry::cos(180) == -1);
+    assert(trigonometry::cos(270) == 0);
+    assert(trigonometry::cos(359) == 0.999848);
+    assert(trigonometry::cos(360) == 1);
+    assert(trigonometry::cos(540) == -1);
+    assert(trigonometry::cos(630) == 0);
+    assert(trigonometry::cos(720) == 1);
+    //println("---***---SIN---***---")
+    assert(trigonometry::sin(0) == 0);
+    assert(trigonometry::sin(30) == 0.5);
+    assert(trigonometry::sin(45) == 0.707107);
+    assert(trigonometry::sin(46) == 0.71934);
+    assert(trigonometry::sin(47) == 0.731354);
+    assert(trigonometry::sin(60) == 0.866025);
+    assert(trigonometry::sin(90) == 1);
+    assert(trigonometry::sin(180) == 0);
+    assert(trigonometry::sin(270) == -1);
+    assert(trigonometry::sin(359) == -0.0174524);
+    assert(trigonometry::sin(360) == 0);
+    assert(trigonometry::sin(540) == 0);
+    assert(trigonometry::sin(630) == -1);
+    assert(trigonometry::sin(720) == 0);
+    //println("---***---TAN---***---")
+    assert(trigonometry::tan(0) == 0);
+    assert(trigonometry::tan(30) == 0.57735);
+    assert(trigonometry::tan(45) == 1);
+    assert(trigonometry::tan(46) == 1.03553);
+    assert(trigonometry::tan(47) == 1.072369);
+    assert(trigonometry::tan(60) == 1.732051);
+    assert(trigonometry::tan(90) == "/dev/null" as float);
+    assert(trigonometry::tan(180) == 0);
+    assert(trigonometry::tan(270) == "/dev/null" as float);
+    assert(trigonometry::tan(359) == -0.0174551);
+    assert(trigonometry::tan(360) == 0);
+    assert(trigonometry::tan(540) == 0);
+    assert(trigonometry::tan(630) == "/dev/null" as float);
+    assert(trigonometry::tan(720) == 0);
+    /*
+    //println("---***---ARCCOS---***---")
+    //trigonometry::arccos(0) //== 90
+    //trigonometry::arccos(30) //== null
+    //trigonometry::arccos(45) //== 0.01234102821
+    //trigonometry::arccos(46) //== 
+    //trigonometry::arccos(47) //== 
+    //trigonometry::arccos(60) //== 
+    //trigonometry::arccos(90) //== 
+    //trigonometry::arccos(180) //== 
+    //trigonometry::arccos(270) //== 
+    //trigonometry::arccos(359) //== 
+    //trigonometry::arccos(360) //== 
+    //trigonometry::arccos(540) //== 
+    //trigonometry::arccos(630) //== 
+    //trigonometry::arccos(720) //== 
+    println("---***---ARCSIN---***---")
+    //trigonometry::arcsin(45)
+    println("---***---ARCTAN---***---")
+    //trigonometry::arctg(45)
+    */
+}

@@ -1,0 +1,16 @@
+module elevationTest {
+    //assert(elevation::exp(4) == 54.59800313);
+    //assert(elevation::expm1(4) == 53.59800313);
+    //assert(elevation::log(4) == 0.6020599913);
+    assert(elevation::log(4, 2) == 2);
+    //assert(elevation::log1p(10) == 2.397896886);
+    //assert(elevation::log2(10) == 3.321928095);
+    //assert(elevation::log10(4) == 0.6020599913);
+    assert(elevation::pow(3) == 9);
+    assert(elevation::pow(3, 4) == 81);
+    //assert(elevation::sqrt(81, 3) == 4.326748711);
+    assert(elevation::sqrt(27, 3) == 3);
+    assert(elevation::sqrt(16) == 4);
+    assert(elevation::sqrt(64) == 8);
+    assert(elevation::sqrt(64, 3) == 4);
+}

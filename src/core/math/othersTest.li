@@ -1,0 +1,3 @@
+module othersTest {
+    assert(others::percentage(2, 100) == 2);
+}

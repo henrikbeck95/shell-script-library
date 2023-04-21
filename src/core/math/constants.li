@@ -1,0 +1,30 @@
+module constants {
+    fn pi(): float {
+        //return (0 |> @awk('{printf "%g", atan2($1,-1)}')) as float;
+        return 3.14159265358979323846;
+    }
+
+    fn e(): float {
+        return 2.7182818284590452354;
+    }
+
+    fn phi(): float {
+        return 1.61803398874989484820;
+    }
+
+    fn tau(): float {
+        return 6.283185307179586;
+    }
+
+    fn inf_negative(): string {
+        return "-Infinity";
+    }
+
+    fn inf_positive(): string {
+        return "Infinity";
+    }
+
+    fn nan(): string {
+        return "NaN";
+    }
+}

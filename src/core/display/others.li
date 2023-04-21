@@ -1,0 +1,13 @@
+module others {
+    fn clock() {
+        var aux: string = "";
+
+        while true {
+            sh {
+                %aux=$(date)
+            }
+
+            printr(1, aux);
+        }
+    }
+}

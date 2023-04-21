@@ -1,0 +1,118 @@
+module str {
+    fn stringGetContentFromBeginNElementsFromDisplay(valueTextContent: string, numberLengthString: int): string {
+        var aux: string = "";
+
+        sh {
+            %aux="${%valueTextContent::%numberLengthString}"
+        }
+
+        return aux;
+    }
+
+    fn stringGetContentFromEndNElementsFromDisplay(valueTextContent: string, numberLengthString: int): string {
+        var aux: string = "";
+        numberLengthString *= -1;
+
+        sh {
+            %aux="${%valueTextContent:%numberLengthString}"
+        }
+
+        return aux;
+    }
+    
+    fn stringGetContentFromMatchBetweenFromDisplay(valueTextContent: string, valueTextBegin: int, valueTextEnd: int): string {
+        var aux: string = "";
+
+        sh {
+            %aux="${%valueTextContent:$%valueTextBegin:$%valueTextEnd}"
+        }
+
+        return aux;
+    }
+
+    fn stringGetLength(valueTextContent: string): int {
+        var aux: int = 0;
+
+        sh {
+            %aux="${#%valueTextContent}"
+        }
+
+        return aux;
+    }
+
+    // stringInsert...
+
+    /// Unknown if it is for display or file content
+    fn stringRemoveLineSingleFromFile(pathFile: string, numberOfLinesTobeCutted: int): string {
+        var aux: string = "";
+
+        sh {
+            #Remove the first 'n' lines from output (the header ones)
+            FILE_CONTENT=$(cat $%pathFile)
+            %aux=$(echo "$FILE_CONTENT" | sed 1,${%numberOfLinesTobeCutted}d)
+            unset FILE_CONTENT
+        }
+
+        return aux;
+    }
+
+    fn stringReplaceMatchAllFromCommand(commandExecute:string, valueTextOld: string, valueTextNew: string) {
+        sh {
+            #Replace all the match values from console
+            eval $%commandExecute | sed -s "s/$%valueTextOld/$%valueTextNew/g"
+        }
+    }
+
+    fn stringReplaceMatchAllFromDisplay(valueText: string, valueTextOld: string, valueTextNew: string): string {
+        var aux: string = "";
+
+        sh {
+            #Replace all the match values from console
+            %aux=$(echo $%valueText | sed "s/$%valueTextOld/$%valueTextNew/g")
+
+            # %aux=$(echo $%valueText | sed 's/:\|-/ /g;')
+        }
+
+        return aux;
+    }
+
+    fn stringReplaceMatchAllFromFile(pathFile: string, valueTextOld: string, valueTextNew: string, backup: bool = false) {
+        if (backup == true) {
+            sh {
+                #Backing up the file
+                cp "$%pathFile" "$%pathFile".bak
+            }
+        }
+
+        sh {
+            #Replace all the match values in a text file
+            sed -i "s/$%valueTextOld/$%valueTextNew/g" "$%pathFile"
+        }
+    }
+
+    fn stringReplaceMatchLineFromFile(pathFile: string, numberLineTextOld: int, valueTextNew: string, backup: bool = false){
+        var aux: string = "";
+
+        if (backup == true) {
+            sh {
+                #Backing up the file
+                cp "$%pathFile" "$%pathFile".bak
+            }
+        }
+
+        sh {
+            #Replace all the text from the line number
+            sed -i "$%numberLineTextOld c\\$%valueTextNew" "$%pathFile"
+        }
+    }
+
+    fn stringReplaceMatchFirstFromDisplay(valueTextContent: string, valuePatternOld: string, valuePatternNew: string): string {
+        var aux: string = "";
+        
+        sh {
+            %aux=$(echo "${%valueTextContent/$%valuePatternOld/$%valuePatternNew}")
+        }
+
+        return aux;
+    }
+}

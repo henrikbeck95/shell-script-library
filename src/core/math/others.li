@@ -1,0 +1,5 @@
+module others{
+    fn percentage(valuePartial: float, valueTotal: float): float{
+        return operator::calculator ("($valuePartial / $valueTotal) * 100");
+    }
+}

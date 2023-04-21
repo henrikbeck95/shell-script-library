@@ -1,0 +1,11 @@
+module progress {
+    /*
+    */
+    var VALUE_BEGIN: int = 0;
+    var VALUE_FINISH: int = 22;
+
+    for i in range(VALUE_BEGIN, VALUE_FINISH + 1) {
+        //progress::statusPercentageBar(i, VALUE_FINISH);
+        progress::statusPercentageValue(i, VALUE_FINISH);
+    }
+}

@@ -1,0 +1,18 @@
+module geometry{
+    fn areaRectangle(sideLength: float, sideWidth: float): float {
+        return sideLength * sideWidth;
+    }
+
+    fn areaSquare(sideLength: float): float {
+        return sideLength * sideLength;
+    }
+
+    fn areaTriangule(sidaA: float, sideB: float, sideC: float): float {
+        var perimeterHalf: float = operator::calculator("($sidaA + $sideB + $sideC) / 2");
+        var aux: float = perimeterHalf * (perimeterHalf - sidaA) * (perimeterHalf - sideB) * (perimeterHalf - sideC);
+
+        return elevation::sqrt(aux, 2);
+    }
+
+    //fn volume() {}
+}

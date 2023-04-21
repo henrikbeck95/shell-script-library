@@ -1,0 +1,13 @@
+/// This module is dedicated to provide math functions for
+/// calculating the operations easily with total abstraction.
+
+require './math/angle.li';
+require './math/constants.li';
+require './math/num.li';
+require './math/operator.li';
+require './math/elevation.li';
+require './math/geometry.li';
+require './math/others.li';
+require './math/random.li';
+require './math/theoretic.li';
+require './math/trigonometry.li';

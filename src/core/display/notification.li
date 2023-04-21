@@ -1,0 +1,63 @@
+module notification{
+    fn send(commandExecute: string) {
+        sh {
+            if [ $UID -ne 0 ]; then
+                eval notify-send "$%commandExecute"
+            else
+                #Detect the name of the display in use
+                local AUX_DISPLAY=":$(ls /tmp/.X11-unix/* | sed 's#/tmp/.X11-unix/X##' | head -n 1)"
+
+                #Detect the user using such display
+                local AUX_USER=$(who | grep '('$AUX_DISPLAY')' | awk '{print $1}' | head -n 1)
+
+                #Detect the id of the user
+                local AUX_UID=$(id -u $AUX_USER)
+
+                #Execute the commandExecute
+                #eval 
+                sudo -u $AUX_USER \
+                    DISPLAY=$AUX_DISPLAY \
+                    DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$AUX_UID/bus \
+                    notify-send "${%commandExecute}"
+                    #notify-send "$@"
+                    #notify-send "$ARGUMENTS"
+            fi
+        }
+    }
+    
+    fn low(textMessage: string, timeDuration: int = 1500, textIcon: string = "") {
+        var commandExecute: string = "";
+
+        if textIcon == "" {
+            commandExecute="--expire-time ${timeDuration} --urgency=low '${textMessage}'";
+        } else {
+            commandExecute="-expire-time ${timeDuration} --urgency=low --icon=${textIcon} '${textMessage}'";
+        }
+
+        notification::send(commandExecute);
+    }
+    
+    fn normal(textMessage: string, timeDuration: int = 1500, textIcon: string = "") {
+        var commandExecute: string = "";
+
+        if textIcon == "" {
+            commandExecute="--expire-time ${timeDuration} --urgency=normal '${textMessage}'";
+        } else {
+            commandExecute="-expire-time ${timeDuration} --urgency=normal --icon=${textIcon} '${textMessage}'";
+        }
+
+        notification::send(commandExecute);
+    }
+
+    fn warning(textMessage: string, timeDuration: int = 1500, textIcon: string = "") {
+        var commandExecute: string = "";
+
+        if textIcon == "" {
+            commandExecute="--expire-time ${timeDuration} --urgency=critical '${textMessage}'";
+        } else {
+            commandExecute="-expire-time ${timeDuration} --urgency=critical --icon=${textIcon} '${textMessage}'";
+        }
+
+        notification::send(commandExecute);
+    }
+}

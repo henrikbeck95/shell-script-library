@@ -1,0 +1,8 @@
+module dialogTest {
+    dialog::askQuestionItem("What is your favorite number?");
+    dialog::askQuestionText("What is your name?");
+    dialog::askQuestionYesOrNo("Do you like sunny day?");
+    
+    dialog::pressKeyAny();
+    dialog::pressKeySpecific('h');
+}

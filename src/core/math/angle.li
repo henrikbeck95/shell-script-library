@@ -1,0 +1,13 @@
+module angle{
+    fn degrees(valueRadians: float): float {
+        var valuePi: float = constants::pi()
+
+        return operator::calculator("($valueRadians * 180) / $valuePi")
+    }
+
+    fn radians(VALUE_NUMBER_DEGREES: float): float {
+        var valuePi: float = constants::pi()
+
+        return operator::calculator("($VALUE_NUMBER_DEGREES * $valuePi) / $180")
+    }
+}

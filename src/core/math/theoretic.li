@@ -1,0 +1,169 @@
+/// Number-theoretic and representation functions
+module theoretic{
+    /*
+    //@annotation_must_be_tested
+    fn ceil(valueNumber: float): float {
+        local valueNumber_INTEGER
+        local valueNumber_DECIMAL
+
+        valueNumber_INTEGER=$(string_split_number_digits_integer "$valueNumber")
+        valueNumber_DECIMAL=$(string_split_number_digits_decimal "$valueNumber")
+
+        local VALUE_result
+
+        if [[ "$valueNumber_DECIMAL" -gt 0 ]]; then
+            VALUE_result=$((valueNumber_INTEGER + 1))
+        else
+            VALUE_result="$valueNumber_INTEGER"
+        fi
+
+        display_message_valueNumber_simple "$VALUE_result"
+    }
+    */
+
+    //fn comb(){}
+
+    //fn copysign(){}
+
+    fn fabs(valueNumber: float): float {
+        if valueNumber < 0 {
+            return operator::calculator("-1 * $valueNumber");
+        } else {
+            return valueNumber;
+        }
+    }
+
+    fn factorial(valueNumber: int): int {
+        if valueNumber < 0 {
+            return constants::nan() as int;
+        } else if valueNumber < 2 {
+            return valueNumber;
+        } else {
+            var result: int = 1;
+
+            while valueNumber > 1 {
+                result *= valueNumber;
+
+                valueNumber = valueNumber - 1;
+            }
+
+            return result;
+        }
+    }
+
+    fn factorial_recusively(valueNumber: int): int {
+        if valueNumber <= 1 {
+            return 1;
+        } else {
+            var AUX: int = factorial_recusively(valueNumber - 1);
+
+            return AUX * valueNumber;
+        }
+    }
+
+    //fn fibonnaci(VALUE_INDEX: int): int {}
+
+    fn fibonnaci_recusively(VALUE_INDEX: int): int {
+        if VALUE_INDEX < 2 {
+            return VALUE_INDEX;
+        }
+
+        return fibonnaci_recusively(VALUE_INDEX - 1) + fibonnaci_recusively(VALUE_INDEX - 2);
+    }
+
+    /*
+    //@annotation_must_be_tested
+    fn floor() {
+        local valueNumber="$1"
+        local valueNumber_INTEGER
+
+        valueNumber_INTEGER=$(string_split_number_digits_integer "$valueNumber")
+
+        display_message_valueNumber_simple "$valueNumber_INTEGER"
+    }
+    */
+
+    //fn fmod(){}
+
+    //fn frexp(){}
+
+    //fn fsum(){}
+
+    //fn gcd(){}
+
+    //fn isclose(){}
+
+    //fn isfinite(){}
+
+    //fn isinf(){}
+
+    //fn isnan(){}
+
+    //fn isqrt(){}
+
+    //fn lcm(){}
+
+    //fn lcm(){}
+
+    //fn ldexp(){}
+
+    /*
+    //@annotation_must_be_tested
+    fn min() {
+        local valueNumber_ALL="$*"
+        local valueNumber_MIN
+
+        valueNumber_MIN=$(sort_list "$valueNumber_ALL" | head -1)
+
+        display_message_valueNumber_simple "$valueNumber_MIN"
+    }
+
+    //@annotation_must_be_tested
+    fn max() {
+        local valueNumber_ALL="$*"
+        local valueNumber_MAX
+
+        valueNumber_MAX=$(sort_list "$valueNumber_ALL" | tail -1)
+
+        display_message_valueNumber_simple "$valueNumber_MAX"
+    }
+    */
+
+    //fn modf(){}
+
+    //fn nextafter(){}
+
+    //fn perm(){}
+
+    //fn prod(){}
+
+    //fn remainder(){}
+
+    /*
+    //@annotation_must_be_tested
+    fn round() {
+        local valueNumber="$1"
+        local valueNumber_INTEGER
+        local valueNumber_DECIMAL
+        local VALUE_DECIMAL_FIRST_NUMBER
+        local VALUE_result
+
+        valueNumber_INTEGER=$(string_split_number_digits_integer "$valueNumber")
+        valueNumber_DECIMAL=$(string_split_number_digits_decimal "$valueNumber")
+
+        VALUE_DECIMAL_FIRST_NUMBER=${valueNumber_DECIMAL:0:1}
+
+        if [[ $VALUE_DECIMAL_FIRST_NUMBER -lt 5 ]]; then
+            VALUE_result=$valueNumber_INTEGER
+        else
+            VALUE_result=$((valueNumber_INTEGER + 1))
+        fi
+
+        display_message_valueNumber_simple "$VALUE_result"
+    }
+    */
+
+    //fn trunc(){}
+
+    //fn ulp(){}
+}

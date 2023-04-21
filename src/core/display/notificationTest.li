@@ -1,0 +1,8 @@
+module notification{
+    var textMessage: string = "I wanna rock!";
+    var timeDuration: int = 1500;
+
+    notification::low(textMessage, timeDuration, "");
+    notification::normal(textMessage, timeDuration, "");
+    notification::warning(textMessage, timeDuration, "");
+}

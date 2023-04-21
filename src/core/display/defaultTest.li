@@ -1,0 +1,32 @@
+var textMessage: string = "When I had times of troubles, mother Mary comes to me!"
+
+clear();
+
+printing(textMessage);
+printing(textMessage);
+printing(314);
+printing(3.14);
+printing(true);
+
+printingln(textMessage);
+printingln(314);
+printingln(3.14);
+printingln(true);
+
+printr(0.2, textMessage);
+printr(0.4, "This is the hear of the night");
+printr(0.4, 973);
+printr(0.4, 9.73);
+printr(0.4, false);
+
+clear();
+
+separator(3);
+separator(3, "-");
+separator(100, "#");
+
+tabular(textMessage);
+separator(100, "#");
+tabular("Name: Surname:E-mail\nHenrik:Beck:henrikbeck95@gmail.com\nSomebody:Surname:some_email_address@something.com");
+separator(100, "#");
+tabular("#:Name:Surname\n1:Henrik:Beck\n2:Somebody:Someone");   

@@ -1,0 +1,22 @@
+require './display.li';
+
+println("Display - Default section");
+require './display/defaultTest.li';
+
+println("Display - Dialog section");
+require './display/dialogTest.li';
+
+println("Display - Notification section");
+require './display/notificationTest.li';
+
+//println("Display - Others section");
+//require './display/othersTest.li';
+
+println("Display - Progress section");
+require './display/progressTest.li';
+
+println("Display - Status section");
+require './display/statusTest.li';
+
+println("Display - Text section");
+require './display/textTest.li';

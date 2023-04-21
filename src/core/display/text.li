@@ -1,0 +1,169 @@
+module text {
+    // Colors
+
+    fn colorBackgroundBrightBlack(text: string): string {
+        return formatStyleDefault(text, 100, 49);
+    }
+
+    fn colorBackgroundBrightRed(text: string): string {
+        return formatStyleDefault(text, 101, 49);
+    }
+
+    fn colorBackgroundBrightGreen(text: string): string {
+        return formatStyleDefault(text, 102, 49);
+    }
+
+    fn colorBackgroundBrightYellow(text: string): string {
+        return formatStyleDefault(text, 103, 49);
+    }
+
+    fn colorBackgroundBrightBlue(text: string): string {
+        return formatStyleDefault(text, 104, 49);
+    }
+
+    fn colorBackgroundBrightMagenta(text: string): string {
+        return formatStyleDefault(text, 105, 49);
+    }
+
+    fn colorBackgroundBrightCyan(text: string): string {
+        return formatStyleDefault(text, 106, 49);
+    }
+
+    fn colorBackgroundBrightWhite(text: string): string {
+        return formatStyleDefault(text, 107, 49);
+    }
+
+    fn colorBackgroundOpaqueBlack(text: string): string {
+        return formatStyleDefault(text, 40, 49);
+    }
+
+    fn colorBackgroundOpaqueRed(text: string): string {
+        return formatStyleDefault(text, 41, 49);
+    }
+
+    fn colorBackgroundOpaqueGreen(text: string): string {
+        return formatStyleDefault(text, 42, 49);
+    }
+
+    fn colorBackgroundOpaqueYellow(text: string): string {
+        return formatStyleDefault(text, 43, 49);
+    }
+
+    fn colorBackgroundOpaqueBlue(text: string): string {
+        return formatStyleDefault(text, 44, 49);
+    }
+
+    fn colorBackgroundOpaqueMagenta(text: string): string {
+        return formatStyleDefault(text, 45, 49);
+    }
+
+    fn colorBackgroundOpaqueCyan(text: string): string {
+        return formatStyleDefault(text, 46, 49);
+    }
+
+    fn colorBackgroundOpaqueWhite(text: string): string {
+        return formatStyleDefault(text, 47, 49);
+    }
+
+    fn colorForegroundBrightBlack(text: string): string {
+        return formatStyleDefault(text, 90, 39);
+    }
+    
+    fn colorForegroundBrightRed(text: string): string {
+        return formatStyleDefault(text, 91, 39);
+    }
+
+    fn colorForegroundBrightGreen(text: string): string {
+        return formatStyleDefault(text, 92, 39);
+    }
+
+    fn colorForegroundBrightYellow(text: string): string {
+        return formatStyleDefault(text, 93, 39);
+    }
+
+    fn colorForegroundBrightBlue(text: string): string {
+        return formatStyleDefault(text, 94, 39);
+    }
+
+    fn colorForegroundBrightMagenta(text: string): string {
+        return formatStyleDefault(text, 95, 39);
+    }
+
+    fn colorForegroundBrightCyan(text: string): string {
+        return formatStyleDefault(text, 96, 39);
+    }
+    
+    fn colorForegroundBrightWhite(text: string): string {
+        return formatStyleDefault(text, 97, 39);
+    }
+
+    fn colorForegroundOpaqueBlack(text: string): string {
+        return formatStyleDefault(text, 30, 39);
+    }
+    
+    fn colorForegroundOpaqueRed(text: string): string {
+        return formatStyleDefault(text, 31, 39);
+    }
+
+    fn colorForegroundOpaqueGreen(text: string): string {
+        return formatStyleDefault(text, 32, 39);
+    }
+
+    fn colorForegroundOpaqueYellow(text: string): string {
+        return formatStyleDefault(text, 33, 39);
+    }
+
+    fn colorForegroundOpaqueBlue(text: string): string {
+        return formatStyleDefault(text, 34, 39);
+    }
+
+    fn colorForegroundOpaqueMagenta(text: string): string {
+        return formatStyleDefault(text, 35, 39);
+    }
+
+    fn colorForegroundOpaqueCyan(text: string): string {
+        return formatStyleDefault(text, 36, 39);
+    }
+    
+    fn colorForegroundOpaqueWhite(text: string): string {
+        return formatStyleDefault(text, 37, 39);
+    }
+
+    // Format
+
+    fn formatStyleBold(text: string): string {
+        return formatStyleDefault(text, 1, 22);
+    }
+
+    fn formatStyleDefault(text: string, elementBegin: int, elementEnd: int): string {
+        return "\x1b[${elementBegin}m${text}\x1b[${elementEnd}m";
+    }
+
+    fn formatStyleDim(text: string): string {
+        return formatStyleDefault(text, 2, 22);
+    }
+
+    fn formatStyleHidden(text: string): string {
+        return formatStyleDefault(text, 8, 28);
+    }
+
+    fn formatStyleInverse(text: string): string {
+        return formatStyleDefault(text, 7, 27);
+    }
+
+    fn formatStyleItalic(text: string): string {
+        return formatStyleDefault(text, 3, 23);
+    }
+
+    fn formatStyleReset(text: string): string {
+        return formatStyleDefault(text, 0, 0);
+    }
+
+    fn formatStyleStrikethrough(text: string): string {
+        return formatStyleDefault(text, 9, 29);
+    }
+
+    fn formatStyleUnderline(text: string): string {
+        return formatStyleDefault(text, 4, 24);
+    }
+}

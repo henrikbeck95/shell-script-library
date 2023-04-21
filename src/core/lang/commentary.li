@@ -1,0 +1,6 @@
+module commentary{
+    sh {
+        #Commentary for multiple lines
+        alias "%%"='eval : <<%%%%'
+    }
+}

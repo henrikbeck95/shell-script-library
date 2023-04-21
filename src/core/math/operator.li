@@ -1,0 +1,16 @@
+module operator{
+    fn calculator(mathExpression: string, valueFloatPoint: int = 10): float {
+        return (mathExpression |> @awk("BEGIN{printf \"%.${valueFloatPoint}g\", ${mathExpression}}")) as float;
+    }
+
+    fn numeric_base(mathExpression: string): float {
+        var valueFloatPoint: int = 0;
+        var result: float = 0;
+
+        sh {
+            %result=$(bc -l <<<scale=$%valueFloatPoint\;"$%mathExpression")
+        }
+
+        return result;
+    }
+}

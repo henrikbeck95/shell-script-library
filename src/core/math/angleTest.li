@@ -1,0 +1,5 @@
+module angleTest {
+    // MUST BE FIXED - NOT MATCHING VALUES
+    //assert(angle::degrees(0.45) == 25.78312256);
+    //assert(angle::radians(180) == 0.03127689159);
+}

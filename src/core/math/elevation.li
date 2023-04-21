@@ -1,0 +1,50 @@
+// Split this file into three parts
+/// Math - Power and logarithmic functions
+module elevation {
+    fn exp(valueNumber: float): float {
+        var valueEuler: float = constants::e();
+
+        return pow(valueEuler, valueNumber);
+    }
+
+    fn expm1(valueNumber: float): float {
+        var valueEuler: float = constants::e();
+
+        return operator::calculator("($valueEuler^$valueNumber) - 1");
+    }
+
+    fn log(valueNumber: float, valueBase: float = 10): float {
+        if valueNumber < 0 {
+            return constants::nan() as float;
+        } else if valueNumber == 0 {
+            return constants::inf_negative() as float;
+        } else {
+            return operator::calculator("log($valueNumber)/log($valueBase)");
+        }
+    }
+
+    /// Logaritmos Neperianos
+    fn log1p(valueNumber: float): float {
+        var valueEuler: float = constants::e();
+        
+        valueNumber += 1;
+
+        return log(valueNumber, valueEuler);
+    }
+
+    fn log2(valueNumber: float): float {
+        return log(valueNumber, 2);
+    }
+
+    fn log10(valueNumber: float): float {
+        return log(valueNumber, 10);
+    }
+
+    fn pow(valueNumber: float, valueElevate: float = 2): float {
+        return operator::calculator("$valueNumber^$valueElevate");
+    }
+
+    fn sqrt(valueNumber: float, valueRoot: float = 2): float {
+        return operator::calculator("$valueNumber^(1/$valueRoot)");
+    }
+}

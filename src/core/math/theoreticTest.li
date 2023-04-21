@@ -1,0 +1,19 @@
+module theoreticTest {
+    assert(theoretic::fabs(4) == 4);
+    assert(theoretic::factorial(6) == 720);
+    assert(theoretic::factorial(20) == 2432902008176640000);
+    assert(theoretic::factorial_recusively(6) == 720);
+    assert(theoretic::factorial_recusively(20) == 2432902008176640000);
+    assert(theoretic::fibonnaci_recusively(0) == 0);
+    assert(theoretic::fibonnaci_recusively(1) == 1);
+    assert(theoretic::fibonnaci_recusively(2) == 1);
+    assert(theoretic::fibonnaci_recusively(3) == 2);
+    assert(theoretic::fibonnaci_recusively(4) == 3);
+    assert(theoretic::fibonnaci_recusively(5) == 5);
+    assert(theoretic::fibonnaci_recusively(6) == 8);
+    assert(theoretic::fibonnaci_recusively(7) == 13);
+    assert(theoretic::fibonnaci_recusively(8) == 21);
+    assert(theoretic::fibonnaci_recusively(9) == 34);
+    assert(theoretic::fibonnaci_recusively(10) == 55);
+    assert(theoretic::fibonnaci_recusively(11) == 89);
+}
