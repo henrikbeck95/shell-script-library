@@ -1,0 +1,12 @@
+module partition {
+    fn formatBtrfs() {}
+    fn formatExt3() {}
+    fn formatExt4() {}
+    fn formatFat16() {}
+    fn formatFat32() {}
+    fn formatNtfs() {}
+    fn formatXfs() {}
+
+    fn tableCreateMbr() {}
+    fn tableCreateGpt() {}
+}

@@ -1,0 +1,18 @@
+/// Softwares: Ueberzug
+module settings {
+    fn fontDelete() {}
+    fn fontInstall() {}
+    fn fontList() {}
+    fn fontPreview() {}
+
+    fn wallpaperSetFeh() {}
+    fn wallpaperSetGnomeLight() {}
+    fn wallpaperSetGnomeNight() {}
+    fn wallpaperSetKde() {}
+    fn wallpaperSetNitrogen() {}
+
+    fn windowDecoratorGtkStyleElementary() {}
+    fn windowDecoratorGtkStyleGnome() {}
+    fn windowDecoratorGtkStyleMac() {}
+    fn windowDecoratorGtkStyleWindows() {}
+}

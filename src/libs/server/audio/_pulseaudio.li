@@ -1,0 +1,22 @@
+module pulseaudio {
+    fn getCurrentFile() {}
+    fn getCurrentVolume() {}
+    
+    fn isConnected() {}
+    fn isPipewire() {}
+
+    fn setVolumeUp() {}
+    fn setVolumeDown() {}
+    fn setVolumeMute() {}
+    fn setVolumeUnmute() {}
+
+    fn setPause() {}
+    fn setPlay() {}
+	fn setStop() {}
+	
+    fn setBackward() {}
+	fn setForward() {}
+	
+    fn setNext() {}
+	fn setPrevious() {}
+}

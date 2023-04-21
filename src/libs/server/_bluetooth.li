@@ -1,0 +1,9 @@
+/// Softwares: 
+module bluetooth {
+    fn connect() {}
+    fn disconnect() {}
+    fn hasBluetooth() {}
+    fn list() {}
+    fn powerOn() {}
+    fn powerOff() {}
+}

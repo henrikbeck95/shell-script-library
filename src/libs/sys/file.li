@@ -1,0 +1,164 @@
+/// Softwares: 
+module file {
+    /*
+    //@annotation_must_be_fixed
+    //@annotation_must_be_tested
+    fn copyAggressive(pathOrigin: string, pathDestiny: string){
+        //If path directory does not exists create its parent and copy the file overwritting the existed one
+
+        if (directory::hasParentFolder(pathDestiny) == false) {
+            directory::createFarent(pathDestiny)
+            copyHard(pathOrigin, pathDestiny);
+        } else {
+            copyHard(pathOrigin, pathDestiny);
+        }
+    }
+    */
+
+    fn copyHard(pathOrigin: string, pathDestiny: string){
+        //Copy file only if path directory exists and overwrite it.
+
+        if (hasFile(pathDestiny) == false) {
+            copySoft(pathOrigin, pathDestiny)
+        } else {
+            sh {
+                #Overwrite file content
+                cp -f "$%pathOrigin" "$%pathDestiny"
+            }
+        }
+    }
+
+    fn copySoft(pathOrigin: string, pathDestiny: string){
+        //Copy only file only if path directory exists but do not overwrite it.
+
+        if (hasFile(pathDestiny) == false) {
+            sh {
+                cp "$%pathOrigin" "$%pathDestiny"
+            }
+        }
+    }
+
+    fn create(pathFile: string) {
+        if (hasFile(pathFile) == false) {
+            directory::create_parent(pathFile);
+
+            sh {
+                touch "$%pathFile"
+            }
+        }
+    }
+    
+    fn delete(pathFile: string){
+        if (hasFile(pathFile) == true) {
+            sh {
+                unlink "$%pathFile" || rm "$%pathFile" || rm -f "$%pathFile"
+            }
+        }
+    }
+    
+    //fn edit() {}
+
+    //@annotation_must_be_improved by removing the last character if it is /
+    fn getName(path: string): string {
+        return (path |> @awk('-F', "/", '{print $NF}'));
+    }
+
+    //@annotation_must_be_improved by removing the last character if it is /
+    fn getExtension(path: string): string {
+        return (path |> @awk('-F', ".", '{print $NF}'));
+    }
+
+    fn hasFile(pathFile: string): bool {
+        var aux: string = "invalid";
+
+        sh {
+            if [ -f "$%pathFile" ] || [ -L "$%pathFile" ]; then
+                %aux="valid"
+            fi
+        }
+
+        if (aux == "valid") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //fn getSize() {}
+
+    //fn isAudio() {}
+    
+    //fn isEmpty() {}
+    
+    //fn isFile() {}
+    
+    //fn isPicture() {}
+    
+    //fn isVideo() {}
+    
+    /*
+    //@annotation_must_be_tested
+    fn moveAggressive(pathOrigin: string, pathDestiny: string){
+        if (hasFile(pathOrigin) == true) {
+            sh {
+                mv "$%pathOrigin" "$%pathDestiny"
+            }
+        }
+    }
+    */
+
+    //@annotation_must_be_tested
+    fn moveHard(pathOrigin: string, pathDestiny: string){
+        //Remove the old file if it exists and then overwrite it.
+
+        if (hasFile(pathDestiny) == false) {
+            moveSoft(pathOrigin, pathDestiny);
+        } else {
+            remove(pathDestiny);
+            moveSoft(pathOrigin, pathDestiny);
+        }
+    }
+
+    //@annotation_must_be_tested
+    fn moveSoft(pathOrigin: string, pathDestiny: string){
+        //Move file only if path directory exists but do not overwrite it.
+
+        if (hasFile(pathOrigin) == true) {
+            sh {
+                mv "$%pathOrigin" "$%pathDestiny"
+            }
+        }
+    }
+    
+    //fn read() {}
+
+    /*
+    //@annotation_must_be_tested
+    fn renameHard(pathOrigin: string, NAME_NEWEST: string){
+        //Move file only if path directory exists but do not overwrite it.
+
+        //
+        //NAME_NEWEST = "/${NAME_NEWEST}"
+
+        if (hasFile(pathOrigin) == true) {
+            sh {
+                mv "$%pathOrigin" "$%NAME_NEWEST"
+            }
+        }
+    }
+
+    //@annotation_must_be_tested
+    fn renameSoft(pathOrigin: string, NAME_NEWEST: string){
+        //Move file only if path directory exists but do not overwrite it.
+
+        //
+        //NAME_NEWEST = "/${NAME_NEWEST}"
+
+        if (hasFile(pathOrigin) == true) {
+            sh {
+                mv "$%pathOrigin" "$%NAME_NEWEST"
+            }
+        }
+    }
+    */
+}

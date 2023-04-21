@@ -1,0 +1,3 @@
+/// Softwares: D-BUS, MPD, MPRIS, MPV, Pipewire, PulseAudio, Sox, Spotify, VLC
+// Check which software is running and call the API
+module audio {}

@@ -1,0 +1,108 @@
+/// Softwares: ACPI or uPower
+
+module battery {
+    fn hasBattery(): bool {
+        var aux: string;
+
+        sh {
+            %aux=$(cat /sys/class/power_supply/BAT0/type)
+
+            #%aux=$(cat /sys/class/power_supply/BAT0/capacity || cat /sys/class/power_supply/BAT1/capacity)
+        }
+
+        if (aux == "Battery") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    fn isCharging(): bool {
+        var aux: string;
+
+        sh {
+            %aux=$(cat /sys/class/power_supply/BAT0/status)
+        }
+
+        if (aux == "Charging") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    fn isChargeFull(): bool {
+        var levelPercentage: int = levelPercentage();
+
+        if (isCharging() == true && levelPercentage == 100) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    fn isChargeHigh(): bool {
+        var levelPercentage: int = levelPercentage();
+
+        if (isCharging() == false && levelPercentage >= 80) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    fn isChargeLow(): bool {
+        var levelPercentage: int = levelPercentage();
+
+        if (isCharging() == false && levelPercentage <= 20) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /// Returns '-1' value if device has not a battery
+    fn levelPercentage(): int {
+        var aux: int;
+
+        if (hasBattery() == false) {
+            aux = -1;
+        } else {
+            sh {
+                %aux=$(cat /sys/class/power_supply/BAT0/capacity || cat /sys/class/power_supply/BAT1/status)
+            }
+        }
+
+        return aux as int;
+    }
+
+    // MUST BE FIXED
+    /// Result return is in minutes
+    fn timeRemain(): float {
+        var aux: float;
+        
+        sh {
+            %aux=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E time | awk '{print $4}' || acpi -b | grep -E -o '[0-9][0-9]:[0-9][0-9]:[0-9][0-9]?')
+        }
+
+        return aux;
+    }
+
+    /// Result return is in minutes
+    fn timeToEmpty(): float {
+        if (isCharging() == true) {
+            return timeRemain();
+        } else {
+            return 0.0;
+        }
+    }
+
+    /// Result return is in minutes
+    fn timeToFull(): float {
+        if (isCharging() == false) {
+            return timeRemain();
+        } else {
+            return 0.0;
+        }
+    }
+}

@@ -1,0 +1,33 @@
+module architecture {
+    fn getBits(): int {
+        var aux: int = 0;
+
+        sh {
+            %aux=$(getconf LONG_BIT)
+        }
+
+        return aux;
+    }
+
+    fn getModel(): string {
+        var aux: string = "";
+
+        sh {
+            %aux=$(uname -m)
+        }
+
+        return aux;
+    }
+    
+    fn getName(): string {
+        var aux: int = getBits();
+
+        if aux == 32 {
+            return "32-bits";
+        } else if aux == 64 {
+            return "64-bits";
+        } else {
+            return "unknown";
+        }
+    }
+}

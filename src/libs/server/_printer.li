@@ -1,0 +1,4 @@
+/// Softwares: CUPS
+module printer {
+    fn hasCups() {}
+}

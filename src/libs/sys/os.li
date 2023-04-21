@@ -1,0 +1,197 @@
+module os {
+    fn propertyTagSearch(valueTag: string): string{
+        var aux: string = "";
+
+        /// For Linux
+        sh {
+            %aux=$(awk -v word="$%valueTag" 'BEGIN {FS = "="} $1 == word {print $2}' /etc/os-*)
+
+            #%aux=$(cat /etc/os-release | grep "^NAME.*" | cut -d "=" -f2 | sed 's/"/ /g')
+        }
+
+        return aux;
+    }
+
+    /// Display the info about when the operating was installed on the machine
+    fn getBirthday(): string {
+        var aux: string = "";
+        
+        sh {
+            %aux=$(stat -c %%w /)
+        }
+
+        return aux;
+    }
+
+    fn getName(): string {
+        var aux: string = "";
+
+        if (kernel == "darwin") {
+            aux = "MacOS";
+        } else if (kernel::getName() == "linux") {
+            aux = propertyTagSearch("NAME");
+        } else if (kernel == "nt") {
+            aux = "Windows";
+        }
+        } else {
+            aux = "unknown";
+        }
+
+        return aux;
+    }
+
+    //cat /etc/os-release | grep "^ID.*" | cut -d "=" -f2 | sed 's/"/ /g'
+    //ID="rhel" // "arch"
+    //ID_LIKE="fedora"
+    //VERSION_ID="7.0"
+
+    /*
+    fn getVersion(): string {
+        var aux: string = "";
+
+        if (kernel == "darwin") {
+            aux = "MacOS";
+        } else if (kernel::getName() == "linux") {
+            aux = propertyTagSearch("VERSION_ID");
+
+            if (aux == "") {
+                aux = "rolling"
+            }
+        } else if (kernel == "nt") {
+            aux = "Windows";
+        }
+        } else {
+            aux = "unknown";
+        }
+
+        return aux;
+    }
+    */
+
+    fn isAlpine(): bool {
+        if (getName() == "Alpine Linux") {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    //fn isAndroid(): bool {}
+
+    fn isArchLinux(): bool {
+        if (getName() == "Arch Linux") {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    //fn isArtix(): bool {}
+
+    //fn isBigLinux(): bool {}
+
+    //fn isCentos(): bool {}
+
+    fn isDebian(): bool {
+        if (getName() == "Debian GNU/Linux") {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    //fn isDeepin(): bool {}
+
+    //fn isElementary(): bool {}
+
+    fn isFedora(): bool {
+        if (getName() == "Fedora Linux") {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    //fn isFuntoo(): bool {}
+
+    //fn isGaruda(): bool {}
+
+    fn isGentoo(): bool {
+        if (getName() == "Gentoo") {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    //fn isIos(): bool {}
+
+    //fn isLinuxMint(): bool {}
+
+    fn isMacOS(): bool {
+        if (isDarwin() == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //fn isMandriva(): bool {}
+
+    //fn isManjaro(): bool {}
+    
+    //fn isOpenMandriva(): bool {}
+
+    //fn isOpenSuse(): bool {}
+
+    //fn isPopos(): bool {}
+
+    fn isRhel(): bool {
+        if (getName() == "Red Hat Enterprise Linux" || getName() == "Red Hat Enterprise Linux Server") {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    //fn isSabayon(): bool {}
+
+    fn isSlackware(): bool {
+        if (getName() == "Slackware") {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    //fn isSuse(): bool {}
+
+    //fn isTails(): bool {}
+
+    fn isUbuntu(): bool {
+        if (getName() == "Ubuntu") {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    //fn isVoid(): bool {}
+
+    fn isWindows(): bool {
+        if (isNt() == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //fn isZorin(): bool {}
+
+    //fn isDragonFly(): bool {}
+    //fn isFreeBsd(): bool {}
+    //fn isNetBsd(): bool {}
+    //fn isOpenBsd(): bool {}
+    //fn isSolaris(): bool {}
+    //fn isUnix(): bool {}
+}

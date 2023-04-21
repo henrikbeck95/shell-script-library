@@ -1,0 +1,10 @@
+module unmount {
+    fn unmountBtrfs() {}
+    fn unmountExt3() {}
+    fn unmountExt4() {}
+    fn unmountFat16() {}
+    fn unmountFat32() {}
+    fn unmountNtfs() {}
+    fn unmountOpenZfs() {}
+    fn unmountXfs() {}
+}

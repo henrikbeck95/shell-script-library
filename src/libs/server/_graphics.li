@@ -1,0 +1,5 @@
+/// Softwares: X11
+module graphic {
+    fn isXorg() {}
+    fn isWayland() {}
+}

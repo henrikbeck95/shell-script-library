@@ -1,0 +1,29 @@
+module device{
+    fn check(): string {
+        if directory::hasFolder("/proc/acpi/button/lid") == true {
+            return "laptop";
+        } else {
+            return "desktop";
+        }
+    }
+
+    //fn isContainer(): bool {}
+
+    fn isDesktop(): bool {
+        if check() == "laptop" {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    fn isLaptop(): bool {
+        if check() == "desktop" {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    //fn isMobile(): bool {}
+}

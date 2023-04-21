@@ -1,0 +1,22 @@
+/// Softwares: hostnamectl
+module virtualization {
+    fn isEnabled(): bool {
+        var aux: int = 0;
+
+        sh {
+            #if [[ $(egrep '^flags.*(vmx|svm)' /proc/cpuinfo) ]]; then
+            #if [[ $(LC_ALL=C lscpu | grep Virtualization) ]]; then
+            if [[ $(hostnamectl | grep "Virtualization" | awk '{print $2}') ]]; then
+                %aux=1
+            else
+                %aux=0
+            fi
+        }
+
+        if aux == 1 {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

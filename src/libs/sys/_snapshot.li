@@ -1,0 +1,20 @@
+/// Softwares: BTRFS-Progs, Snapper, Timeshift
+module snapshot {
+    fn compressBtrfs() {}
+    fn compressOpenZfs() {}
+
+    fn createBtrfs() {}
+    fn createOpenZfs() {}
+
+    fn deleteBtrfs() {}
+    fn deleteOpenZfs() {}
+
+    fn listBtrfs() {}
+    fn listOpenZfs() {}
+
+    fn mountBtrfs() {}
+    fn mountOpenZfs() {}
+
+    fn uncompressBtrfs() {}
+    fn uncompressOpenZfs() {}
+}

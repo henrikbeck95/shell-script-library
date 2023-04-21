@@ -1,0 +1,18 @@
+module group{
+    //fn createGroup(): bool {}
+
+    fn getAll(): string {
+        if (kernel::getName() == "linux") {
+            //The /etc/group file stores the details of groups that are present on Linux.
+            
+            //cut -d ":" -f 1 /etc/group
+            return @awk('-F', ":", '{print $1}', "/etc/group");
+        } else {
+            return "unknown";
+        }
+    }
+
+    //fn hasGroup(): bool {}
+    
+    //fn removeGroup(): bool {}
+}

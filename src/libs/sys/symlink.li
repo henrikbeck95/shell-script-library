@@ -1,0 +1,69 @@
+module symlink {
+    //@annotation_must_be_improved by replacing ~ and $HOME variables by it contents
+    fn createHard(pathOrigin: string, pathDestiny: string) {
+        if pathDestiny == "" {
+            pathDestiny = directory::get_current_path();
+        }
+
+        @ln('-sf', pathOrigin, pathDestiny);
+    }
+
+    //@annotation_must_be_improved by replacing ~ and $HOME variables by it contents
+    fn createSoft(pathOrigin: string, pathDestiny: string) {
+        if pathDestiny == "" {
+            pathDestiny = system::os::directory::get_current_path();
+        }
+
+        @ln('-s', pathOrigin, pathDestiny);
+    }
+
+    fn isBroken(pathFile: string): bool {
+        if isLinked(pathFile) == true {
+            var aux: string = "";
+
+            sh {
+                if [ -e "$%pathFile" ]; then
+                    %aux="valid"
+                else
+                    %aux="broken"
+                fi
+            }
+
+            if aux == "broken" {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    fn isLinked(pathFile: string): bool {
+        var aux: string = "invalid";
+
+        sh {
+            if [ -L "$%pathFile" ]; then
+                %aux="valid"
+            fi
+        }
+
+        if aux == "valid" {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    fn remove(pathFile: string){
+        if isLinked(pathFile) == true {
+            file::remove(pathFile);
+        }
+    }
+
+    fn removeIfBroken(pathFile: string){
+        if isBroken(pathFile) {
+            remove(pathFile);
+        }
+    }
+}

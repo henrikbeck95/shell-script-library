@@ -1,0 +1,25 @@
+module firmware {
+    fn check(): string {
+        if directory::has_folder("/sys/firmware/efi/") == true {
+            return "uefi";
+        } else {
+            return "legacy";
+        }
+    }
+
+    fn isBios(): bool {
+        if check() == "legacy" {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    fn isUefi(): bool {
+        if check() == "uefi" {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

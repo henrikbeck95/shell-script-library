@@ -1,0 +1,47 @@
+module batteryTest {
+    fn hasBattery() {
+        println("Does this device has battery? ${battery::hasBattery()}");
+    }
+    
+    fn isCharging() {
+        println("Is battery in charge? ${battery::isCharging()}");
+    }
+
+    fn isChargeFull() {
+        println("Is battery charge full? ${battery::isChargeFull()}");
+    }
+
+    fn isChargeHigh() {
+        println("Is battery charge high? ${battery::isChargeHigh()}");
+    }
+
+    fn isChargeLow() {
+        println("Is battery charge low? ${battery::isChargeLow()}");
+    }
+    
+    fn levelPercentage() {
+        println("Battery percentage: ${battery::levelPercentage()}%");
+    }
+    
+    fn timeRemain() {
+        println("Battery time remain: ${battery::timeRemain()} minutes");
+    }
+    
+    fn timeToEmpty() {
+        println("Battery time remain for being empty: ${battery::timeToEmpty()} minutes");
+    }
+
+    fn timeToFull() {
+        println("Battery time remain for being full: ${battery::timeToFull()} minutes");
+    }
+}
+
+batteryTest::hasBattery();
+batteryTest::isCharging();
+batteryTest::isChargeFull();
+batteryTest::isChargeHigh();
+batteryTest::isChargeLow();
+batteryTest::levelPercentage();
+batteryTest::timeRemain();
+batteryTest::timeToEmpty();
+batteryTest::timeToFull();

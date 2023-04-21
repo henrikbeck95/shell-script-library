@@ -1,0 +1,131 @@
+/// Softwares: 
+module directory {
+    /// Override the content
+    //fn copyAggressive(pathDestiny: string) {}
+
+    //fn copyHard(pathDestiny: string) {}
+    
+    //fn copySoft(pathDestiny: string) {}
+    
+    fn create(pathDestiny: string) {
+        if hasFolder(pathDestiny) == false {
+            sh {
+                mkdir -p "$%pathDestiny"
+            }
+        }
+    }
+
+    //@annotation_must_be_tested
+    fn createParent(pathDestiny: string) {
+        if hasFolder(pathDestiny) == false {
+            var aux: string = getParentPath(pathDestiny);
+            
+            sh {
+                mkdir -p "$%aux"
+            }
+        }
+    }
+    
+    fn delete(pathFolder: string) {
+        if hasFolder(pathFolder) == true {
+            sh {
+                rm -fr "$%pathFolder"
+            }
+        }
+    }
+
+    fn getCurrentName(): string {
+        var currentPath: string = getCurrentPath();
+
+        return (currentPath |> @awk('-F', "/", '{print $NF}'));
+    }
+
+    fn getCurrentPath(): string {
+        var aux: string = "";
+        
+        sh {
+            %aux=$(pwd)
+        }
+
+        return aux;
+    }
+
+    //@annotation_must_be_improved by removing the last character if it is /
+    fn getParentName(path: string): string {
+        return (path |> @awk('-F', "/", '{print $(NF - 1)}'));
+    }
+
+    //@annotation_must_be_improved by removing the last character if it is /
+    fn getParentPath(path: string): string {
+        return (path |> @awk('-F', "/", 'sub(FS $NF,x)'));
+    }
+
+    //fn getSize() {}
+
+    //fn isDirectory() {}
+    
+    //fn isEmpty() {}
+    
+    fn goBack() {
+        sh { >/dev/null cd - }
+    }
+
+    fn goTo(pathDestiny: string) {
+        if hasFolder(pathDestiny) == false {
+            create(pathDestiny);
+        }
+        
+        sh { >/dev/null cd "${%pathDestiny}" }
+    }    
+
+    fn hasFolder(pathFolder: string): bool {
+        var aux: int = 0;
+
+        sh {
+            if [ -d "$%pathFolder" ]; then
+                %aux="1"
+            fi
+        }
+
+        if aux == 1 {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+    //@annotation_must_be_tested
+    /// Override the content
+    fn moveAggressive(pathOrigin: string, pathDestiny: string){
+        if has_folder(pathOrigin) == true {
+            sh {
+                mv -avr "$%pathOrigin" "$%pathDestiny"
+            }
+        }
+    }
+    */
+
+    //@annotation_must_be_tested
+    fn moveHard(pathOrigin: string, pathDestiny: string){
+        //Remove the old directory if it exists and then overwrite it.
+
+        if has_folder(pathDestiny) == false {
+            moveSoft(pathOrigin, pathDestiny);
+        } else {
+            remove(pathDestiny)
+            moveSoft(pathOrigin, pathDestiny);
+        }
+    }
+
+    //@annotation_must_be_tested
+    fn moveSoft(pathOrigin: string, pathDestiny: string){
+        //Move directory only if path directory exists but do not overwrite it.
+
+        if has_folder(pathOrigin) == true {
+            sh {
+                mv "$%pathOrigin" "$%pathDestiny"
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+module processor {
+    fn check_family(): string {
+        var aux: bool = file::has_file("/proc/cpuinfo");
+        var processorName: string = "";
+
+        if aux == true {
+            sh {
+                #%processorName=$(cat /sys/devices/virtual/dmi/id/board_{vendor,name,version})
+                %processorName=$(cat /proc/cpuinfo | grep vendor_id | head -1 | awk '{print $3}')
+            }
+        } else {
+            processorName = "unknown";
+        }
+
+        return processorName;
+    }
+
+    //fn isAmd() {}
+
+    fn isIntel(): bool {
+        if check_family() == "GenuineIntel" {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //fn isNvidia() {}
+}

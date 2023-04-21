@@ -1,0 +1,369 @@
+/// Init systems already implemented are: OpenRC and SystemD
+/// Init systems not implemented so far are: InitRC and SysVInit
+/// Root previledges verification must be moved from main to init systems functions
+module init {
+    // Daemon - Name
+
+    fn deamonGetName(): string {
+        var AUX: string = "";
+
+        sh {
+            %AUX=$(cat /proc/1/comm)
+        }
+
+        /// Possible values are: init, openrc, systemd
+        return AUX;
+    }
+
+    //MUST BE IMPLEMENTED
+    fn deamonIsInitrc(): bool {
+        return false;
+    }
+
+    fn deamonIsOpenrc(): bool {
+        if (deamonGetName() == "openrc") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    fn deamonIsSystemd(): bool {
+        if (deamonGetName() == "systemd") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //MUST BE IMPLEMENTED
+    fn deamonIsSysvinit(): bool {
+        return false;
+    }
+
+    // Daemon - Reload
+
+    fn deamonReloadInitrc() {
+        eprintln("this method is not available for OpenRC yet!");
+    }
+
+    fn deamonReloadOpenrc() {
+        eprintln("this method is not available for OpenRC yet!");
+    }
+
+    fn deamonReloadSystemd() {
+        sh { systemctl deamon-reload }
+    }
+
+    fn deamonReloadSysvinit() {
+        eprintln("this method is not available for OpenRC yet!");
+    }
+
+    fn deamonReloadMain() {
+        if (system::os::user::info::has_root_previledges() == true) {
+            println("Restarting system init process...");
+
+            if (get_daemon() == "initrc") {
+                deamonReloadInitrc();
+            } else if (get_daemon() == "openrc") {
+                deamonReloadOpenrc();
+            } else if (get_daemon() == "systemd") {
+                deamonReloadSystemd();
+            } else if (get_daemon() == "sysvinit") {
+                deamonReloadSysvinit();
+            } else {
+                eprintln("Unsupported system init");
+            }
+        }
+    }
+
+    // Service - Status
+
+    fn serviceStatusInitrc(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceStatusOpenrc(SERVICE_NAME: string) {
+        //sh { rc-status }
+        //sh { rc-status --list }
+        sh { rc-service "${%SERVICE_NAME}" status }
+    }
+
+    fn serviceStatusSystemd(SERVICE_NAME: string) {
+        sh { systemctl status "${%SERVICE_NAME}" }
+    }
+
+    fn serviceStatusSysvinit(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceStatusMain(SERVICE_NAME: string) {
+        if (system::os::user::info::has_root_previledges() == true) {
+            println("Restarting system init process...");
+
+            if (get_daemon() == "initrc") {
+                serviceStatusInitrc(SERVICE_NAME);
+            } else if (get_daemon() == "openrc") {
+                serviceStatusOpenrc(SERVICE_NAME);
+            } else if (get_daemon() == "systemd") {
+                serviceStatusSystemd(SERVICE_NAME);
+            } else if (get_daemon() == "sysvinit") {
+                serviceStatusSysvinit(SERVICE_NAME);
+            } else {
+                eprintln("Unsupported system init");
+            }
+        }
+    }
+
+    // Service - Disable later
+
+    fn serviceDisableLaterInitrc(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceDisableLaterOpenrc(SERVICE_NAME: string) {
+        sh { rc-update del "${%SERVICE_NAME}" default }
+    }
+
+    fn serviceDisableLaterSystemd(SERVICE_NAME: string) {
+        sh { systemctl disable "${%SERVICE_NAME}" }
+    }
+
+    fn serviceDisableLaterSysvinit(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceDisableLaterMain(SERVICE_NAME: string) {
+        if (system::os::user::info::has_root_previledges() == true) {
+            println("Restarting system init process...");
+
+            if (get_daemon() == "initrc") {
+                serviceDisableLaterInitrc(SERVICE_NAME);
+            } else if (get_daemon() == "openrc") {
+                serviceDisableLaterOpenrc(SERVICE_NAME);
+            } else if (get_daemon() == "systemd") {
+                serviceDisableLaterSystemd(SERVICE_NAME);
+            } else if (get_daemon() == "sysvinit") {
+                serviceDisableLaterSysvinit(SERVICE_NAME);
+            } else {
+                eprintln("Unsupported system init");
+            }
+        }
+    }
+
+    // Service - Disable now
+
+    fn serviceDisableNowInitrc(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceDisableNowOpenrc(SERVICE_NAME: string) {
+        sh { rc-service "${%SERVICE_NAME}" stop && rc-update del "${%SERVICE_NAME}" }
+    }
+
+    fn serviceDisableNowSystemd(SERVICE_NAME: string) {
+        sh { systemctl disable --now "${%SERVICE_NAME}" }
+    }
+
+    fn serviceDisableNowSysvinit(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceDisableNowMain(SERVICE_NAME: string) {
+        if (system::os::user::info::has_root_previledges() == true) {
+            println("Restarting system init process...");
+
+            if (get_daemon() == "initrc") {
+                serviceDisableNowInitrc(SERVICE_NAME);
+            } else if (get_daemon() == "openrc") {
+                serviceDisableNowOpenrc(SERVICE_NAME);
+            } else if (get_daemon() == "systemd") {
+                serviceDisableNowSystemd(SERVICE_NAME);
+            } else if (get_daemon() == "sysvinit") {
+                serviceDisableNowSysvinit(SERVICE_NAME);
+            } else {
+                eprintln("Unsupported system init");
+            }
+        }
+    }
+
+    // Service - Enable later
+
+    fn serviceEnableLaterInitrc(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceEnableLaterOpenrc(SERVICE_NAME: string) {
+        sh { rc-update add "${%SERVICE_NAME}" default }
+    }
+
+    fn serviceEnableLaterSystemd(SERVICE_NAME: string) {
+        sh { systemctl enable "${%SERVICE_NAME}" }
+    }
+
+    fn serviceEnableLaterSysvinit(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceEnableLaterMain(SERVICE_NAME: string) {
+        if (system::os::user::info::has_root_previledges() == true) {
+            println("Restarting system init process...");
+
+            if (get_daemon() == "initrc") {
+                serviceEnableLaterInitrc(SERVICE_NAME);
+            } else if (get_daemon() == "openrc") {
+                serviceEnableLaterOpenrc(SERVICE_NAME);
+            } else if (get_daemon() == "systemd") {
+                serviceEnableLaterSystemd(SERVICE_NAME);
+            } else if (get_daemon() == "sysvinit") {
+                serviceEnableLaterSysvinit(SERVICE_NAME);
+            } else {
+                eprintln("Unsupported system init");
+            }
+        }
+    }
+
+    // Service - Enable now
+
+    fn serviceEnableNowInitrc(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceEnableNowOpenrc(SERVICE_NAME: string) {
+        sh { rc-service "${%SERVICE_NAME}" start && rc-update add "${%SERVICE_NAME}" }
+    }
+
+    fn serviceEnableNowSystemd(SERVICE_NAME: string) {
+        sh { systemctl enable --now "${%SERVICE_NAME}" }
+    }
+
+    fn serviceEnableNowSysvinit(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceEnableNowMain(SERVICE_NAME: string) {
+        if (system::os::user::info::has_root_previledges() == true) {
+            println("Restarting system init process...");
+
+            if (get_daemon() == "initrc") {
+                serviceEnableNowInitrc(SERVICE_NAME);
+            } else if (get_daemon() == "openrc") {
+                serviceEnableNowOpenrc(SERVICE_NAME);
+            } else if (get_daemon() == "systemd") {
+                serviceEnableNowSystemd(SERVICE_NAME);
+            } else if (get_daemon() == "sysvinit") {
+                serviceEnableNowSysvinit(SERVICE_NAME);
+            } else {
+                eprintln("Unsupported system init");
+            }
+        }
+    }
+
+    // Service - Restart
+
+    fn serviceRestartInitrc(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceRestartOpenrc(SERVICE_NAME: string) {
+        sh { rc-service "${%SERVICE_NAME}" restart }
+    }
+
+    fn serviceRestartSystemd(SERVICE_NAME: string) {
+        sh { systemctl restart "${%SERVICE_NAME}" }
+    }
+
+    fn serviceRestartSysvinit(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceRestartMain(SERVICE_NAME: string) {
+        if (system::os::user::info::has_root_previledges() == true) {
+            println("Restarting system init process...");
+
+            if (get_daemon() == "initrc") {
+                serviceRestartInitrc(SERVICE_NAME);
+            } else if (get_daemon() == "openrc") {
+                serviceRestartOpenrc(SERVICE_NAME);
+            } else if (get_daemon() == "systemd") {
+                serviceRestartSystemd(SERVICE_NAME);
+            } else if (get_daemon() == "sysvinit") {
+                serviceRestartSysvinit(SERVICE_NAME);
+            } else {
+                eprintln("Unsupported system init");
+            }
+        }
+    }
+
+    // Service - Start
+
+    fn serviceStartInitrc(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceStartOpenrc(SERVICE_NAME: string) {
+        sh { rc-service "${%SERVICE_NAME}" start }
+    }
+
+    fn serviceStartSystemd(SERVICE_NAME: string) {
+        sh { systemctl start "${%SERVICE_NAME}" }
+    }
+
+    fn serviceStartSysvinit(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceStartMain(SERVICE_NAME: string) {
+        if (system::os::user::info::has_root_previledges() == true) {
+            println("Restarting system init process...");
+
+            if (get_daemon() == "initrc") {
+                serviceStartInitrc(SERVICE_NAME);
+            } else if (get_daemon() == "openrc") {
+                serviceStartOpenrc(SERVICE_NAME);
+            } else if (get_daemon() == "systemd") {
+                serviceStartSystemd(SERVICE_NAME);
+            } else if (get_daemon() == "sysvinit") {
+                serviceStartSysvinit(SERVICE_NAME);
+            } else {
+                eprintln("Unsupported system init");
+            }
+        }
+    }
+
+    // Service - Stop
+
+    fn serviceStopInitrc(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceStopOpenrc(SERVICE_NAME: string) {
+        sh { rc-service "${%SERVICE_NAME}" stop }
+    }
+
+    fn serviceStopSystemd(SERVICE_NAME: string) {
+        sh { systemctl stop "${%SERVICE_NAME}" }
+    }
+
+    fn serviceStopSysvinit(SERVICE_NAME: string) {
+        eprintln("Unsupported system init");
+    }
+
+    fn serviceStopMain(SERVICE_NAME: string) {
+        if (system::os::user::info::has_root_previledges() == true) {
+            println("Restarting system init process...");
+
+            if (get_daemon() == "initrc") {
+                serviceStopInitrc(SERVICE_NAME);
+            } else if (get_daemon() == "openrc") {
+                serviceStopOpenrc(SERVICE_NAME);
+            } else if (get_daemon() == "systemd") {
+                serviceStopSystemd(SERVICE_NAME);
+            } else if (get_daemon() == "sysvinit") {
+                serviceStopSysvinit(SERVICE_NAME);
+            } else {
+                eprintln("Unsupported system init");
+            }
+        }
+    }
+}

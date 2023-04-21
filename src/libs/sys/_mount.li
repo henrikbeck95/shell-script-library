@@ -1,0 +1,11 @@
+module mount {
+    fn mount() {}
+    fn mountBtrfs() {}
+    fn mountExt3() {}
+    fn mountExt4() {}
+    fn mountFat16() {}
+    fn mountFat32() {}
+    fn mountNtfs() {}
+    fn mountOpenZfs() {}
+    fn mountXfs() {}
+}

@@ -1,0 +1,7 @@
+module user {
+	fn create() {}
+	fn delete() {}
+	fn hasUser() {}
+	fn list() {}
+	fn passwordChange() {}
+}

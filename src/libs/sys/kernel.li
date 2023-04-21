@@ -1,0 +1,69 @@
+module kernel {
+    fn getName(): string {
+        var aux: string = "";
+
+        sh {
+            %aux=$(uname -s);
+        }
+
+        if aux == "Darwin" {
+            return "darwin";
+        } else if aux == "Linux" {
+            return "linux";
+        } else if aux == "CYGWIN*" || aux == "MINGW32*" || aux == "MYMS*" || aux == "MINGGW*" {
+            return "nt";
+        }else{
+            return "unknown";
+        }
+    }
+    
+    fn getVersion(): string {
+        var aux: string = "";
+
+        if getName() == "darwin" || getName() == "linux" {
+            sh {
+                %aux=$(uname -r)
+            }
+        } else if getName() == "nt" {
+            aux = "unknown";
+        }else {
+            aux = "unknown";
+        }
+
+        return aux;
+    }
+
+    fn is32(): bool {}
+
+    fn is64(): bool {}
+    
+    fn isArm(): bool {}
+
+    //fn isBsd(): bool {}
+    
+    fn isDarwin(): bool {
+        if (getName() == "darwin") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    fn isLinux(): bool {
+        if (getName() == "linux") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    fn isNt(): bool {
+        if (getName() == "nt") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //fn isSolaris(): bool {}
+}

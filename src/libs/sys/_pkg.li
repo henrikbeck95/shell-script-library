@@ -1,0 +1,6 @@
+module pkg {
+    fn install() {}
+    fn isInstalled() {}
+    fn list() {}
+    fn remove() {}
+}

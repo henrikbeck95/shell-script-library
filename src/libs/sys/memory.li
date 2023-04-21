@@ -1,0 +1,64 @@
+module memory{
+    fn checkRamStaticGigabyte(): string {
+        var memoryRamGigabyte: string = "";
+
+        sh {
+            %memoryRamGigabyte="$(free -h | awk '/^Mem:/ {print $3 "/" $2}')"
+        }
+
+        return "$memoryRamGigabyte RAM ";
+    }
+
+    fn checkTimeDynamic(timeDelaySeconds: int) {
+        sh {
+            # Monitor memory without top or htop
+            watch -n "$%timeDelaySeconds" -d '/bin/free -m'
+        }
+    }
+
+    /// Requires Root previledges
+    fn clearCacheApply(cleanlinessLevel: int) {
+        if cleanlinessLevel >= 1 && cleanlinessLevel <= 3 {
+            if (system::os::user::info::has_root_previledges() == true) {
+                sh {
+                    sync; echo "$%cleanlinessLevel" > /proc/sys/vm/drop_caches
+
+                    #One single line on terminal
+                    #sudo sh -c 'echo 1 > /proc/sys/vm/drop_caches'
+                    #echo "echo 1 > /proc/sys/vm/drop_caches" | sudo sh
+                }
+            } else {
+                system::os::user::info::exit_if_does_not_have_root_previledges();
+            }
+        } else {
+            eprintln("Invalid option for ${cleanlinessLevel}!");
+        }
+    }
+    
+    /// Requires Root previledges
+    /// Clear PageCache only (recommended in production).
+    fn clearCacheSoft() {
+        clearCacheApply(1);
+    }
+    
+    /// Requires Root previledges
+    /// Clear dentries and inodes.
+    fn clearCacheModerate() {
+        clearCacheApply(2);
+    }
+    
+    /// Requires Root previledges
+    /// Clear PageCache, dentries and inodes (not recommended in production)
+    fn clearCacheAggressive() {
+        clearCacheApply(3);
+    }
+
+    /// Requires Root previledges
+    fn clearSwap() {
+        if (system::os::user::info::has_root_previledges() == true) {
+            sh { swapoff -a && swapon -a }
+        } else {
+            system::os::user::info::exit_if_does_not_have_root_previledges();
+        }
+    }
+}
