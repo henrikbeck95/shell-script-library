@@ -1,0 +1,13 @@
+require './main.li';
+
+//require './core/displayTest.li';
+//println("<+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+>");
+
+require './core/mathTest.li';
+println("<+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+>");
+
+require './core/contentTest.li';
+println("<+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+>");
+
+require './libs/sysTest.li';
+println("<+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+>");

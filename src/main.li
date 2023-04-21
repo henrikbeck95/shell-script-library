@@ -1,0 +1,31 @@
+/// Instructions
+/// Operating system: Linux
+/// Author: Henrik Beck
+/// E-mail: henrikbeck95@gmail.com
+/// License: GPL3
+/// Version: 0.0.0
+/// Softwares for core module: GNU-Utils, BC, jQ
+/// 
+
+/*
+ * - Core
+ * - [x] core_math.li
+ * - [~] core_lang.li
+ * - [x] core_str.li
+ * - [ ] core_time.li -> unit
+ * 
+ * - Libraries
+ * - [ ] 
+ * - [ ] 
+*/
+
+/// @annotation_must_be_improved
+
+// Core modules
+require './core/lang.li';
+require './core/display.li';
+require './core/math.li';
+require './core/content.li';
+
+// Libraries modules
+require './libs/sys.li';
