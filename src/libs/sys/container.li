@@ -1,0 +1,31 @@
+module container {
+    fn defaultImageBackup(TOOL: string, IMAGE_NAME: string, IMAGE_VERSION: string, PATH_DESTINY: string) {
+        sh { "${%TOOL}" save -o ${%PATH_DESTINY}/${%IMAGE_NAME}.tgz ${%IMAGE_NAME}:${%IMAGE_VERSION} }
+    }
+
+    fn defaultImageDownload(TOOL: string, IMAGE_NAME: string) {
+        sh { "${%TOOL}" pull "${%IMAGE_NAME}" }
+    }
+
+    fn defaultImageExecute(TOOL: string, IMAGE_NAME: string) {
+        sh { "${%TOOL}" run -it "${%IMAGE_NAME}" }
+    }
+
+    fn defaultImageList(TOOL: string) {
+        sh { "${%TOOL}" image ls }
+    }
+
+    fn defaultImageRemove(TOOL: string, IMAGE_NAME: string) {
+        sh { "${%TOOL}" image rm "${%IMAGE_NAME}" }
+    }
+
+    fn distroboxImageDownload(IMAGE_NAME: string, IMAGE_VERSION: string) {
+        sh { distrobox-create --name "${%IMAGE_NAME}" --image "${%IMAGE_VERSION}" }
+    }
+
+    fn distroboxImageEnter(IMAGE_NAME: string, IMAGE_VERSION: string) {
+        sh { distrobox-enter --name "${%IMAGE_NAME}" }
+    }
+
+    //fn istroboxImageRemove(IMAGE_NAME: string, IMAGE_VERSION: string) {}
+}

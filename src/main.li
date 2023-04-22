@@ -18,11 +18,11 @@
  * - [x][x] core_math.li
  * - [x][x] core_str.li
  * - [~][ ] core_system.li
- * - [ ][ ] core_time.li -> unit
+ * - [x][ ] core_time.li -> unit
  * 
  * - Library, LibraryTest
  * - [ ][ ] utils_backup.li
- * - [ ][ ] utils_container.li
+ * - [x][ ] utils_container.li
  * - [~][ ] utils_convert.li
  * - [ ][ ] utils_file.li
  * - [x][ ] utils_internet.li

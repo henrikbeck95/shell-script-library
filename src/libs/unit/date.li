@@ -1,0 +1,69 @@
+module date {
+    fn getNanoseconds(): string {
+        return @date('+%N');
+    }
+
+    fn getSeconds(): string {
+        return @date('+%S');
+    }
+
+    fn getMinutes(): string {
+        return @date('+%M');
+    }
+
+    fn getHours12(): string {
+        return @date('+%I');
+    }
+
+    fn getHours24(): string {
+        return @date('+%H');
+    }
+
+    fn getMeridian(): string {
+        if (getHours24() < 12) {
+            return 'AM';
+        }
+        else {
+            return 'PM';
+        }
+    }
+
+    fn getDay(): string {
+        return @date('+%d');
+    }
+
+    fn getDayOfTheWeek(): string {
+        return @date('+%A');
+    }
+
+    fn getDayOfTheYear(): int {
+        return @date('+%j') as int;
+    }
+
+    fn getMonth(): int {
+        return @date('+%m');
+    }
+
+    fn getWeekOfTheYear(): int {
+        return @date('+%U') as int; // Starts sunday
+        //return @date('+%V') as int; // Start monday
+    }
+
+    fn getYearFull(): string {
+        return @date('+%Y') as int;;
+    }
+    
+    fn getYearShort(): string {
+        return @date('+%y') as int;;
+    }
+
+    fn timestamp(): string {
+        return @date('+%s'); //1647774171
+    }
+
+    fn getTimezone(): string {
+        var AUX: string = @date(); //qui 29 set 2022 17:13:50 -03
+
+        return (AUX |> @awk('{print $6}')); //-03
+    }
+}
