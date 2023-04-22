@@ -6,6 +6,7 @@ module strTest {
     assert(str::stringGetLength("Henrik Beck") == 11);
     assert(str::stringReplaceMatchAllFromDisplay("Henrik Beck", "H", "Mr. H") == "Mr. Henrik Beck");
     assert(str::stringReplaceMatchAllFromDisplay("Henrik Beck", "e", "E") == "HEnrik BEck");
+    
     //str::stringReplaceMatchAllFromCommand("cat /etc/passwd", "henrikbeck95", "Mr. Beck, H.");
     //str::stringReplaceMatchAllFromCommand("cat /etc/passwd", "enrik", "#############");
     

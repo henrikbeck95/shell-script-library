@@ -20,9 +20,8 @@ module char {
         return aux;
     }
 
-    // charInsert...
+    // fn charInsert...() {}
 
-    // baterry
     fn charRemoveNonNumericAllFromDisplay(valueText: string): int {
         var RESULT: int;
 

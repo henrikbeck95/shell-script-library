@@ -40,7 +40,7 @@ module str {
         return aux;
     }
 
-    // stringInsert...
+    // fn stringInsert...() {}
 
     /// Unknown if it is for display or file content
     fn stringRemoveLineSingleFromFile(pathFile: string, numberOfLinesTobeCutted: int): string {
