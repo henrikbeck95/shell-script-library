@@ -9,6 +9,7 @@ require './display/dialogTest.li';
 println("Display - Notification section");
 require './display/notificationTest.li';
 
+// This module is working but it is commented because it freezes the unit tests.
 //println("Display - Others section");
 //require './display/othersTest.li';
 
