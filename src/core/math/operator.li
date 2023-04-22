@@ -3,7 +3,7 @@ module operator{
         return (mathExpression |> @awk("BEGIN{printf \"%.${valueFloatPoint}g\", ${mathExpression}}")) as float;
     }
 
-    fn numeric_base(mathExpression: string): float {
+    fn numericBase(mathExpression: string): float {
         var valueFloatPoint: int = 0;
         var result: float = 0;
 

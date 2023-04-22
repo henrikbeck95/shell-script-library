@@ -1,0 +1,7 @@
+require './text.li';
+
+println("Text - Character section");
+require './text/charTest.li';
+
+println("Text - String section");
+require './text/strTest.li';

@@ -6,7 +6,7 @@ require './main.li';
 require './core/mathTest.li';
 println("<+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+>");
 
-require './core/contentTest.li';
+require './core/textTest.li';
 println("<+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+>");
 
 require './libs/sysTest.li';

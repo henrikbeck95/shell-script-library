@@ -1,0 +1,9 @@
+/// Convert databases
+module convertDb {
+    //fn fromMariadbToMysql() {}
+    //fn fromMariadbToPostgres() {}
+    //fn fromMysqlToMariadb() {}
+    //fn fromMysqlToPostgres() {}
+    //fn fromPostgresToMariadb() {}
+    //fn fromPostgresToMysql() {}
+}

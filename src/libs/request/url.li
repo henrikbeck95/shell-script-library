@@ -1,0 +1,9 @@
+module url {
+    /*
+    fn generate_url_tiny(URL: string): string {
+        return http::get(http://tinyurl.com/api-create.php\?url=${URL}")
+
+        //fn generate_url_short(https://github.com/chubin/wttr.in) //https://tinyurl.com/h6qqxes
+    }
+    */
+}

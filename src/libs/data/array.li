@@ -1,0 +1,62 @@
+/// Use jQ as Array parse between the functions for calling and returning values.
+
+module array {
+    fn outputAll(JSON_OUTPUT: string): string {
+        var AUX: string = ""
+
+        sh {
+            #Remove the first and the last line because they are '[' and ']'
+            %AUX=$(echo "${%JSON_OUTPUT}" | jq '.' | sed '1d' | sed '$d')
+        }
+
+        return AUX
+    }
+
+    fn beautify(JSON_OUTPUT: string): string {
+        var JSON: string = outputAll(JSON_OUTPUT)
+
+        return json::outputBeautify(JSON)
+    }
+
+    fn minify(JSON_OUTPUT: string): string {
+        var JSON: string = outputAll(JSON_OUTPUT)
+
+        return json::outputMinify(JSON)
+    }
+
+    fn tag(JSON_OUTPUT: string, TAG: string): string {
+        var JSON: string = outputAll(JSON_OUTPUT)
+
+        return json::outputTag(JSON, TAG)
+    }
+
+    fn requestAll(LINK_URL: string): string {
+        var AUX: string = ""
+        var JSON_OUTPUT: string = requestBeautify(LINK_URL)
+
+        sh {
+            #Remove the first and the last line because they are '[' and ']'
+            %AUX=$(echo "${%JSON_OUTPUT}" | sed '1d' | sed '$d')
+        }
+
+        return AUX
+    }
+
+    fn requestBeautify(LINK_URL: string): string {
+        var JSON_OUTPUT = requestAll(LINK_URL)
+
+        return json::outputBeautify(JSON_OUTPUT)
+    }
+
+    fn requestMinify(LINK_URL: string): string {
+        var JSON_OUTPUT = requestAll(LINK_URL)
+        
+        return json::outputMinify(JSON_OUTPUT)
+    }
+
+    fn requestTag(LINK_URL: string, TAG: string): string {
+        var JSON_OUTPUT = requestAll(LINK_URL)
+        
+        return json::outputTag(JSON_OUTPUT, TAG)
+    }
+}

@@ -1,0 +1,65 @@
+module convertNumber {
+    fn fromBinaryToDecimal(VALUE_NUMBER: float): float{
+        var NUMERIC_BASE_INPUT: int = 2
+        var NUMERIC_BASE_OUTPUT: int = 1111
+        var MATH_EXPRESSION: string = "ibase=$NUMERIC_BASE_INPUT;obase=$NUMERIC_BASE_OUTPUT;$VALUE_NUMBER"
+
+        return operator::numericBase("$MATH_EXPRESSION")
+    }
+
+    fn fromBinaryToHexadecimal(VALUE_NUMBER: float): string {
+        var NUMERIC_BASE_INPUT: int = 2
+        var NUMERIC_BASE_OUTPUT: int = 16
+        var MATH_EXPRESSION: string = "obase=$NUMERIC_BASE_OUTPUT;ibase=$NUMERIC_BASE_INPUT;$VALUE_NUMBER"
+
+        return operator::numericBase("$MATH_EXPRESSION") as string
+    }
+
+    fn fromBinaryToOctal(VALUE_NUMBER: float): float{
+        var NUMERIC_BASE_INPUT: int = 2
+        var NUMERIC_BASE_OUTPUT: int = 8
+        var MATH_EXPRESSION: string = "ibase=$NUMERIC_BASE_INPUT;obase=$NUMERIC_BASE_OUTPUT;$VALUE_NUMBER"
+
+        return operator::numericBase("$MATH_EXPRESSION")
+    }
+
+    fn fromDecimalToBinary(VALUE_NUMBER: float): float {
+        var NUMERIC_BASE_INPUT: int = 10
+        var NUMERIC_BASE_OUTPUT: int = 2
+        var MATH_EXPRESSION: string = "ibase=$NUMERIC_BASE_INPUT;obase=$NUMERIC_BASE_OUTPUT;$VALUE_NUMBER"
+
+        return operator::numericBase("$MATH_EXPRESSION")
+    }
+
+    fn fromDecimalToOctal(VALUE_NUMBER: float): float {
+        var NUMERIC_BASE_INPUT: int = 10
+        var NUMERIC_BASE_OUTPUT: int = 8
+        var MATH_EXPRESSION: string = "ibase=$NUMERIC_BASE_INPUT;obase=$NUMERIC_BASE_OUTPUT;$VALUE_NUMBER"
+
+        return operator::numericBase("$MATH_EXPRESSION")
+    }
+
+    fn fromHaxadecimalToBinary(VALUE_NUMBER: string): float {
+        var NUMERIC_BASE_INPUT: int = 16
+        var NUMERIC_BASE_OUTPUT: int = 2
+        var MATH_EXPRESSION: string = "ibase=$NUMERIC_BASE_INPUT;obase=$NUMERIC_BASE_OUTPUT;$VALUE_NUMBER"
+
+        return operator::numericBase("$MATH_EXPRESSION")
+    }
+
+    fn fromOctalTo_binary(VALUE_NUMBER: float): float {
+        var NUMERIC_BASE_INPUT: int = 8
+        var NUMERIC_BASE_OUTPUT: int = 2
+        var MATH_EXPRESSION: string = "ibase=$NUMERIC_BASE_INPUT;obase=$NUMERIC_BASE_OUTPUT;$VALUE_NUMBER"
+
+        return operator::numericBase("$MATH_EXPRESSION")
+    }
+
+    fn fromOctalToDecimal(VALUE_NUMBER: float): float {
+        var NUMERIC_BASE_INPUT: int = 8
+        var NUMERIC_BASE_OUTPUT: int = 1111
+        var MATH_EXPRESSION: string = "ibase=$NUMERIC_BASE_INPUT;obase=$NUMERIC_BASE_OUTPUT;$VALUE_NUMBER"
+
+        return operator::numericBase("$MATH_EXPRESSION")
+    }
+}

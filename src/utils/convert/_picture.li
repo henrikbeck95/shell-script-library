@@ -1,0 +1,10 @@
+module convertPicture {
+    //fn fromJpegToPng() {}
+    //fn fromJpegToSvg() {}
+
+    //fn fromPngToJpeg() {}
+    //fn fromPngToSvg() {}
+    
+    //fn fromSvgToJpeg() {}
+    //fn fromSvgToPng() {}
+}

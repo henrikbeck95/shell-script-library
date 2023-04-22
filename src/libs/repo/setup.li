@@ -1,0 +1,21 @@
+module setup{
+    fn credentialsSetup(USER_EMAIL: string, USER_NAME: string) {
+        println("Setting up Git credentials to ${USER_EMAIL} - ${USER_NAME}")
+
+        sh {
+            #Set Git e-mail credential
+            git config --global user.email "$%USER_EMAIL" #Try: "henrikbeck95@gmail.com"
+            
+            #Set Git username credential
+            git config --global user.name "$%USER_NAME" #Try: "Henrik Beck"
+
+            #Store Git credentials to cache file
+            #git config --global credential.helper store
+
+            #git pull
+            #cat $HOME/.git-credentials | less
+        }
+
+        println("Git setup credentials has been set to ${USER_EMAIL} - ${USER_NAME}")
+    }
+}

@@ -1,0 +1,105 @@
+module convertTime {
+    // Nanoseconds
+
+    //fn fromNanosecondsToMicroseconds(value: float): float {}
+    //fn fromNanosecondsToSeconds(value: float): float {}
+    //fn fromNanosecondsToMinutes(value: float): float {}
+    //fn fromNanosecondsToHours(value: float): float {}
+    //fn fromNanosecondsToDays(value: float): float {}
+    //fn fromNanosecondsToWeeks(value: float): float {}
+    //fn fromNanosecondsToMonths(value: float): float {}
+    //fn fromNanosecondsToYears(value: float): float {}
+
+    // Microseconds
+
+    //fn fromMicrosecondsToNanoseconds(value: float): float {}
+
+    fn fromMicrosecondsToSeconds(value: float): float{
+        return value / 1000000;
+    }
+
+    //fn fromMicrosecondsToMinutes(value: float): float {}
+    //fn fromMicrosecondsToHours(value: float): float {}
+    //fn fromMicrosecondsToDays(value: float): float {}
+    //fn fromMicrosecondsToWeeks(value: float): float {}
+    //fn fromMicrosecondsToMonths(value: float): float {}
+    //fn fromMicrosecondsToYears(value: float): float {}
+
+    // Seconds
+
+    //fn fromSecondsToNanoseconds(value: float): float {}
+    //fn fromSecondsToMicroseconds(value: float): float {}
+    //fn fromSecondsToMinutes(value: float): float {}
+    //fn fromSecondsToHours(value: float): float {}
+    //fn fromSecondsToDays(value: float): float {}
+    //fn fromSecondsToWeeks(value: float): float {}
+    //fn fromSecondsToMonths(value: float): float {}
+    //fn fromSecondsToYears(value: float): float {}
+
+    // Minutes
+
+    //fn fromMinutesToNanoseconds(value: float): float {}
+    //fn fromMinutesToMicroseconds(value: float): float {}
+    //fn fromMinutesToSeconds(value: float): float {}
+    //fn fromMinutesToHours(value: float): float {}
+    //fn fromMinutesToDays(value: float): float {}
+    //fn fromMinutesToWeeks(value: float): float {}
+    //fn fromMinutesToMonths(value: float): float {}
+    //fn fromMinutesToYears(value: float): float {}
+
+    // Hours
+
+    //fn fromHoursToNanoseconds(value: float): float {}
+    //fn fromHoursToMicroseconds(value: float): float {}
+    //fn fromHoursToSeconds(value: float): float {}
+    //fn fromHoursToMinutes(value: float): float {}
+    //fn fromHoursToDays(value: float): float {}
+    //fn fromHoursToWeeks(value: float): float {}
+    //fn fromHoursToMonths(value: float): float {}
+    //fn fromHoursToYears(value: float): float {}
+
+    // Days
+
+    //fn fromDaysToNanoseconds(value: float): float {}
+    //fn fromDaysToMicroseconds(value: float): float {}
+    //fn fromDaysToSeconds(value: float): float {}
+    //fn fromDaysToMinutes(value: float): float {}
+    //fn fromDaysToHours(value: float): float {}
+    //fn fromDaysToWeeks(value: float): float {}
+    //fn fromDaysToMonths(value: float): float {}
+    //fn fromDaysToYears(value: float): float {}
+
+    // Weeks
+
+    //fn fromWeeksToNanoseconds(value: float): float {}
+    //fn fromWeeksToMicroseconds(value: float): float {}
+    //fn fromWeeksToSeconds(value: float): float {}
+    //fn fromWeeksToMinutes(value: float): float {}
+    //fn fromWeeksToHours(value: float): float {}
+    //fn fromWeeksToDays(value: float): float {}
+    //fn fromWeeksToMonths(value: float): float {}
+    //fn fromWeeksToYears(value: float): float {}
+
+    // Months
+
+    //fn fromMonthsToNanoseconds(value: float): float {}
+    //fn fromMonthsToMicroseconds(value: float): float {}
+    //fn fromMonthsToSeconds(value: float): float {}
+    //fn fromMonthsToMinutes(value: float): float {}
+    //fn fromMonthsToHours(value: float): float {}
+    //fn fromMonthsToDays(value: float): float {}
+    //fn fromMonthsToWeeks(value: float): float {}
+    //fn fromMonthsToYears(value: float): float {}
+
+    // Years
+
+    //fn fromYearsToNanoseconds(value: float): float {}
+    //fn fromYearsToMicroseconds(value: float): float {}
+    //fn fromYearsToSeconds(value: float): float {}
+    //fn fromYearsToMinutes(value: float): float {}
+    //fn fromYearsToHours(value: float): float {}
+    //fn fromYearsToDays(value: float): float {}
+    //fn fromYearsToWeeks(value: float): float {}
+    //fn fromYearsToMonths(value: float): float {}
+    //fn fromYearsToYears(value: float): float {}
+}

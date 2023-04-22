@@ -1,8 +1,0 @@
-// cURL, wGET
-module http {
-    fn delete() {}
-    fn get() {}
-    fn isOnline() {}
-    fn put() {}
-    fn update() {}
-}

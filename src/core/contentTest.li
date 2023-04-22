@@ -1,7 +1,0 @@
-require './content.li';
-
-println("Content - Character section");
-require './content/charTest.li';
-
-println("Content - String section");
-require './content/strTest.li';

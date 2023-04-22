@@ -1,0 +1,19 @@
+module calculateTime {
+    //fn amountOfNanoseconds(VALUE: string): int {}
+    
+    //fn amountOfMicroseconds(VALUE: string): int {}
+
+    //fn amountOfSeconds(VALUE: string): int {}
+
+    //fn amountOfMinutes(VALUE: string): int {}
+
+    //fn amountOfHours(VALUE: string): int {}
+ 
+    //fn amountOfDays(VALUE: string): int {}
+ 
+    //fn amountOfWeeks(VALUE: string): int {}
+ 
+    //fn amountOfMonths(VALUE: string): int {}
+
+    //fn amountOfYears(VALUE: string): int {}
+}

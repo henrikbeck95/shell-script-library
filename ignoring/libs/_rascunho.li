@@ -1,0 +1,22 @@
+//require './libs/_str.li'
+
+/// Softwares: fDisk, gDisk
+module disk {
+	module device {
+		module block {
+			fn bootable() {}
+			fn clone() {}
+			fn empty() {}
+			fn list() {}
+		}
+	}
+}
+
+module parse {
+	fn args() {}
+}
+
+/// ---
+
+var example: string = "a5v6d%";
+//println("${str::charRemoveAllNonNumeric(example)}")

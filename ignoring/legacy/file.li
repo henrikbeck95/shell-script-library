@@ -1,0 +1,650 @@
+file
+
+/*
+ * This module is dedicated to calculate, check, comparate and
+ * extract files. Besides of that, this module also edit files
+ * with securance by following patterns before setting changes.
+*/
+
+require './core_system.li'
+
+module file{
+    module check{
+        //string_check_if_string_pattern_matches
+        fn does_pattern_matches(PATH_FILE: string, STRING: string): bool {
+            var AUX: int = 0
+
+            //Check if file exists
+            if system::os::file::has_file(PATH_FILE) == true {
+                sh {
+                    #Check if strings matches
+                    if grep -q "$%STRING" "$%PATH_FILE"; then
+                        %AUX=1
+                    else
+                        %AUX=0
+                    fi
+                }
+            }
+
+            if AUX == 1 {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+
+    //@annotation_must_be_implemented
+    module compress{
+        //@annotation_must_be_implemented
+        module default{}
+
+        //@annotation_must_be_implemented
+        module family{
+            module tar{
+                fn tar(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { tar cvf "${%FILE_DESTINY}.tar" "${%FILE_ORIGIN}" }
+                }
+
+                fn tar_bz2(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { tar cvjf "${%FILE_DESTINY}.tar.bz2" "${%FILE_ORIGIN}" }
+                }
+
+                fn tar_gz(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { tar czvf "${%FILE_DESTINY}.tar.gz" "${%FILE_ORIGIN}" }
+                }
+
+                /*
+                //@annotation_must_be_implemented
+                fn tar_lz(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    //sh { tar --lzip -tf "${%FILE_ORIGIN}" -C "${%FILE_DESTINY}" }
+                    
+                    sh { tar --lzip -tf --compress "${%FILE_DESTINY}.tar.lz" "${%FILE_ORIGIN}" }
+                    
+                    //sh { tar cvf "${%FILE_DESTINY}.tar.lz" "${%FILE_ORIGIN}" }
+                }
+                */
+                
+                /*
+                //@annotation_must_be_implemented
+                fn tar_lzr(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { lrzuntar xvjf "${%FILE_DESTINY}.tar.lzr" "${%FILE_ORIGIN}" }
+                }
+                */
+
+                /*
+                //@annotation_must_be_implemented
+                fn tar_lz4(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { lz4 -c -d "${%FILE_ORIGIN}" | tar xvf - }
+                }
+                */
+
+                /*
+                fn tar_xz(FILE_ORIGIN: string, FILE_DESTINY: string){
+                     sh { tar -cJf "${%FILE_DESTINY}.tar.xz" "${%FILE_ORIGIN}" }
+                }
+                */
+
+                /*
+                //@annotation_must_be_implemented
+                fn tar_zma(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { tar --lzma -xvf "${%FILE_ORIGIN}" || lzcat "${%FILE_ORIGIN}" | tar xvf - }
+                    //tar --lzma --help &> /dev/null \
+                }
+                */
+
+                /*
+                //@annotation_must_be_implemented
+                fn tar_zst(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { tar --zstd -xvf "${%FILE_ORIGIN}" || zstdcat "${%FILE_ORIGIN}" | tar xvf - }
+                    //tar --zstd --help &> /dev/null \
+                }
+                */
+            }
+        }
+    }
+        
+    module cryptography{
+        module compare{
+            /*
+            #@annotation_must_be_improved
+            utils_cryptography_sha256_sum_compare(){
+                local ARRAY_FILES_ALL=($@)
+                local ARRAY_CRYPTOGRAPHY_SUM=()
+                local COUNT_LOOP=0
+                local RESULT
+
+                for i in "${ARRAY_FILES_ALL[@]}"; do
+                    #Calculate the cryptography sum values
+                    ARRAY_CRYPTOGRAPHY_SUM+=( $(utils_cryptography_sha256_sum_generate "$i") )
+
+                    if [[ "$COUNT_LOOP" -gt 0 ]]; then
+                        #Check if cryptography sum values are equals
+                        if [[ "${ARRAY_CRYPTOGRAPHY_SUM[$COUNT_LOOP]}" != "${ARRAY_CRYPTOGRAPHY_SUM[$COUNT_LOOP - 1]}" ]]; then
+                            RESULT="false"
+                            break
+                        else
+                            RESULT="true"
+                            continue
+                        fi
+                    fi
+
+                    COUNT_LOOP=$((COUNT_LOOP + 1))
+                done
+                
+                printf "%s\n" "$RESULT"
+            }
+            */
+
+            /*
+            #@annotation_must_be_improved
+            utils_cryptography_sha512_sum_compare(){
+                local ARRAY_FILES_ALL=($@)
+                local ARRAY_CRYPTOGRAPHY_SUM=()
+                local COUNT_LOOP=0
+                local RESULT
+
+                for i in "${ARRAY_FILES_ALL[@]}"; do
+                    #Calculate the cryptography sum values
+                    ARRAY_CRYPTOGRAPHY_SUM+=( $(utils_cryptography_sha512_sum_generate "$i") )
+
+                    if [[ "$COUNT_LOOP" -gt 0 ]]; then
+                        #Check if cryptography sum values are equals
+                        if [[ "${ARRAY_CRYPTOGRAPHY_SUM[$COUNT_LOOP]}" != "${ARRAY_CRYPTOGRAPHY_SUM[$COUNT_LOOP - 1]}" ]]; then
+                            RESULT="false"
+                            break
+                        else
+                            RESULT="true"
+                            continue
+                        fi
+                    fi
+
+                    COUNT_LOOP=$((COUNT_LOOP + 1))
+                done
+                
+                printf "%s\n" "$RESULT"
+            }
+            */
+        }
+
+        module decrypt{}
+        
+        module encrypt{}
+        
+        module hash{
+            fn sum_sha256(PATH_FILE: string): string {
+                var RESULT: string = ""
+
+                sh {
+                    AUX=$(sha256sum "$%PATH_FILE")
+                    %RESULT=$(printf "$AUX" | awk '{ print $1 }')
+                }
+
+                return RESULT
+            }
+
+            fn sum_sha512(PATH_FILE: string): string {
+                var RESULT: string = ""
+
+                sh {
+                    AUX=$(sha512sum "$%PATH_FILE")
+                    %RESULT=$(printf "$AUX" | awk '{ print $1 }')
+                }
+
+                return RESULT
+            }
+        }
+    }
+    
+    module edit{
+        //string_write_exclusive_line_on_a_file
+        fn write_exclusive(PATH_FILE: string, STRING: string){
+            if file::check::does_pattern_matches(PATH_FILE, STRING) == true {
+                eprintln("String already exists on file")
+            } else {
+                sh {
+                    echo "$%STRING" >> "$%PATH_FILE"
+                }
+            }
+        }
+    }
+
+    //MUST BE DONE
+    module extract{
+        //@annotation_must_be_implemented
+        module default{
+            //@annotation_must_be_implemented
+            fn all(PATH_DIRECTORY: string){
+                //STORE INTO AN ARRAY ALL THE FILES FROM A PATH DIRECTORY.
+                //FOR EACH PATH FILE INVOKE THE file::edit::extract::default::any(FILE_ORIGIN, FILE_DESTINY)
+                //THE ARGUMENTS MUST BE IMPLEMENTED DYNAMICALLY.
+
+                /*
+                while (( $# > 0 )); do
+                    if [[ ! -f "$1" ]]; then
+                        echo "extract: '$1' is not a valid file" >&2
+
+                        //file::extract::default::any("", "")
+
+                        shift
+                        continue
+                    fi
+                done
+                */
+            }
+
+            fn any(FILE_ORIGIN: string, FILE_DESTINY: string){
+                var FILE_EXTENSION: string = "." + system::os::file::get_extension(FILE_ORIGIN)
+
+                println(FILE_EXTENSION)
+                
+                if FILE_EXTENSION == ".7z" {
+                    file::extract::family::zip::p7zip(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".apk" {
+                //    file::extract::family::others::apk(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".appimage" {
+                //    file::extract::family::others::appimage(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".bz2" {
+                //    file::extract::family::bz::bz2(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".cab" {
+                //    file::extract::family::others::cab(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".cpio" {
+                //    file::extract::family::cpio::cpio(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".deb" {
+                //    file::extract::family::others::deb(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".gz" {
+                //    file::extract::family::gz::gz(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".jar" {
+                //    file::extract::family::others::jar(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".lrz" {
+                //    file::extract::family::others::lrz(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".lz4" {
+                //    file::extract::family::lz::lz4(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".lzma" {
+                //    file::extract::family::lz::lzma(FILE_ORIGIN, FILE_DESTINY)
+                } else if FILE_EXTENSION == ".rar" {
+                    file::extract::family::rar::rar(FILE_ORIGIN, FILE_DESTINY)
+                } else if FILE_EXTENSION == ".rpm" {
+                    file::extract::family::cpio::rpm(FILE_ORIGIN, FILE_DESTINY)
+                } else if FILE_EXTENSION == ".tar" {
+                    file::extract::family::tar::tar(FILE_ORIGIN, FILE_DESTINY)
+                } else if FILE_EXTENSION == ".tar.bz2" || FILE_EXTENSION == ".tbz" || FILE_EXTENSION == ".tbz2" || FILE_EXTENSION == ".bz2" {
+                    file::extract::family::tar::tar_bz2(FILE_ORIGIN, FILE_DESTINY)
+                } else if FILE_EXTENSION == ".tar.gz" || FILE_EXTENSION == ".tgz" {
+                    file::extract::family::tar::tar_gz(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".tar.lrz" {
+                //    file::extract::family::tar::tar_lzr(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".tar.lz" {
+                //    file::extract::family::tar::tar_lz(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".tar.lz4" {
+                //    file::extract::family::tar::tar_lz4(FILE_ORIGIN, FILE_DESTINY)
+                } else if FILE_EXTENSION == ".tar.xz" || FILE_EXTENSION == ".txz" || FILE_EXTENSION == ".xz" {
+                    file::extract::family::tar::tar_xz(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".tar.zma" || FILE_EXTENSION == ".tlz" {
+                //    file::extract::family::tar::tar_zma(FILE_ORIGIN, FILE_DESTINY)
+                } else if FILE_EXTENSION == ".tar.zst" || FILE_EXTENSION == ".tzst" || FILE_EXTENSION == ".zst" {
+                    file::extract::family::tar::tar_zst(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".war" {
+                //    file::extract::family::others::war(FILE_ORIGIN, FILE_DESTINY)               
+                //} else if FILE_EXTENSION == ".xz" {
+                //    file::extract::family::xz::xz(FILE_ORIGIN, FILE_DESTINY)
+                //} else if FILE_EXTENSION == ".z" {
+                //    file::extract::family::others::z(FILE_ORIGIN, FILE_DESTINY)
+                } else if FILE_EXTENSION == ".zip" {
+                    file::extract::family::zip::zip(FILE_ORIGIN, FILE_DESTINY)
+                } else {
+                    eprintln("Extract ${FILE_ORIGIN} could not be extracted!")
+                }
+            }
+        }
+
+        //@annotation_must_be_tested
+        module family{
+            //@annotation_must_be_tested
+            module bz{
+                //@annotation_must_be_tested
+                fn bz2(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { bunzip2 "${%FILE_ORIGIN}" }
+                }
+            }
+
+            //@annotation_must_be_implemented
+            module cpio{
+                /*
+                //@annotation_must_be_implemented
+                fn cpio(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { cpio -idmvF "${%FILE_ORIGIN}" }
+                }
+                */
+
+                //@annotation_must_be_improved
+                //pacman -S cpio rpmextract
+                fn rpm(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    system::os::directory::create(FILE_DESTINY)
+
+                    sh {
+                        cd "${%FILE_DESTINY}"
+                        rpmextract.sh "${%FILE_ORIGIN}" | cpio --quiet -id
+                        #rpm2cpio "${%FILE_ORIGIN}" | cpio --quiet -id
+                        #rpm2cpio "${%FILE_ORIGIN}" | cpio -idmv
+                        cd -
+                    }
+                }
+            }
+
+            //@annotation_must_be_tested
+            module gz{
+                //@annotation_must_be_tested
+                fn gz(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { gunzip -k "${%FILE_ORIGIN}" }
+                }
+            }
+
+            //@annotation_must_be_implemented
+            module lz{
+                /*
+                //@annotation_must_be_implemented
+                fn lz4(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { lz4 -d "${%FILE_ORIGIN}" }
+                }
+                */
+
+                /*
+                //@annotation_must_be_implemented
+                fn lzma(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { unlzma "${%FILE_ORIGIN}" }
+                }
+                */
+
+                /*
+                //@annotation_must_be_improved
+                fn lzr(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { lrunzip "${%FILE_ORIGIN}" }
+                }
+                */
+            }
+
+            //@annotation_must_be_implemented
+            module others{
+                /*
+                //@annotation_must_be_implemented
+                fn apk(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    //sh { tar xvjf "${%FILE_ORIGIN}" }
+                }
+                */
+
+                /*
+                //@annotation_must_be_implemented
+                fn appimage(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    //sh { tar xvjf "${%FILE_ORIGIN}" }
+                }
+                */
+
+                /*
+                //@annotation_must_be_implemented
+                fn cab(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh {
+                        mkdir -p "${%FILE_DESTINY}"
+                        cabextract -d "${%FILE_ORIGIN}" "${%FILE_DESTINY}"
+                    }
+                }
+                */
+                
+                /*
+                //@annotation_must_be_implemented
+                fn deb(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    //sh { tar xvjf "${%FILE_ORIGIN}" }
+
+                    sh {
+                        mkdir -p "${%FILE_ORIGIN}/control" "${%FILE_ORIGIN}/data"
+                        builtin cd -q "${%FILE_ORIGIN}" || exit; ar vx "$full_path" > /dev/null
+                        builtin cd -q control || exit; extract ../control.tar.*
+                        builtin cd -q ../data || exit; extract ../data.tar.*
+                        builtin cd -q .. || exit; command rm ./%%%%%%%%%%%*.tar.* debian-binary
+                    }
+                }
+                */
+
+                /*
+                //@annotation_must_be_implemented
+                fn jar(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    //sh { tar xvjf "${%FILE_ORIGIN}" }
+                }
+
+                //@annotation_must_be_implemented
+                fn lrz(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    //sh { tar xvjf "${%FILE_ORIGIN}" }
+                }
+
+                //@annotation_must_be_implemented
+                fn war(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    //sh { tar xvjf "${%FILE_ORIGIN}" }
+                }
+                */
+
+                /*
+                //@annotation_must_be_implemented
+                fn z(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { uncompress "${%FILE_ORIGIN}" }
+                }
+                */
+            }
+
+            module rar{
+                fn rar(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { unrar e "${%FILE_ORIGIN}" "${%FILE_DESTINY}" }
+                }
+            }
+
+            //@annotation_must_be_implemented
+            module tar{
+                fn tar(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    system::os::directory::create(FILE_DESTINY)
+                    sh { tar xvf "${%FILE_ORIGIN}" -C "${%FILE_DESTINY}" }
+                }
+
+                fn tar_bz2(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    system::os::directory::create(FILE_DESTINY)
+                    sh { tar xvjf "${%FILE_ORIGIN}" -C "${%FILE_DESTINY}" }
+                    //sh { tar -jvxf "${%FILE_ORIGIN}" -C "${%FILE_DESTINY}" }
+
+                    //tar -tvf archive.tar.bz2
+                    //# tar -jvxf documents.tbz2 -C /tmp/tar.bz2/ 
+                }
+
+                fn tar_gz(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    system::os::directory::create(FILE_DESTINY)
+                    sh { tar zxvf "${%FILE_ORIGIN}" -C "${%FILE_DESTINY}" }
+                }
+
+                /*
+                //@annotation_must_be_implemented
+                fn tar_lz(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    //tar --lzip -tf gmp-6.2.0.tar.lz
+                    sh { tar --lzip -tf "${%FILE_ORIGIN}" -C "${%FILE_DESTINY}" }
+                }
+                */
+                
+                /*
+                //@annotation_must_be_implemented
+                fn tar_lzr(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { lrzuntar xvjf "${%FILE_ORIGIN}" -C "${%FILE_DESTINY}" }
+                }
+                */
+
+                /*
+                //@annotation_must_be_implemented
+                fn tar_lz4(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { lz4 -c -d "${%FILE_ORIGIN}" | tar xvf - }
+                }
+                */
+
+                fn tar_xz(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    system::os::directory::create(FILE_DESTINY)
+                    sh { tar --xz -cvf "${%FILE_ORIGIN}" -C "${%FILE_DESTINY}" }
+                }
+
+                /*
+                //@annotation_must_be_implemented
+                fn tar_zma(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { tar --lzma -xvf "${%FILE_ORIGIN}" || lzcat "${%FILE_ORIGIN}" | tar xvf - }
+                }
+                */
+
+                fn tar_zst(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    system::os::directory::create(FILE_DESTINY)
+                    sh { tar --zstd -xvf "${%FILE_ORIGIN}" -C "${%FILE_DESTINY}" }
+                }
+            }
+
+            //@annotation_must_be_implemented
+            module xz{
+                /*
+                //@annotation_must_be_implemented
+                fn xz(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    //system::os::directory::create(FILE_DESTINY)
+                    sh { unxz "${%FILE_ORIGIN}" }
+                }
+                */
+            }
+
+            module zip{
+                fn p7zip(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { 7za x -y "${%FILE_ORIGIN}" -o"${%FILE_DESTINY}" }
+                }
+
+                fn zip(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh {
+                        unzip "${%FILE_ORIGIN}" -d "${%FILE_DESTINY}"
+                    }
+                }
+            }
+
+            //@annotation_must_be_implemented
+            module zst{
+                /*
+                //@annotation_must_be_implemented
+                fn zst(FILE_ORIGIN: string, FILE_DESTINY: string){
+                    sh { unzstd "${%FILE_ORIGIN}" }
+                }
+                */
+            }
+        }
+    }
+
+    //MUST BE DONE
+    module format{
+        /*
+        #@annotation_must_be_improved
+        utils_check_if_file_is_null(){
+            local PATH_FILE="$1"
+            local RESULT
+
+            if [[ $(utils_check_file_size_bits "$PATH_FILE") -le 0 ]]; then
+                RESULT="true"
+            else
+                RESULT="false"
+            fi
+
+            display_message_value_text_default_simple "$RESULT"
+        }
+        */
+
+        /*
+        #MUST BE FIXED
+        utils_check_if_file_format_is_binary(){
+            local FILE_NAME_FULL="$1"
+
+            case "$FILE_NAME_FULL" in
+                *".aac" | *".aif" | *".aiff" | *".flac" | *".mkv" | *".mp3" | *".mp4" | *".loss" | *".wav" | *".wma") echo "true" ;;
+                *) echo "false" ;;
+            esac
+        }
+
+        #MUST BE FIXED
+        utils_check_if_file_format_is_database(){
+            local FILE_NAME_FULL="$1"
+
+            case "$FILE_NAME_FULL" in
+                *".aac" | *".aif" | *".aiff" | *".flac" | *".mkv" | *".mp3" | *".mp4" | *".loss" | *".wav" | *".wma") echo "true" ;;
+                *) echo "false" ;;
+            esac
+        }
+
+        #MUST BE FIXED
+        utils_check_if_file_format_is_document(){
+            local FILE_NAME_FULL="$1"
+
+            case "$FILE_NAME_FULL" in
+                *".aac" | *".aif" | *".aiff" | *".flac" | *".mkv" | *".mp3" | *".mp4" | *".loss" | *".wav" | *".wma") echo "true" ;;
+                *) echo "false" ;;
+            esac
+        }
+
+        utils_check_if_file_format_is_music(){
+            local FILE_NAME_FULL="$1"
+
+            case "$FILE_NAME_FULL" in
+                *".aac" | *".aif" | *".aiff" | *".flac" | *".mkv" | *".mp3" | *".mp4" | *".loss" | *".wav" | *".wma") echo "true" ;;
+                *) echo "false" ;;
+            esac
+        }
+
+        #MUST BE FIXED
+        utils_check_if_file_format_is_picture(){
+            local FILE_NAME_FULL="$1"
+
+            case "$FILE_NAME_FULL" in
+                *".aac" | *".aif" | *".aiff" | *".flac" | *".mkv" | *".mp3" | *".mp4" | *".loss" | *".wav" | *".wma") echo "true" ;;
+                *) echo "false" ;;
+            esac
+        }
+
+        #MUST BE FIXED
+        utils_check_if_file_format_is_software(){
+            local FILE_NAME_FULL="$1"
+
+            case "$FILE_NAME_FULL" in
+                *".aac" | *".aif" | *".aiff" | *".flac" | *".mkv" | *".mp3" | *".mp4" | *".loss" | *".wav" | *".wma") echo "true" ;;
+                *) echo "false" ;;
+            esac
+        }
+
+        #MUST BE FIXED
+        utils_check_if_file_format_is_video(){
+            local FILE_NAME_FULL="$1"
+
+            case "$FILE_NAME_FULL" in
+                *".aac" | *".aif" | *".aiff" | *".flac" | *".mkv" | *".mp3" | *".mp4" | *".loss" | *".wav" | *".wma") echo "true" ;;
+                *) echo "false" ;;
+            esac
+        }
+        */
+    }
+
+    //MUST BE DONE
+    //module read{}
+
+    //MUST BE DONE
+    module size{
+        fn bits(PATH_FILE: string): float {}
+
+        fn byte(PATH_FILE: string): float {}
+
+        fn kilobits(PATH_FILE: string): float {}
+
+        fn kilobyte(PATH_FILE: string): float {}
+
+        fn megabits(PATH_FILE: string): float {}
+
+        fn megabyte(PATH_FILE: string): float {}
+
+        fn gigabits(PATH_FILE: string): float {}
+
+        fn gigabyte(PATH_FILE: string): float {}
+
+        fn terabits(PATH_FILE: string): float {}
+
+        fn terabyte(PATH_FILE: string): float {}
+    }
+}

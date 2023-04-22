@@ -1,0 +1,417 @@
+/*
+ * This module is dedicated to provide the essentials commands
+ * for offering the basic structure such as array manipulation,
+ * display messages with or without stylish, interact the user
+ * with shell and so on...
+*/
+
+module lang {    
+    module array{
+        module default{
+            fn array_length() {
+                sh {
+                    ARRAY_LIST=("$@")
+                    #echo "${ARRAY_LIST[@]}"
+                    eval "echo \$${ARRAY_LIST}_len"
+                }
+            }
+
+            fn (ARRAY_LIST: []any) get_size(): int {
+                var AUX: int
+
+                sh {
+                    #%AUX=$(array_len "%ARRAY_LIST")
+                    %AUX=$(lang_array_default_array_length "%ARRAY_LIST")
+                }
+
+                /*
+                pwsh {
+                    %AUX = %ARRAY_LIST.length
+                }
+                */
+
+                return AUX
+            }
+
+            fn (ARRAY_LIST: []any) is_empty(): bool {
+                if ARRAY_LIST.get_size() > 0 {
+                    return false
+                } else {
+                    return true
+                }
+            }
+
+            fn (ARRAY_LIST: []any) list_all() {
+                if ARRAY_LIST.is_empty() == false {
+                    var ARRAY_SIZE: int = ARRAY_LIST.get_size()
+
+                    for i in range(0, ARRAY_SIZE) {
+                        println("${ARRAY_LIST[i]}")
+                    }
+                }
+            }
+
+            /*
+            fn (ARRAY_LIST: []any) has_element(): bool {}
+
+            fn (ARRAY_LIST: []any) search_element(): int {}
+            */
+        }
+
+        module override_get_first{
+            fn (ARRAY_LIST: []any) get_first(): any {
+                if ARRAY_LIST.is_empty() == true {
+                    return null
+                } else {
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: any = ARRAY_LIST[0]
+
+                    return AUX
+                }
+            }
+            
+            fn (ARRAY_LIST: []string) get_first(): string {
+                if ARRAY_LIST.is_empty() == true {
+                    return null as string
+                } else {
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: string = ARRAY_LIST[0]
+
+                    return AUX
+                }
+            }
+            
+            fn (ARRAY_LIST: []int) get_first(): int {
+                if ARRAY_LIST.is_empty() == true {
+                    return null as int
+                } else {
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: int = ARRAY_LIST[0]
+
+                    return AUX
+                }
+            }
+            
+            fn (ARRAY_LIST: []float) get_first(): float {
+                if ARRAY_LIST.is_empty() == true {
+                    return null as float
+                } else {
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: float = ARRAY_LIST[0]
+
+                    return AUX
+                }
+            }
+        }
+
+        module override_get_index{
+            fn (ARRAY_LIST: []any) get_index(INDEX: int): any {
+                if ARRAY_LIST.is_empty() == true {
+                    return null
+                } else {
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: any = ARRAY_LIST[INDEX]
+
+                    return AUX
+                }
+            }
+            
+            fn (ARRAY_LIST: []string) get_index(INDEX: int): string {
+                if ARRAY_LIST.is_empty() == true {
+                    return null as string
+                } else {
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: string = ARRAY_LIST[INDEX]
+
+                    return AUX
+                }
+            }
+
+            fn (ARRAY_LIST: []int) get_index(INDEX: int): int {
+                if ARRAY_LIST.is_empty() == true {
+                    return null as int
+                } else {
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: int = ARRAY_LIST[INDEX]
+
+                    return AUX
+                }
+            }
+
+            fn (ARRAY_LIST: []float) get_index(INDEX: int): float {
+                if ARRAY_LIST.is_empty() == true {
+                    return null as float
+                } else {
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: float = ARRAY_LIST[INDEX]
+
+                    return AUX
+                }
+            }
+        }
+
+        module override_get_last{
+            fn (ARRAY_LIST: []any) get_last(): any {
+                if ARRAY_LIST.is_empty() == true {
+                    return null
+                } else {
+                    var ARRAY_SIZE: int = ARRAY_LIST.get_size()
+
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: any = ARRAY_LIST[ARRAY_SIZE - 1]
+
+                    return AUX
+                }
+            }
+
+            fn (ARRAY_LIST: []string) get_last(): string {
+                if ARRAY_LIST.is_empty() == true {
+                    return null as string
+                } else {
+                    var ARRAY_SIZE: int = ARRAY_LIST.get_size()
+
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: string = ARRAY_LIST[ARRAY_SIZE - 1]
+
+                    return AUX
+                }
+            }
+
+            fn (ARRAY_LIST: []int) get_last(): int {
+                if ARRAY_LIST.is_empty() == true {
+                    return null as int
+                } else {
+                    var ARRAY_SIZE: int = ARRAY_LIST.get_size()
+
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: int = ARRAY_LIST[ARRAY_SIZE - 1]
+
+                    return AUX
+                }
+            }
+
+            fn (ARRAY_LIST: []float) get_last(): float {
+                if ARRAY_LIST.is_empty() == true {
+                    return null as float
+                } else {
+                    var ARRAY_SIZE: int = ARRAY_LIST.get_size()
+
+                    //Return cannot be set directly and an aux variable must be created to solve it
+                    var AUX: float = ARRAY_LIST[ARRAY_SIZE - 1]
+
+                    return AUX
+                }
+            }
+        }
+
+        /*
+        module override_edit_first{
+            //fn edit_first(ARRAY: []any): any {}
+
+            //fn edit_first(ARRAY: []string): string {}
+
+            //fn edit_first(ARRAY: []int): int {}
+            
+            //fn edit_first(ARRAY: []float): float {}
+        }
+        */
+
+        /*
+        module override_edit_index{
+            //fn edit_index(ARRAY: []any): any {}
+
+            //fn edit_index(ARRAY: []string): string {}
+
+            //fn edit_index(ARRAY: []int): int {}
+            
+            //fn edit_index(ARRAY: []float): float {}
+        }
+        */
+
+        /*
+        module override_edit_last{
+            //fn edit_last(ARRAY: []any): any {}
+
+            //fn edit_last(ARRAY: []string): string {}
+
+            //fn edit_last(ARRAY: []int): int {}
+            
+            //fn edit_last(ARRAY: []float): float {}
+        }
+        */
+
+        /*
+        module override_insert_first{
+            //fn insert_first(ARRAY: []any): any {}
+
+            //fn insert_first(ARRAY: []string): string {}
+
+            //fn insert_first(ARRAY: []int): int {}
+            
+            //fn insert_first(ARRAY: []float): float {}
+        }
+        */
+
+        /*
+        module override_insert_index{
+            //fn insert_index(ARRAY: []any): any {}
+
+            //fn insert_index(ARRAY: []string): string {}
+
+            //fn insert_index(ARRAY: []int): int {}
+            
+            //fn insert_index(ARRAY: []float): float {}
+        }
+        */
+
+        /*
+        module override_insert_last{
+            //fn insert_last(ARRAY: []any): any {}
+
+            //fn insert_last(ARRAY: []string): string {}
+
+            //fn insert_last(ARRAY: []int): int {}
+            
+            //fn insert_last(ARRAY: []float): float {}
+        }
+        */
+
+        /*
+        module override_remove_first{]
+            fn remove_first(ARRAY: []any): any {}
+
+            fn remove_first(ARRAY: []string): string {}
+            
+            fn remove_first(ARRAY: []int): int {}
+
+            fn remove_first(ARRAY: []float): float {}
+        }
+        */
+
+        /*
+        module override_remove_index{
+            fn remove_index(ARRAY: []any): any {}
+
+            fn remove_index(ARRAY: []string): string {}
+         
+            fn remove_index(ARRAY: []int): int {}
+         
+            fn remove_index(ARRAY: []float): float {}
+        }
+        */
+
+        /*
+        module override_remove_last{
+            fn remove_last(ARRAY: []any): any {}
+
+            fn remove_last(ARRAY: []string): string {}
+
+            fn remove_last(ARRAY: []int): int {}
+            
+            fn remove_last(ARRAY: []float): float {}
+        }
+        */
+
+        /*
+        module override_sort{
+            fn sort(ARRAY: []any): any {}
+
+            fn sort(ARRAY: []string): string {}
+            
+            fn sort(ARRAY: []int): int {}
+            
+            fn sort(ARRAY: []float): float {}
+        }
+        */
+
+        /*
+        module override_sort_reverse{
+            fn sort_reverse(ARRAY: []any): any {}
+
+            fn sort_reverse(ARRAY: []string): string {}
+            
+            fn sort_reverse(ARRAY: []int): int {}
+            
+            fn sort_reverse(ARRAY: []float): float {}
+        }
+        */
+    }
+
+    module exit{
+        module default{
+            //fn default(): int {}
+
+            //fn check_code(STATUS_CODE: int): string {}
+        }
+
+        module status{
+            //fn incompatible_hardware(): int {} //
+            
+            //fn incompatible_operating_system(): int {} //
+            
+            //fn incompatible_shell(): int {} //
+            
+            //fn internet_is_not_available(): int {} //404
+            
+            //fn missing_dependency(): int {} //
+            
+            //fn missing_file(): int {} //
+            
+            //fn other(): int {} //
+            
+            //fn user_does_not_have_root_previledges(): int {} //
+        }
+    }
+}
+
+require '../libs/core_lang.li'
+
+module test_lang {
+    module array {
+        //Declaring array
+        var PKG_CONFIG: [] string = [
+            "/etc/alpine-release",
+            "/etc/arch-release",
+            "/etc/debian_version",
+            "/etc/gentoo-release",
+            "/etc/pacman.conf",
+            "/etc/paru.conf",
+            "/etc/redhat-release",
+            "/etc/slackpkg/slackpkg.conf", 
+            "/etc/SuSE-release"
+        ];
+
+        //Operations
+        assert(PKG_CONFIG.get_first() == "/etc/alpine-release");
+        assert(PKG_CONFIG.get_last() == "/etc/SuSE-release");
+        assert(PKG_CONFIG.get_size() == 9);
+          //PKG_CONFIG.lang::array::get_size(); //Syntax does not work
+        assert(PKG_CONFIG.get_index(3) == "/etc/gentoo-release");
+        assert(PKG_CONFIG.is_empty() == false);
+        //PKG_CONFIG.list_all();
+    }
+}
+
+// ---
+
+cut --characters 8- | \
+
+/*
+sh {
+    curl --silent "https://github.com/saint-13/Linux_Dynamic_Wallpapers/tree/main/Dynamic_Wallpapers" | \
+        grep --only-matching "title=.*data-turbo-frame=" | \
+        sed 's/title="//g' | \
+        sed 's/.xml.*//g' \
+        || \
+    wget -O - "https://github.com/saint-13/Linux_Dynamic_Wallpapers/tree/main/Dynamic_Wallpapers" | \
+        grep --only-matching "title=.*data-turbo-frame=" | \
+        sed 's/title="//g' | \
+        sed 's/.xml.*//g'
+}
+*/
+
+if (THEME_NAME != "") {
+    sh {
+        %RESULT=$(echo -e $%RESULT | grep "$%THEME_NAME")
+    }
+}

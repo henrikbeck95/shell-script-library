@@ -1,0 +1,46 @@
+module convertPath {
+    fn fromWindowsToUnixMnt(PATH_FILE: string): string {
+        var PATH_FILE_SLASH: string = str::edit::replace::character::argument::from_backslash_to_slash(PATH_FILE)
+        var DISK_PARTITION_LETTER: string = str::get::character::argument::firstest(PATH_FILE_SLASH)
+        var DISK_PARTITION_LOWER: string = str::edit::replace::character::argument::from_upper_to_lower(DISK_PARTITION_LETTER)
+
+        var AUX: string = str::get::character::argument::after_n_element("$PATH_FILE_SLASH/", 3, -1)
+
+        return "/mnt/$DISK_PARTITION_LOWER/$AUX"
+    }
+
+    fn fromWindowsToUnixRaw(PATH_FILE: string): string {
+        var PATH_FILE_SLASH: string = str::edit::replace::character::argument::from_backslash_to_slash(PATH_FILE)
+        var DISK_PARTITION_LETTER: string = str::get::character::argument::firstest(PATH_FILE_SLASH)
+        var DISK_PARTITION_LOWER: string = str::edit::replace::character::argument::from_upper_to_lower(DISK_PARTITION_LETTER)
+
+        var AUX: string = str::get::character::argument::after_n_element("$PATH_FILE_SLASH/", 3, -1)
+
+        return "/$DISK_PARTITION_LOWER/$AUX"
+    }
+
+    fn fromUnixToWindowsMnt(PATH_FILE: string): string {
+        var PATH_FILE_BACKSLASH: string = str::edit::replace::character::argument::from_slash_to_backslash(PATH_FILE)
+        var DISK_PARTITION_LETTER: string = str::get::character::argument::after_n_element(PATH_FILE_BACKSLASH, 5, 1)
+        var DISK_PARTITION_UPPER: string = str::edit::replace::character::argument::from_lower_to_upper(DISK_PARTITION_LETTER)
+
+        var AUX: string = str::get::character::argument::after_n_element("$PATH_FILE_BACKSLASH/", 7, -1) // Users\PC
+
+        return "$DISK_PARTITION_UPPER:\\$AUX"
+    }
+
+    fn fromUnixToWindowsRaw(PATH_FILE: string): string {
+        var PATH_FILE_BACKSLASH: string = str::edit::replace::character::argument::from_slash_to_backslash(PATH_FILE)
+        var DISK_PARTITION_LETTER: string = str::get::character::argument::after_n_element(PATH_FILE_BACKSLASH, 1, 1)
+        var DISK_PARTITION_UPPER: string = str::edit::replace::character::argument::from_lower_to_upper(DISK_PARTITION_LETTER)
+
+        var AUX: string = str::get::character::argument::after_n_element("$PATH_FILE_BACKSLASH/", 3, -1) // Users\PC
+
+        //return PATH_FILE_BACKSLASH	// \c\Users\PC
+        //return DISK_PARTITION_LETTER	// c
+        //return DISK_PARTITION_UPPER	// C
+        //return AUX					// Users\PC
+        
+        return "$DISK_PARTITION_UPPER:\\$AUX"
+    }
+}

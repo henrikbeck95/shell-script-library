@@ -1,0 +1,62 @@
+module json {
+    fn outputBeautify(JSON_OUTPUT: string): string {
+        var AUX: string = ""
+
+        sh {
+            %AUX=$(echo "${%JSON_OUTPUT}" | jq ".")
+        }
+
+        return AUX
+    }
+    
+    fn outputMinify(JSON_OUTPUT: string): string {
+        var AUX: string = ""
+
+        sh {
+            %AUX=$(echo "${%JSON_OUTPUT}" | jq -c ".")
+        }
+
+        return AUX
+    }
+
+    fn outputTag(JSON_OUTPUT: string, TAG: string): string {
+        var AUX: string = ""
+
+        sh {
+            %AUX=$(echo "${%JSON_OUTPUT}" | jq ".${%TAG}")
+        }
+
+        return AUX
+    }   
+
+    fn requestBeautify(LINK_URL: string): string {
+        var AUX: string = ""
+
+        sh {
+            %AUX=$(eval curl -s ${%LINK_URL} | jq ".")
+        }
+
+        return AUX
+    }
+
+    fn requestMinify(LINK_URL: string): string {
+        var AUX: string = ""
+
+        sh {
+            %AUX=$(eval curl -s ${%LINK_URL} | jq -c ".")
+        }
+
+        return AUX
+    }
+
+    fn requestTag(LINK_URL: string, TAG: string): string {
+        var AUX: string = ""
+        var JSON: string = requestBeautify(LINK_URL)
+
+        sh {
+            %AUX=$(echo ${%JSON} | jq ".${%TAG}")
+        }
+
+        return AUX
+    }
+}

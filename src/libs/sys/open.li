@@ -1,0 +1,77 @@
+/// This module is dedicated to run the installed softwares.
+module open {
+    //fn browserBrave(URL_LINK: string) {}
+
+    fn browserChrome(URL_LINK: string) {
+        google-chrome-stable "$%URL_LINK" || {
+            echo 'http error' >&2
+            #exit 1
+        }
+    }
+
+    //fn browserChromium(URL_LINK: string) {}
+
+    fn browserDefault(URL_LINK: string) {
+        sh {
+            xdg-open "$%URL_LINK" || {
+                echo 'http error' >&2
+                #exit 1
+            }
+        }
+    }
+
+    fn browserFirefox(URL_LINK: string) {
+        firefox "$%URL_LINK" || {
+            echo 'http error' >&2
+            #exit 1
+        }
+    }
+
+    fn editorDefault(PATH_FILE: string) {
+        sh {
+            "$EDITOR" "$%PATH_FILE"
+        }
+    }
+
+    fn editorGedit(PATH_FILE: string) {
+        sh {
+            gedit "$%PATH_FILE"
+        }
+    }
+
+    fn editorJoe(PATH_FILE: string) {
+        sh {
+            joe "$%PATH_FILE"
+        }
+    }
+
+    fn editorKate(PATH_FILE: string) {
+        sh {
+            kate "$%PATH_FILE"
+        }
+    }
+
+    fn editorNano(PATH_FILE: string) {
+        sh {
+            nano "$%PATH_FILE"
+        }
+    }
+
+    fn editorNeovim(PATH_FILE: string) {
+        sh {
+            nvim -O "$%PATH_FILE"
+        }
+    }
+
+    fn editorVi(PATH_FILE: string) {
+        sh {
+            vi -O "$%PATH_FILE"
+        }
+    }
+
+    fn editorVim(PATH_FILE: string) {
+        sh {
+            vim -O "$%PATH_FILE"
+        }
+    }
+}

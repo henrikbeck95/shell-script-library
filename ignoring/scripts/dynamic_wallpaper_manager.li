@@ -1,0 +1,350 @@
+// -*- mode: bash -*-
+// vi: set ft=bash :
+// vi: set ts=4 :
+
+/*
+Viver 7 da semana trabalhando ao invés de viver 2 - PVC
+Ser o algodão entre os cristais
+
+require 'github:cotowali/cotowali@main/examples/hello_world.li'
+require 'https://raw.githubusercontent.com/cotowali/cotowali/main/examples/hello_world.li'
+
+require 'github:cotowali/cotowali@main/tests/empty.li' {
+  md5   : 'd41d8cd98f00b204e9800998ecf8427e',
+  sha1  : 'da39a3ee5e6b4b0d3255bfef95601890afd80709',
+  sha256: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+}
+
+require './';
+require './math.li'
+require './utils.li'
+
+if system::command::has_command("nc") == true {
+*/
+
+// require 'utils.li'
+// require 'utilities.li'
+
+fn check_if_user_is_root(): bool {
+    var ID_USER: int;
+
+    sh {
+        %ID_USER="$UID"
+    }
+
+    if (ID_USER == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+fn check_desktop_environment(): string {
+    var DESKTOP_ENVIRONMENT: string
+
+    sh {
+        %DESKTOP_ENVIRONMENT=$(echo "$XDG_CURRENT_DESKTOP")
+    }
+
+    return charReplaceCaseAllFromLowerToUpperFromDisplay(DESKTOP_ENVIRONMENT);
+}
+
+// https://github.com/saint-13/Linux_Dynamic_Wallpapers/tree/main/Dynamic_Wallpapers
+// https://github.com/saint-13/Linux_Dynamic_Wallpapers/trunk/Dynamic_Wallpapers
+// https://raw.githubusercontent.com/saint-13/Linux_Dynamic_Wallpapers/main/Dynamic_Wallpapers
+// echo "https://github.com/saint-13/Linux_Dynamic_Wallpapers/tree/main/Dynamic_Wallpapers" | sed 's/github.com/raw.githubusercontent.com/g' | sed 's/tree\///g'
+
+fn convert_string_repository_from_git_to_raw(URL_REPOSITORY: string): string {
+    var RESULT: string;
+
+    sh {
+        %RESULT=$(echo "$%URL_REPOSITORY" | sed 's/github.com/raw.githubusercontent.com/g' | sed 's/tree\///g')
+    }
+
+    return RESULT;
+}
+
+fn convert_string_repository_from_git_to_subversion(URL_REPOSITORY: string): string {
+    var RESULT: string;
+
+    sh {
+        %RESULT=$(echo "$%URL_REPOSITORY" | sed 's/tree\/main/trunk/g')
+    }
+
+    return RESULT;
+}
+
+/// already implemented on shell-script-library::char
+fn charReplaceCaseAllFromLowerToUpperFromDisplay(valueTextContent: string): string {
+    var aux: string = "";
+
+    sh {
+        %aux="${%valueTextContent,,}" || %aux=$(echo "$%valueTextContent" | sed 's/[A-Z]/\L&/g')
+        #%aux=$(echo "$%valueTextContent" | awk '{print tolower($0)}')
+    }
+
+    return aux;
+}
+
+fn display_file(PATH_FILE: string) {
+    sh {
+        bat "$%PATH_FILE" || \
+            less "$%PATH_FILE" || \
+            cat "$%PATH_FILE"
+    }
+}
+
+// fn download_file_recusive() {}
+
+// fn download_file_noise(FILE_URL: string, PATH_DESTINY: string) {}
+
+fn download_file_silent(FILE_URL: string, PATH_DESTINY: string) {
+    // @mkdir_p(PATH_DESTINY);
+    // @cd(PATH_DESTINY);
+
+    sh {
+        # curl --silent -L -O "$%FILE_URL" || \
+            #wget -q -O- "$%FILE_URL"
+        curl --silent "$%FILE_URL" -L -o "$%PATH_DESTINY" || \
+            wget -q -O- "$%FILE_URL" -O "$%PATH_DESTINY"
+    }
+
+    // @cd("-");
+}
+
+// fn download_repository_full() {}
+
+fn download_repository_partial(URL_REPOSITORY_PATH: string, PATH_DESTINY: string) {
+    @mkdir_p(PATH_DESTINY);
+    @cd(PATH_DESTINY);
+
+    // svn export "${URL_BASE_SUBVERSION}/${THEME_NAME}", PATH_THEME_WALLPAPER
+    
+    sh {
+        svn export "$%URL_REPOSITORY_PATH"
+    }
+
+    @cd("-");
+}
+
+// MUST BE TESTED
+/// API IS ALREADY AVAILABLE BUT WITHOUT CONTENT
+fn settings_wallpaper_set(PATH_THEME_WALLPAPER: string, THEME_NAME: string) {
+    sh {
+        # gsettings set org.gnome.desktop.background picture-uri-dark \
+
+        gsettings set org.gnome.desktop.background picture-uri \
+            file://"${%PATH_THEME_WALLPAPER}/${%THEME_NAME}.xml"
+        
+        # file:///usr/share/backgrounds/ubuntu-default-greyscale-wallpaper.png
+    }
+}
+
+// ???
+
+fn theme_wallpaper_download(URL_REPOSITORY: string, THEME_NAME: string, PATH_THEME_WALLPAPER: string) {
+    var URL_BASE_SUBVERSION: string = convert_string_repository_from_git_to_subversion(URL_REPOSITORY);
+    var URL_BASE_RAW: string = convert_string_repository_from_git_to_raw(URL_REPOSITORY);
+    
+    // Create directory if it does not exists
+    @mkdir_p(PATH_THEME_WALLPAPER);
+
+    // Go to created directory
+    @cd(PATH_THEME_WALLPAPER);
+
+    println("Downloading $THEME_NAME wallpaper theme from $URL_REPOSITORY repository");
+    // println("${URL_BASE_SUBVERSION}/${THEME_NAME}");
+    // println("${URL_BASE_RAW}/${THEME_NAME}.xml");
+
+    // Get only the files from the repository directory path without cloning it
+    download_repository_partial("${URL_BASE_SUBVERSION}/${THEME_NAME}", PATH_THEME_WALLPAPER);
+    
+    // Get the single .xml file
+    download_file_silent("${URL_BASE_RAW}/${THEME_NAME}.xml", "${PATH_THEME_WALLPAPER}/${THEME_NAME}.xml");
+
+    // Go back to the previous path directory
+    @cd("-");
+}
+
+fn theme_wallpaper_list(PATH_WALLPAPER: string) {
+    sh {
+        for i in "${%PATH_WALLPAPER}"/*; do
+            echo "$i" | \
+                grep --invert-match ".xml" | \
+                sed 's/.*Wallpapers\///g'
+        done
+    }
+}
+
+fn theme_wallpaper_remove(PATH_THEME_WALLPAPER: string, THEME_NAME: string) {
+    var PATH_FILE: string = "${PATH_THEME_WALLPAPER}/${THEME_NAME}.xml";
+    var PATH_DIRECTORY: string = "${PATH_THEME_WALLPAPER}/${THEME_NAME}/";
+
+    println("Uninstalling the $THEME_NAME...");
+
+    rm(PATH_FILE);
+    rm_r(PATH_DIRECTORY);
+}
+
+fn theme_wallpaper_search(URL_REPOSITORY_DIRECTORY: string, PATH_THEME_WALLPAPER: string) {
+    var PATH_FILE_AUX: string = "/tmp/yupper_wallpaper_search.aux";
+    var PATH_FILE_TMP: string = "/tmp/yupper_wallpaper_search.tmp";
+
+    download_file_silent(URL_REPOSITORY_DIRECTORY, PATH_FILE_AUX);
+
+    sh {
+        # RESULT=$(cat "$PATH_FILE_TMP" | \
+        #     grep --only-matching "title=.*data-turbo-frame=" | \
+        #     sed 's/title="//g' | \
+        #     sed 's/.xml.*//g')
+
+        cat "$%PATH_FILE_AUX" | \
+            grep --only-matching "title=.*data-turbo-frame=" | \
+            sort | \
+            uniq --unique \
+            > "$%PATH_FILE_TMP"
+        
+        # sed -i 's/old-text/new-text/g' input.txt
+        sed -i 's/title=//g' "$%PATH_FILE_TMP"
+        sed -i 's/.xml.*//g' "$%PATH_FILE_TMP"
+        sed -i 's/data-turbo-frame=//g' "$%PATH_FILE_TMP"
+        sed -i 's/\"//g' "$%PATH_FILE_TMP" # Remove all double quotes
+
+        # Get only the first column by removing all spaces
+        awk '{print $1}' "$%PATH_FILE_TMP" \
+            > "$%PATH_FILE_AUX"
+        
+        sort -u "$%PATH_FILE_AUX" \
+            > "$%PATH_FILE_TMP"
+    }
+
+    display_file(PATH_FILE_TMP);
+
+    rm(PATH_FILE_AUX);
+    rm(PATH_FILE_TMP);
+}
+
+/// ##############################
+/// # Instructions
+/// ##############################
+/// #
+/// # - Dependencies
+/// # Sh, Subversion, cURL or wGET
+/// #
+/// # - Example
+/// # curl --silent https://raw.githubusercontent.com/saint-13/Linux_Dynamic_Wallpapers/main/Dynamic_Wallpapers/BigSur.xml
+/// # svn export https://github.com/saint-13/Linux_Dynamic_Wallpapers/trunk/Dynamic_Wallpapers/BigSur
+/// ##############################
+
+/*
+EDITOR="nvim"
+
+AUX0="$0"
+AUX1="$1"
+AUX2="$2"
+
+URL_FILE_WALLPAPER="https://github.com/saint-13/Linux_Dynamic_Wallpapers/trunk/Dynamic_Wallpapers"
+URL_FILE_XML="https://raw.githubusercontent.com/saint-13/Linux_Dynamic_Wallpapers/main/Dynamic_Wallpapers"
+
+if [[ "$UID" -eq 0 ]]; then
+	PATH_WALLPAPER="/usr/share/backgrounds"
+	PATH_WALLPAPER="/usr/share/backgrounds/Dynamic_Wallpapers"
+else
+	#PATH_WALLPAPER="/tmp/testing"
+	PATH_WALLPAPER="${HOME}/.local/share/wallpapers"
+fi
+
+MESSAGE_HEADER="
+##############################
+# Dynamic Wallpaper Manager - DWM
+##############################
+"
+
+MESSAGE_CREDITS="$MESSAGE_HEADER
+Author: Henrik Beck
+E-mail: henrikbeck95@gmail.com
+License: GPL3
+Version: v0.0.1
+"
+
+MESSAGE_HELP="$MESSAGE_HEADER
+-h\t--help\t-?\t\tDisplay this help message
+-e\t--edit\t\t\tEdit this script file
+-v\t--version\t\tDisplay this script file credits
+-d\t--download-theme\tDownload a dynamic wallpaper
+-a\t--apply-theme\tApply dynamic wallpaper
+
+- Usage example
+$AUX0 --download-theme <theme_name>
+$AUX0 --download-theme BigSur
+"
+
+MESSAGE_ERROR="Invalid option for ${AUX0}!\n$MESSAGE_HELP"
+
+##############################
+# Calling the functions
+##############################
+
+case "$AUX1" in
+	"" | "-h" | "--help" | "-?") echo -e "$MESSAGE_HELP" ;;
+	"-e" | "--edit") "$EDITOR" "$AUX0" ;;
+	"-v" | "--version") echo -e "$MESSAGE_CREDITS" ;;
+	"-d" | "--download-theme") theme_download "$AUX2" ;;
+	"-a" | "--apply-theme") theme_apply "$AUX2" ;;
+	*) echo -e "$MESSAGE_ERROR" ;;
+esac
+*/
+
+fn main(ARGS1: string, ARGS2: string) {
+    var PATH_THEME_WALLPAPER: string = "/usr/share/backgrounds/Dynamic_Wallpapers";
+    var URL_REPOSITORY_DIRECTORY: string = "https://github.com/saint-13/Linux_Dynamic_Wallpapers/tree/main/Dynamic_Wallpapers";
+
+    if (ARGS1 == "apply") {
+        theme_wallpaper_apply(PATH_THEME_WALLPAPER, ARGS2);
+    } else if (ARGS1 == "install") {
+        theme_wallpaper_download(URL_REPOSITORY_DIRECTORY, ARGS2, PATH_THEME_WALLPAPER);
+    } else if (ARGS1 == "list") {
+        theme_wallpaper_list(PATH_THEME_WALLPAPER);
+    } else if (ARGS1 == "remove") {
+        theme_wallpaper_remove(PATH_THEME_WALLPAPER, ARGS2);
+    } else if (ARGS1 == "search") {
+        theme_wallpaper_search(URL_REPOSITORY_DIRECTORY, PATH_THEME_WALLPAPER);
+    } else {
+        println("Invalid option!");
+    }    
+}
+
+// fn display_message_error() {}
+// fn display_message_help() {}
+// fn display_message_version() {}
+
+fn theme_wallpaper_apply(PATH_THEME_WALLPAPER: string, THEME_NAME: string) {
+    var DESKTOP_ENVIRONMENT: string = check_desktop_environment();
+
+    if (DESKTOP_ENVIRONMENT == "gnome") {
+        settings_wallpaper_set(PATH_THEME_WALLPAPER, THEME_NAME);
+    } else if (DESKTOP_ENVIRONMENT == "hyprland") {
+        sh {
+            # yupper-wallpaper --edit
+            # yupper-wallpaper --apply-theme "$%THEME_NAME"
+            # /home/henrikbeck95/.local/bin/
+            yupper-background
+        }
+    } else {
+        println("Not supported yet for ${DESKTOP_ENVIRONMENT} desktop environment!");
+    }
+}
+
+var ARGS1: string = "apply";
+// var ARGS1: string = "install";
+// var ARGS1: string = "list";
+// var ARGS1: string = "remove";
+// var ARGS1: string = "search";
+
+var ARGS2: string = "BigSur"
+// var ARGS2: string = "Catalina";
+// var ARGS2: string = "Elementary-OS-Odin"
+// var ARGS2: string = "LofiCity"
+// var ARGS2: string = "MagicLake"
+
+main(ARGS1, ARGS2);

@@ -1,0 +1,28 @@
+module github {
+    fn clone(PATH_REPOSITORY_URL: string, PATH_DESTINY: string){
+        if PATH_DESTINY == "" {
+            PATH_DESTINY = directory::get_current_path()
+        }
+
+        directory::create(PATH_DESTINY)
+
+        sh {
+            cd "$%PATH_DESTINY"
+            git clone "$%PATH_REPOSITORY_URL"
+            cd -
+        }
+    }
+    
+    fn downloadFileVersionLatest(REPOSITORY_OWNER: string, REPOSITORY_NAME: string, REPOSITORY_FILE: string){
+        var AUX: string = generateLinkFileVersionLatest(REPOSITORY_OWNER, REPOSITORY_NAME, REPOSITORY_FILE)
+
+        download::fileSilence(AUX, "")
+    }
+
+    //@annotation_must_be_improved
+    fn generateLinkFileVersionLatest(REPOSITORY_OWNER: string, REPOSITORY_NAME: string, REPOSITORY_FILE: string): string {
+        //Should create a verification if file is available
+
+        return "https://github.com/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/releases/latest/download/${REPOSITORY_FILE}"
+    }
+}

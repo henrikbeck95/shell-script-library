@@ -1,0 +1,15 @@
+module formatTime {
+    /*
+    //extra::convertion::time::from_string_to_amount_of_seconds("hh:mm:ss")
+    //extra::convertion::time::from_string_to_amount_of_seconds("hh:mm:ss.xyz")
+    extra::convertion::time::from_string_to_amount_of_seconds("01:03:41")
+
+    //extra::convertion::time::from_string_to_amount_of_minutes("hh:mm:ss")
+    //extra::convertion::time::from_string_to_amount_of_minutes("hh:mm:ss.xyz")
+    extra::convertion::time::from_string_to_amount_of_minutes("01:03:41")
+
+    //extra::convertion::time::from_string_to_amount_of_hours("hh:mm:ss")
+    //extra::convertion::time::from_string_to_amount_of_hours("hh:mm:ss.xyz")
+    extra::convertion::time::from_string_to_amount_of_hours("01:03:41")
+    */
+}

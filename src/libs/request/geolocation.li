@@ -1,0 +1,67 @@
+module geolocation{
+    fn getCity(): string {
+        return http::get("http://ip-api.com/line?fields=city")
+    }
+
+    fn getContinentCode(): string {
+        return http::get("http://ip-api.com/line?fields=continentCode")
+    }
+
+    fn getContinentName(): string {
+        return http::get("http://ip-api.com/line?fields=continent")
+    }
+
+    fn getCountryName(): string {
+        return http::get("http://ip-api.com/line?fields=country")
+    }
+
+    fn getCountryCode(): string {
+        return http::get("http://ip-api.com/line?fields=countryCode")
+    }
+
+    fn getCurrency(): string {
+        return http::get("http://ip-api.com/line?fields=currency")
+    }
+
+    fn getIp(): string {
+        //return http::get("https://ifconfig.me/")
+        return http::get("http://ip-api.com/line?fields=query")
+    }
+
+    /*
+    fn getIpLocalhost(): string {
+        var AUX: string = ""
+
+        sh {
+            #%AUX=$(ip addr | grep "inet " | awk '{print $2}')
+            %AUX=$(ip addr | grep "inet " | grep "scope global" | awk '{print $2}')
+        }
+
+        return AUX
+    }
+    */
+
+    fn getLatitude(): string {
+        return http::get("http://ip-api.com/line?fields=lat")
+    }
+
+    fn getLongitude(): string {
+        return http::get("http://ip-api.com/line?fields=lon")
+    }
+
+    fn getRegionInitials(): string {
+        return http::get("http://ip-api.com/line?fields=region")
+    }
+
+    fn getRegionName(): string {
+        return http::get("http://ip-api.com/line?fields=regionName")
+    }
+
+    fn getTimezone(): string {
+        return http::get("http://ip-api.com/line?fields=timezone")
+    }
+
+    fn getZip(): string {
+        return http::get("http://ip-api.com/line?fields=zip")
+    }
+}

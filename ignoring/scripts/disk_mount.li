@@ -1,0 +1,96 @@
+/// already implemented on shell-script-library::char
+fn charRemoveLastAllFromDisplay(STRING: string): string {
+    var RESULT: string;
+
+    sh {
+        # RESULT=$(echo "$STRING" | sed 's/://g')
+        %RESULT=$(echo "$%STRING" | sed 's/.$//')
+    }
+
+    return RESULT;
+}
+
+fn rclone_mount_single(DRIVE_NAME: string, PATH_DIRECTORY_DRIVE: string, PATH_DIRECTORY_LOCAL: string) {
+    sh {
+        rclone mount \
+            --allow-non-empty \
+            -v ${%DRIVE_NAME}:${%PATH_DIRECTORY_DRIVE} ${%PATH_DIRECTORY_LOCAL} &
+    }
+}
+
+fn rclone_unmount_single(PATH_DIRECTORY_LOCAL: string) {
+    sh {
+        umount "${%PATH_DIRECTORY_LOCAL}"
+    }
+}
+
+fn rclone_all_mount(PATH_DIRECTORY_MOUNT: string) {
+    sh {
+        DRIVE_REMOTE_LIST=$(rclone listremotes)
+        AUX=""
+
+        while IFS= read -r i; do
+            AUX=$(charRemoveLastAllFromDisplay "$i")
+            echo "Mounting ${AUX} driver to ${%PATH_DIRECTORY_MOUNT}/${AUX}/..."
+            rclone_mount_single "${AUX}" "" "${%PATH_DIRECTORY_MOUNT}/${AUX}"
+        done <<< "$DRIVE_REMOTE_LIST"
+    }
+}
+
+fn rclone_all_unmount(PATH_DIRECTORY_MOUNT: string) {
+    sh {
+        DRIVE_REMOTE_LIST=$(rclone listremotes)
+        AUX=""
+
+        while IFS= read -r i; do
+            AUX=$(charRemoveLastAllFromDisplay "$i")
+            echo "Unmounting ${AUX} driver from ${PATH_DIRECTORY_MOUNT}/${AUX}/..."
+            rclone_unmount_single "${PATH_DIRECTORY_MOUNT}/${AUX}"
+        done <<< "$DRIVE_REMOTE_LIST"
+    }
+}
+
+fn main(ARGS0: string, ARGS1: string, ARGS2: string) {
+    var PATH_DIRECTORY_MOUNT: string = "/home/henrikbeck95/Documents";
+
+    if (ARGS1 == "" || ARGS1 == "-h" || ARGS1 == "--help" || ARGS1 == "-?") {
+        println("Display this help message");
+    } else if (ARGS1 == "-e" || ARGS1 == "--edit") {
+        // sh { EDITOR="nvim" ; "$EDITOR" "$AUX00" }
+        sh { EDITOR="nvim" ; "$EDITOR" "$AUX00" }
+    } else if (ARGS1 == "-ma" || ARGS1 == "--mount-all") {
+        rclone_all_mount(PATH_DIRECTORY_MOUNT);
+    } else if (ARGS1 == "-md" || ARGS1 == "--mount-dropbox") {
+        rclone_mount_single("DropBox", "", "${PATH_DIRECTORY_MOUNT}/DropBox");
+    } else if (ARGS1 == "-mg" || ARGS1 == "--mount-google-drive") {
+        rclone_mount_single("GoogleDrive", "", "${PATH_DIRECTORY_MOUNT}/GoogleDrive");
+    } else if (ARGS1 == "-mo" || ARGS1 == "--mount-onedrive") {
+        rclone_mount_single("OneDrive", "", "${PATH_DIRECTORY_MOUNT}/OneDrive");
+    } else if (ARGS1 == "-ua" || ARGS1 == "--unmount-all") {
+        rclone_all_unmount(PATH_DIRECTORY_MOUNT);
+    } else if (ARGS1 == "-ud" || ARGS1 == "--unmount-dropbox") {
+        rclone_unmount_single("${PATH_DIRECTORY_MOUNT}/DropBox");
+    } else if (ARGS1 == "-ug" || ARGS1 == "--unmount-google-drive") {
+        rclone_unmount_single("${PATH_DIRECTORY_MOUNT}/GoogleDrive");
+    } else if (ARGS1 == "-uo" || ARGS1 == "--unmount-onedrive") {
+        rclone_unmount_single("${PATH_DIRECTORY_MOUNT}/OneDrive");
+    } else {
+        println("Invalid option for $ARGS0");
+    }
+}
+
+// Calling the functions
+
+var AUX00: string = "";
+var AUX01: string = "";
+var AUX02: string = "";
+
+sh {
+    %AUX00="$0"
+    %AUX01="$1"
+    %AUX02="$2"
+
+    # echo -e "$0 -> $1 -> $2"
+}
+
+main("$AUX00", "$AUX01", "$AUX02");

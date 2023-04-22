@@ -1,0 +1,10 @@
+module convertMusic {
+    //fn fromMkvToMp3() {}
+    //fn fromMkvToMp4() {}
+    
+    //fn fromMp3ToMkv() {}
+    //fn fromMp3ToMp4() {}
+
+    //fn fromMp4ToMkv() {}
+    //fn fromMp4ToMp3() {}
+}

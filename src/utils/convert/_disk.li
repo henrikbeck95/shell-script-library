@@ -1,0 +1,11 @@
+/// Virtualization disks
+module convertDisk {
+    //fn fromQcow2ToVdi() {}
+    //fn fromQcow2ToVdk() {}
+
+    //fn fromVdiToQcow2() {}
+    //fn fromVdiToVdk() {}
+    
+    //fn fromVdkToQcow2() {}
+    //fn fromVdkToVdi() {}
+}

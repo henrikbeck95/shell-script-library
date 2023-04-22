@@ -1,0 +1,124 @@
+module wttr{
+    // Operators
+
+    fn contentFull(CITY: string, LANGUAGE: string): string {
+        var AUX: string = ""
+
+        /*
+        //Verify if LANGUAGE is a valid value
+        var LANGUAGE_SUPPORTED: [] string = [
+            "am", "ar", "af", "be", "bn",
+            "ca", "da", "de", "el", "et",
+            "fa", "fr", "hi", "hu", "ia",
+            "id", "it", "lt", "mg", "nb",
+            "nl", "oc", "pl", "pt-br", "ro",
+            "ru", "ta", "tr", "th", "uk",
+            "vi", "zh-cn", "zh-t"
+        ]
+        */
+
+        sh { %AUX=$(curl -s https://wttr.in/${%CITY}\?lang=${%LANGUAGE}) }
+
+        return AUX
+    }
+
+    fn contentSimple(CITY: string): string {
+        var AUX: string = ""
+
+        sh { %AUX=$(curl -s https://wttr.in/${%CITY}\?format="%%C+%%h+%%t+%%f+%%w+%%P+%%u+%%D+%%S+%%z+%%s+%%d+%%T+%%Z\n") }
+
+        return AUX
+    }
+
+    // Functionalities
+
+    fn all(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return AUX
+    }
+
+    fn condition(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $1}'))
+    }
+
+    fn dawn(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $8}'))
+    }
+        
+    fn dusk(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $12}'))
+    }
+        
+    fn humidity(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $2}'))
+    }
+
+    fn pressure(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $6}'))
+    }
+
+    fn sunrise(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $9}'))
+    }
+
+    fn sunset(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $11}'))
+    }
+
+    fn temperature_actual(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $3}'))
+    }
+        
+    fn temperature_sensation(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $4}'))
+    }
+
+    fn time_current(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $13}'))
+    }
+
+    fn time_timezone(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $14}'))
+    }
+
+    fn uv_index(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $7}'))
+    }
+        
+    fn wind(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $5}'))
+    }
+
+    fn zenith(CITY: string): string {
+        var AUX: string = contentSimple(CITY)
+
+        return (AUX |> @awk('-F', " ", '{print $10}'))
+    }   
+}

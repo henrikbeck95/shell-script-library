@@ -1,0 +1,78 @@
+module download {
+    //fn directoryNoise() {}
+    
+    //fn directorySilence() {}
+
+    fn fileNoise(PATH_URL: string, PATH_DESTINY: string = "") {
+        //Should verify if there is an internet connection first
+
+        println("Downloading file from: ${PATH_URL}")
+
+        if PATH_DESTINY == "" {
+            PATH_DESTINY = directory::get_current_path()
+        }
+
+        directory::create(PATH_DESTINY)
+
+        sh {
+            curl -C -L -O "$%PATH_URL" -o "$%PATH_DESTINY" || wget -c "$%PATH_URL" -O "$%PATH_DESTINY"
+        }
+    }
+
+    fn fileSilence(PATH_URL: string, PATH_DESTINY: string = "") {
+        //Should verify if there is an internet connection first
+
+        println("Downloading file from: ${PATH_URL}")
+
+        if PATH_DESTINY == "" {
+            PATH_DESTINY = directory::get_current_path()
+        }
+
+        directory::create(PATH_DESTINY)
+
+        sh {
+            curl --silent -C -L -O "$%PATH_URL" -o "$%PATH_DESTINY" || 
+            wget --quiet -c "$%PATH_URL" -O "$%PATH_DESTINY"
+        }
+    }
+
+    //fn torrentNoise() {}
+    
+    //fn torrentSilence() {}
+
+    //@annotation_must_be_tested
+    fn websiteNoise(PATH_URL: string, PATH_DESTINY: string = "") {
+        if PATH_DESTINY == "" {
+            PATH_DESTINY = directory::get_current_path()
+        }
+
+        directory::create(PATH_DESTINY)
+
+        if (system::command::has_command("wget") == true) {
+            sh {
+                cd "$%PATH_DESTINY/"
+                wget -r -erobots=off "$%PATH_URL"
+                #wget -r -p -U Mozilla --wait=10 --limit-rate=35K $PATH_URL
+                cd -
+            }
+        }
+    }
+
+    //@annotation_must_be_tested
+    fn websiteSilence(PATH_URL: string, PATH_DESTINY: string = "") {
+        if PATH_DESTINY == "" {
+            PATH_DESTINY = directory::get_current_path()
+        }
+
+        directory::create(PATH_DESTINY)
+
+        if (system::command::has_command("wget") == true) {
+            sh{
+                cd "$%PATH_DESTINY/"
+                wget --quiet -r -erobots=off "$%PATH_URL"
+                #wget --quiet -r -p -U Mozilla --wait=10 --limit-rate=35K $PATH_URL
+                cd -
+            }
+        }
+    }
+}

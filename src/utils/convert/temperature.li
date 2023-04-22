@@ -1,0 +1,25 @@
+module convertTemperature {
+    fn fromCelsiusToFahrenheit(TEMPERATURE_CELSIUS: float): float {
+        return TEMPERATURE_CELSIUS * 1.8 + 32
+    }
+
+    fn fromCelsiusToKelvin(TEMPERATURE_CELSIUS: float): float{
+        return TEMPERATURE_CELSIUS + 273.15
+    }
+
+    fn fromFahrenheitToCelsius(TEMPERATURE_FAHRENHEIT: float): float {
+        return (TEMPERATURE_FAHRENHEIT - 32) / 1.8
+    }
+
+    fn fromFahrenheitToKelvin(TEMPERATURE_FAHRENHEIT: float): float{
+        return (TEMPERATURE_FAHRENHEIT - 32) * 5/9 + 273.15
+    }
+
+    fn fromKelvinToCelsius(TEMPERATURE_KELVIN: float): float{
+        return TEMPERATURE_KELVIN - 273.15
+    }
+
+    fn fromKelvinToFahrenheit(TEMPERATURE_KELVIN: float): float{
+        return (TEMPERATURE_KELVIN - 273.15) * 9/5 + 32
+    }
+}

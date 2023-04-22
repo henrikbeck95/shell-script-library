@@ -4,19 +4,31 @@
 /// E-mail: henrikbeck95@gmail.com
 /// License: GPL3
 /// Version: 0.0.0
-/// Softwares for core module: GNU-Utils, BC, jQ
-/// 
+/// Required softwares for core module: GNU-Utils; BC; jQ.
+/// Required softwares for libs module: ???.
+/// Required softwares for utils module: ???.
+
+// QEMU; ACPI or uPower, cURL or wGET; NC; Iwd or NetworkManager; OpenRC or SystemD; ....
+// FFMpeg; ImageMagick
 
 /*
- * - Core
- * - [x] core_math.li
- * - [~] core_lang.li
- * - [x] core_str.li
- * - [ ] core_time.li -> unit
+ * - Core, CoreTest
+ * - [ ][ ] core_command.li
+ * - [~][ ] core_lang.li
+ * - [x][x] core_math.li
+ * - [x][x] core_str.li
+ * - [~][ ] core_system.li
+ * - [ ][ ] core_time.li -> unit
  * 
- * - Libraries
- * - [ ] 
- * - [ ] 
+ * - Library, LibraryTest
+ * - [ ][ ] utils_backup.li
+ * - [ ][ ] utils_container.li
+ * - [~][ ] utils_convert.li
+ * - [ ][ ] utils_file.li
+ * - [x][ ] utils_internet.li
+ * - [x][ ] utils_markup.li
+ * - [ ][ ] utils_pkg.li
+ * - [x][ ] utils_run.li 
 */
 
 /// @annotation_must_be_improved
@@ -25,7 +37,7 @@
 require './core/lang.li';
 require './core/display.li';
 require './core/math.li';
-require './core/content.li';
+require './core/text.li';
 
 // Libraries modules
 require './libs/sys.li';

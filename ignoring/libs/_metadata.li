@@ -1,0 +1,6 @@
+module metadata {
+	fn album() {}
+	fn author() {}
+	fn genre() {}
+	fn title() {}
+}

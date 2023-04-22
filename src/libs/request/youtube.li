@@ -1,0 +1,141 @@
+module youtube {
+    //fn argumentsYoutubedl(): string {}
+    
+    fn argumentsYtfzf(TYPE: string, SEARCH: string, NUMBER_OF_PAGES: int, RETURN_TO_MENU: bool, THUMBNAIL: bool, ONLY_AUDIO: bool, DOWNLOAD: bool): string {
+        var ARGUMENTS: string = ""
+        
+        if NUMBER_OF_PAGES <= 0 {
+            NUMBER_OF_PAGES = 1
+        }
+
+        //Each page has 20 results
+        ARGUMENTS = "--pages=${NUMBER_OF_PAGES} "
+
+        if DOWNLOAD == true {
+            if TYPE == "audio" || TYPE == "video" {
+                ARGUMENTS += "-d "
+            }
+        }
+
+        if RETURN_TO_MENU == true {
+            if TYPE == "audio" || TYPE == "video" {
+                ARGUMENTS += "-l "
+            }
+        }
+
+        if THUMBNAIL == true {
+            if TYPE == "audio" || TYPE == "video" {
+                ARGUMENTS += "-t "
+            }
+        }
+
+        if ONLY_AUDIO == true && TYPE == "audio" {
+            ARGUMENTS += "-m "
+        }
+
+        //TESTING
+        if TYPE == "info" {
+            ARGUMENTS += "-I VJ "
+        }
+
+        ARGUMENTS += "${SEARCH}"
+
+        return "${ARGUMENTS}"
+
+        //println("ytfzf ${ARGUMENTS}")
+        //sh { eval "ytfzf ${%ARGUMENTS}" }
+    }
+    
+    //fn audioDownloadYoutubedl(){}
+
+    fn audioDownloadYtfzf(SEARCH: string, NUMBER_OF_PAGES: int, RETURN_TO_MENU: bool, THUMBNAIL: bool) {
+        var COMMAND: string = argumentsYtfzf("audio", SEARCH, NUMBER_OF_PAGES, RETURN_TO_MENU, THUMBNAIL, true, true)
+
+        executeYtfzf(COMMAND)
+    }
+
+    //fn audioPlayYoutubedl(){}
+
+    fn audioPlayYtfzf(SEARCH: string, NUMBER_OF_PAGES: int, RETURN_TO_MENU: bool, THUMBNAIL: bool) {
+        var COMMAND: string = argumentsYtfzf("audio", SEARCH, NUMBER_OF_PAGES, RETURN_TO_MENU, THUMBNAIL, true, false)
+
+        executeYtfzf(COMMAND)
+    }
+
+    //fn executeYoutubedl(){}
+
+    fn executeYtfzf(ARGUMENTS: string): void {
+        sh { eval ytfzf "${%ARGUMENTS}" }
+    }
+
+    fn getAllYtfzf(SEARCH: string, NUMBER_OF_PAGES: int, TAG: string = ""): string {
+        var ARGUMENTS: string = argumentsYtfzf("info", SEARCH, NUMBER_OF_PAGES, false, false, false, false)
+        var JSON_OUTPUT: string = infoYtfzf(ARGUMENTS)
+        
+        return markup::json::array::filter::output::tag(JSON_OUTPUT, TAG)
+    }
+
+    fn getChannelYtfzf(SEARCH: string, NUMBER_OF_PAGES: int): string {
+        return getAllYtfzf(SEARCH, NUMBER_OF_PAGES, "channel")
+    }
+
+    fn getDateYtfzf(SEARCH: string, NUMBER_OF_PAGES: int): string {
+        return getAllYtfzf(SEARCH, NUMBER_OF_PAGES, "date")
+    }
+
+    fn getDescriptionYtfzf(SEARCH: string, NUMBER_OF_PAGES: int): string {
+        return getAllYtfzf(SEARCH, NUMBER_OF_PAGES, "description")
+    }
+
+    fn getDurationYtfzf(SEARCH: string, NUMBER_OF_PAGES: int): string {
+        return getAllYtfzf(SEARCH, NUMBER_OF_PAGES, "duration")
+    }
+
+    fn getIdYtfzf(SEARCH: string, NUMBER_OF_PAGES: int): string {
+        return getAllYtfzf(SEARCH, NUMBER_OF_PAGES, "ID")
+    }
+
+    fn getScraperYtfzf(SEARCH: string, NUMBER_OF_PAGES: int): string {
+        return getAllYtfzf(SEARCH, NUMBER_OF_PAGES, "scraper")
+    }
+
+    fn getThumbsYtfzf(SEARCH: string, NUMBER_OF_PAGES: int): string {
+        return getAllYtfzf(SEARCH, NUMBER_OF_PAGES, "thumbs")
+    }
+
+    fn getTitleYtfzf(SEARCH: string, NUMBER_OF_PAGES: int): string {
+        return getAllYtfzf(SEARCH, NUMBER_OF_PAGES, "title")
+    }
+
+    fn getViewsYtfzf(SEARCH: string, NUMBER_OF_PAGES: int): string {
+        return getAllYtfzf(SEARCH, NUMBER_OF_PAGES, "views")
+    }
+
+    fn getUrlYtfzf(SEARCH: string, NUMBER_OF_PAGES: int): string {
+        return getAllYtfzf(SEARCH, NUMBER_OF_PAGES, "url")
+    }
+
+    fn infoYtfzf(ARGUMENTS: string): string {
+        var AUX: string = ""
+
+        sh { %AUX=$(eval ytfzf "${%ARGUMENTS}") }
+
+        return AUX
+    }
+
+    //fn videoDownloadYoutubedl(){}
+
+    fn videoDownloadYtfzf(SEARCH: string, NUMBER_OF_PAGES: int, RETURN_TO_MENU: bool, THUMBNAIL: bool){
+        var COMMAND: string = argumentsYtfzf("video", SEARCH, NUMBER_OF_PAGES, RETURN_TO_MENU, THUMBNAIL, false, true)
+
+        executeYtfzf(COMMAND)
+    }
+
+    //fn videoPlayYoutubedl(){}
+
+    fn videoPlayYtfzf(SEARCH: string, NUMBER_OF_PAGES: int, RETURN_TO_MENU: bool, THUMBNAIL: bool){
+        var COMMAND: string = argumentsYtfzf("video", SEARCH, NUMBER_OF_PAGES, RETURN_TO_MENU, THUMBNAIL, false, false)
+
+        executeYtfzf(COMMAND)
+    }
+}

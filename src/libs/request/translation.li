@@ -1,0 +1,43 @@
+module translation{
+/*
+utils_translate_message(){
+    local TRANSLATE_LANGUAGE_FROM="$1"	#"en"
+    local TRANSLATE_LANGUAGE_TO="$2"	#"es"
+    local TRANSLATE_TEXT_ORIGINAL="$3"	#"Java and Shell Script are my favorite programming languages"
+
+    local REQUEST_RETURN
+    local TRANSLATE_RETURN_FULL
+    local TRANSLATE_RETURN_WITHOUT_CHARACTER_FIRST
+    local TRANSLATE_RETURN_WITHOUT_CHARACTER_LAST
+    local RESULT
+
+    REQUEST_RETURN=$(utils_request_translation "$TRANSLATE_LANGUAGE_FROM" "$TRANSLATE_LANGUAGE_TO" "$TRANSLATE_TEXT_ORIGINAL")
+
+    TRANSLATE_RETURN_FULL=$(utils_request_filter "$REQUEST_RETURN")
+    TRANSLATE_RETURN_WITHOUT_CHARACTER_FIRST=$(string_remove_content_character_first "$TRANSLATE_RETURN_FULL")
+    TRANSLATE_RETURN_WITHOUT_CHARACTER_LAST=$(string_remove_content_character_last "$TRANSLATE_RETURN_WITHOUT_CHARACTER_FIRST")
+
+    RESULT="$TRANSLATE_RETURN_WITHOUT_CHARACTER_LAST"
+
+    display_message_value_text_default_simple "$RESULT"
+}
+*/
+
+fn translation(LANGUAGE_FROM: string, LANGUAGE_TO: string, TEXT_ORIGINAL: string): string{
+    //Argos Translate
+    //https://github.com/argosopentech/argos-translate
+    //LibreTranslate API
+
+    var REQUEST_BODY: string = ""
+    var REQUEST_URL: string = "https://translate.argosopentech.com/translate"
+    var REQUEST_HEADER: string = "Content-Type: application/json"
+    var RESULT: string = ""
+
+    sh {
+        %REQUEST_BODY="{\"q\": \"$%TEXT_ORIGINAL\", \"source\": \"$%LANGUAGE_FROM\", \"target\": \"$%LANGUAGE_TO\"}"
+    }
+
+    RESULT = http::post(REQUEST_BODY, REQUEST_HEADER, REQUEST_URL)
+
+    return RESULT
+}
