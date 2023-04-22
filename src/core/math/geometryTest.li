@@ -1,4 +1,5 @@
 module geometryTest {
+    assert(geometry::areaCircle(5) == 78.5397);
     assert(geometry::areaRectangle(3, 5) == 15);
     assert(geometry::areaSquare(6) == 36);
     assert(geometry::areaTriangule(3, 4, 5) == 6);

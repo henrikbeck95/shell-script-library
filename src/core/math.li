@@ -1,13 +1,19 @@
 /// This module is dedicated to provide math functions for
 /// calculating the operations easily with total abstraction.
 
-require './math/angle.li';
+// Essentials
 require './math/constants.li';
 require './math/num.li';
 require './math/operator.li';
+
+// Others
 require './math/elevation.li';
 require './math/geometry.li';
 require './math/others.li';
 require './math/random.li';
 require './math/theoretic.li';
 require './math/trigonometry.li';
+
+// Not implemented
+require './math/_hyperbolic.li';
+require './math/_special.li';

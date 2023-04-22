@@ -1,6 +1,11 @@
-module operator{
+module operator {
+    /// By default, the math operation returns until 9 float digits.
     fn calculator(mathExpression: string, valueFloatPoint: int = 10): float {
-        return (mathExpression |> @awk("BEGIN{printf \"%.${valueFloatPoint}g\", ${mathExpression}}")) as float;
+        //return (mathExpression |> @awk("BEGIN{printf \"%.${valueFloatPoint}g\", ${mathExpression}}")) as float;
+
+        var aux: string = (mathExpression |> @awk("BEGIN{printf \"%.${valueFloatPoint}g\", ${mathExpression}}"));
+
+        return aux as float;
     }
 
     fn numericBase(mathExpression: string): float {

@@ -1,0 +1,1 @@
+assert(operator::numeric_base("ibase=2;obase=1111;1001") == 9)

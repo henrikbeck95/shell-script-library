@@ -1,4 +1,9 @@
 module geometry{
+    fn areaCircle(radius: float): float {
+        //return constants::pi() * operator::calculator("$radius^2");
+        return constants::pi() * (radius * radius);
+    }
+
     fn areaRectangle(sideLength: float, sideWidth: float): float {
         return sideLength * sideWidth;
     }
@@ -14,5 +19,11 @@ module geometry{
         return elevation::sqrt(aux, 2);
     }
 
-    //fn volume() {}
+    //fn volumeCilinder(): float {}
+    
+    //fn volumeCubic(): float {}
+    
+    //fn volumePrism(): float {}
+    
+    //fn volumePyramid(): float {}
 }

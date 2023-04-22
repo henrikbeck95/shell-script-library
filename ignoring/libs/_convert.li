@@ -7,61 +7,57 @@
 require './core_math.li'
 require './core_str.li'
 
-module convert{
-	module file{
-		//Migrate to this::document::pdf module
-		module pdf{
-			module color{
-				module main{
-					fn operator(FILE_INPUT: string, FILE_OUTPUT: string, COLOR_ORIGIN: string, COLOR_DESTINY: string){
-						sh {
-							magick convert -density 300 "$%FILE_INPUT" -fill "$%COLOR_DESTINY" -opaque "$%COLOR_ORIGIN" "$%FILE_OUTPUT"
-						}
-					}
-				}
-
-				module from_black{
-					fn to_blue(FILE_INPUT: string, FILE_OUTPUT: string){
-						convert::file::pdf::color::main::operator(FILE_INPUT, FILE_OUTPUT, "black", "blue")
-					}
-
-					fn to_green(FILE_INPUT: string, FILE_OUTPUT: string){
-						convert::file::pdf::color::main::operator(FILE_INPUT, FILE_OUTPUT, "black", "green")
-					}
-
-					fn to_orange(FILE_INPUT: string, FILE_OUTPUT: string){
-						convert::file::pdf::color::main::operator(FILE_INPUT, FILE_OUTPUT, "black", "orange")
-					}
-
-					fn to_red(FILE_INPUT: string, FILE_OUTPUT: string){
-						convert::file::pdf::color::main::operator(FILE_INPUT, FILE_OUTPUT, "black", "red")
-					}
-
-					fn to_yellow(FILE_INPUT: string, FILE_OUTPUT: string){
-						convert::file::pdf::color::main::operator(FILE_INPUT, FILE_OUTPUT, "black", "yellow")
-					}
+module convertFile{
+	//Migrate to this::document::pdf module
+	module pdfColor{
+		module main{
+			fn operator(FILE_INPUT: string, FILE_OUTPUT: string, COLOR_ORIGIN: string, COLOR_DESTINY: string){
+				sh {
+					magick convert -density 300 "$%FILE_INPUT" -fill "$%COLOR_DESTINY" -opaque "$%COLOR_ORIGIN" "$%FILE_OUTPUT"
 				}
 			}
 		}
 
-		module document{
-			//module csv{}
+		module fromBlack{
+			fn to_blue(FILE_INPUT: string, FILE_OUTPUT: string){
+				convert::file::pdf::color::main::operator(FILE_INPUT, FILE_OUTPUT, "black", "blue")
+			}
 
-			//module doc{}
-			
-			//module docx{}
-			
-			//module latex{}
-			
-			//module markdown{}
+			fn to_green(FILE_INPUT: string, FILE_OUTPUT: string){
+				convert::file::pdf::color::main::operator(FILE_INPUT, FILE_OUTPUT, "black", "green")
+			}
 
-			//module odt{}
+			fn to_orange(FILE_INPUT: string, FILE_OUTPUT: string){
+				convert::file::pdf::color::main::operator(FILE_INPUT, FILE_OUTPUT, "black", "orange")
+			}
 
-			//module pdf{}
-			
-			//module ppt{}
+			fn to_red(FILE_INPUT: string, FILE_OUTPUT: string){
+				convert::file::pdf::color::main::operator(FILE_INPUT, FILE_OUTPUT, "black", "red")
+			}
 
-			//module pptx{}
+			fn to_yellow(FILE_INPUT: string, FILE_OUTPUT: string){
+				convert::file::pdf::color::main::operator(FILE_INPUT, FILE_OUTPUT, "black", "yellow")
+			}
 		}
+	}
+
+	module document{
+		//module csv{}
+
+		//module doc{}
+		
+		//module docx{}
+		
+		//module latex{}
+		
+		//module markdown{}
+
+		//module odt{}
+
+		//module pdf{}
+		
+		//module ppt{}
+
+		//module pptx{}
 	}
 }

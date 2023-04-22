@@ -1,6 +1,6 @@
 require './math.li';
 
-// 
+// Essentials
 
 println("Math - Constants section");
 require './math/constantsTest.li';
@@ -11,10 +11,7 @@ require './math/numTest.li';
 println("Math - Operator section");
 require './math/operatorTest.li';
 
-// 
-
-println("Math - Angle section");
-require './math/angleTest.li';
+// Others
 
 println("Math - Elevation section");
 require './math/elevationTest.li';
@@ -33,3 +30,11 @@ require './math/theoreticTest.li';
 
 println("Math - Trigonometry section");
 require './math/trigonometry.li';
+
+// Not implemented
+
+println("Math - Hyperbolic section");
+require './math/_hyperbolic.li';
+
+println("Math - Special section");
+require './math/_special.li';
