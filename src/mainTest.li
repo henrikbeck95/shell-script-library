@@ -3,16 +3,16 @@ require './main.li';
 var repetition: int = 20;
 
 require './core/langTest.li';
-separator(repetition, "<+>");
+print::defaultSeparator(repetition, "<+>");
 
-//require './core/displayTest.li';
-//separator(repetition, "<+>");
+require './core/displayTest.li';
+print::defaultSeparator(repetition, "<+>");
 
 require './core/mathTest.li';
-separator(repetition, "<+>");
+print::defaultSeparator(repetition, "<+>");
 
 require './core/textTest.li';
-separator(repetition, "<+>");
+print::defaultSeparator(repetition, "<+>");
 
 require './libs/sysTest.li';
-separator(repetition, "<+>");
+print::defaultSeparator(repetition, "<+>");

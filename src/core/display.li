@@ -1,6 +1,5 @@
 /// Softwares: 
 
-require './display/default.li';
 require './display/dialog.li';
 require './display/notification.li';
 require './display/others.li';

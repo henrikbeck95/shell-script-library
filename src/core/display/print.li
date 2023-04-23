@@ -129,6 +129,57 @@ module print {
         return formatStyleDefault(text, 37, 39);
     }
 
+    // Default
+
+    fn default(textMessage: string) {
+        sh {
+            #echo -e "$%textMessage"
+            printf "%%s" "$%textMessage" 2>/dev/null
+        }
+    }
+
+    fn defaultCarriageReturn(timeDelay: float, textMessage: any) {
+        @sleep(timeDelay);
+        defaultClear();
+        printing(textMessage);
+    }
+
+    fn defaultClear() {
+        sh {
+            #echo -n "\r"
+            #printf "\r"
+            printf "\33[2K\r"
+        }
+    }
+
+    fn defaultNewLine(textMessage: string) {
+        sh {
+            #echo -e "$%textMessage"
+            printf "%%s\n" "$%textMessage" 2>/dev/null
+        }
+    }
+
+    fn defaultSeparator(frequency: int, character: string = "#") {
+        var aux: string = "";
+
+        for i in range(0, frequency){
+            aux += character;
+        }
+
+        println(aux);
+    }
+
+    fn defaultTabular(textMessage: string) {
+        sh {
+            echo "$%textMessage" | \
+                tr : , | \
+                sed -e 's/^/| /' \
+                -e 's/,/,| /g' \
+                -e 's/$/,|/' | \
+                column -t -s,
+        }
+    }
+
     // Format
 
     fn formatStyleBold(text: string): string {

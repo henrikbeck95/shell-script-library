@@ -1,8 +1,5 @@
 require './display.li';
 
-println("Display - Default section");
-require './display/defaultTest.li';
-
 //println("Display - Dialog section");
 //require './display/dialogTest.li';
 

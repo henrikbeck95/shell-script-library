@@ -1,3 +1,34 @@
+// Print
+
+/// Clear the current line
+fn printClear() {
+    print::defaultClear();
+}
+
+/// Cotowali programming language does not permit to override functions
+fn printing(textMessage: any) {
+    print::default(textMessage as string);
+}
+
+/// Cotowali programming language does not permit to override functions
+fn printingln(textMessage: any) {
+    print::defaultNewLine(textMessage as string);
+}
+
+fn printr(timeDelay: float, textMessage: any) {
+   print::defaultCarriageReturn(timeDelay, textMessage as string);
+}
+
+fn printSeparator(frequency: int, character: any = "#") {
+    print::defaultSeparator(frequency, character as string);
+}
+
+fn printTab(textMessage: any) {
+    print::defaultTabular(textMessage as string);
+}
+
+// ???
+
 /// @deprecated, @empty(), @error(), @success(), @warning(), @mustBeFixed, @mustBeImproved, @mustBeTested, @requiresRoot()
 
 /// @calc(), @cp @cpOverride, @download(), @edit(), @ln(), @lnOverride, @mkdip(), @mv(), @mvOverride(), @print(), @println(), @rm(), @touch()

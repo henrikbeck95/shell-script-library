@@ -1,6 +1,8 @@
 module printTest {
     var textMessage: string = "Take me down to the Paradise City"
 
+    // Colors
+
     print::colorBackgroundBrightBlack(textMessage);
     print::colorBackgroundBrightRed(textMessage);
     print::colorBackgroundBrightGreen(textMessage);
@@ -38,7 +40,46 @@ module printTest {
     print::colorForegroundOpaqueCyan(textMessage);
     print::colorForegroundOpaqueWhite(textMessage);
 
-    // ---
+    // Default
+
+    print::defaultClear();
+
+    print::default(textMessage);
+    print::default(textMessage);
+    print::default(314 as string);
+    print::default(3.14 as string);
+    print::default(true as string);
+
+    print::defaultCarriageReturn(0.2, textMessage);
+    print::defaultCarriageReturn(0.4, "This is the hear of the night");
+    print::defaultCarriageReturn(0.4, 973);
+    print::defaultCarriageReturn(0.4, 9.73);
+    print::defaultCarriageReturn(0.4, false);
+
+    print::defaultClear();
+
+    print::defaultNewLine(textMessage);
+    print::defaultNewLine(314 as string);
+    print::defaultNewLine(3.14 as string);
+    print::defaultNewLine(true as string);
+
+    print::defaultNewLine("");
+    print::defaultSeparator(3);
+    print::defaultSeparator(3, "-");
+    print::defaultSeparator(100, "#");
+    print::defaultNewLine("");
+
+    print::defaultNewLine("");
+    print::defaultTabular("Name: Surname:E-mail\nHenrik:Beck:henrikbeck95@gmail.com\nSomebody:Surname:some_email_address@something.com");
+    print::defaultNewLine("");
+    print::defaultSeparator(100, "#");
+    print::defaultNewLine("");
+    print::defaultTabular(textMessage);
+    print::defaultNewLine("");
+    print::defaultTabular("#:Name:Surname\n1:Henrik:Beck\n2:Somebody:Someone");   
+    print::defaultNewLine("");
+
+    // Format
 
     print::formatStyleBold(textMessage);
     print::formatStyleDefault(textMessage, 0, 0);
