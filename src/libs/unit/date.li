@@ -20,10 +20,9 @@ module date {
     }
 
     fn getMeridian(): string {
-        if (getHours24() < 12) {
+        if (getHours24() as int < 12) {
             return 'AM';
-        }
-        else {
+        } else {
             return 'PM';
         }
     }
@@ -40,21 +39,21 @@ module date {
         return @date('+%j') as int;
     }
 
-    fn getMonth(): int {
+    fn getMonth(): string {
         return @date('+%m');
     }
 
-    fn getWeekOfTheYear(): int {
-        return @date('+%U') as int; // Starts sunday
-        //return @date('+%V') as int; // Start monday
+    fn getWeekOfTheYear(): string {
+        return @date('+%U'); // Starts sunday
+        //return @date('+%V'); // Start monday
     }
 
     fn getYearFull(): string {
-        return @date('+%Y') as int;;
+        return @date('+%Y');;
     }
     
     fn getYearShort(): string {
-        return @date('+%y') as int;;
+        return @date('+%y');;
     }
 
     fn timestamp(): string {

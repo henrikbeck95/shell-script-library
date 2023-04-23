@@ -1,0 +1,17 @@
+module dateTest {
+    print::defaultNewLine("Time nanoseconds: ${date::getNanoseconds()}");
+    print::defaultNewLine("Time seconds: ${date::getSeconds()}");
+    print::defaultNewLine("Time minutes: ${date::getMinutes()}");
+    print::defaultNewLine("Time hours (12 format): ${date::getHours12()}");
+    print::defaultNewLine("Time hours (24 format): ${date::getHours24()}");
+    print::defaultNewLine("Time meridian: ${date::getMeridian()}");
+    print::defaultNewLine("Time day: ${date::getDay()}");
+    print::defaultNewLine("Time day of the week: ${date::getDayOfTheWeek()}");
+    print::defaultNewLine("Time day of the year: ${date::getDayOfTheYear()}");
+    print::defaultNewLine("Time month: ${date::getMonth()}");
+    print::defaultNewLine("Time week of the year: ${date::getWeekOfTheYear()}");
+    print::defaultNewLine("Time year (full): ${date::getYearFull()}");
+    print::defaultNewLine("Time year (short): ${date::getYearShort()}");
+    print::defaultNewLine("Time timestamp: ${date::timestamp()}");
+    print::defaultNewLine("Time timezone: ${date::getTimezone()}");
+}

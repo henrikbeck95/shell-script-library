@@ -2,20 +2,31 @@ require './main.li';
 
 var repetition: int = 20;
 
-require './core/langTest.li';
+//require './core/langTest.li';
+//print::defaultSeparator(repetition, "<+>");
+
+//require './core/displayTest.li';
+//print::defaultSeparator(repetition, "<+>");
+
+//require './core/mathTest.li';
+//print::defaultSeparator(repetition, "<+>");
+
+//require './core/textTest.li';
+//print::defaultSeparator(repetition, "<+>");
+
+require './libs/unitTest.li';
 print::defaultSeparator(repetition, "<+>");
 
-require './core/displayTest.li';
-print::defaultSeparator(repetition, "<+>");
+//require './libs/sysTest.li';
+//print::defaultSeparator(repetition, "<+>");
 
-require './core/mathTest.li';
-print::defaultSeparator(repetition, "<+>");
+//require './utils/format.li';
+//print::defaultSeparator(repetition, "<+>");
 
-require './core/textTest.li';
-print::defaultSeparator(repetition, "<+>");
 
-require './libs/sysTest.li';
-print::defaultSeparator(repetition, "<+>");
+
+
+
 
 //require './shortcuts/display.li';
 //print::defaultSeparator(repetition, "<+>");
