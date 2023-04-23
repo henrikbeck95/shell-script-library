@@ -64,16 +64,7 @@ module str {
     }
 
     fn stringReplaceMatchAllFromDisplay(valueText: string, valueTextOld: string, valueTextNew: string): string {
-        var aux: string = "";
-
-        sh {
-            #Replace all the match values from console
-            %aux=$(echo $%valueText | sed "s/$%valueTextOld/$%valueTextNew/g")
-
-            # %aux=$(echo $%valueText | sed 's/:\|-/ /g;')
-        }
-
-        return aux;
+        return (valueText |> @sed("s/${valueTextOld}/${valueTextNew}/g"));
     }
 
     fn stringReplaceMatchAllFromFile(pathFile: string, valueTextOld: string, valueTextNew: string, backup: bool = false) {
@@ -107,12 +98,6 @@ module str {
     }
 
     fn stringReplaceMatchFirstFromDisplay(valueTextContent: string, valuePatternOld: string, valuePatternNew: string): string {
-        var aux: string = "";
-        
-        sh {
-            %aux=$(echo "${%valueTextContent/$%valuePatternOld/$%valuePatternNew}")
-        }
-
-        return aux;
+        return (valueTextContent |> @sed("s/${valuePatternOld}/${valuePatternNew}/"));
     }
 }

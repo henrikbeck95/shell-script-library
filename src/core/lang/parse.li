@@ -1,18 +1,58 @@
 /// Convert primitive types
 module parse {
+    fn fromBooleanToInteger(value: bool): int {
+        if (value == false) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    fn fromBooleanToString(value: bool): string {
+        if (value == true) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
     fn fromFloatToInteger(value: float): int {
         return operator::calculator(value as string, 1) as int;
+    }
+
+    fn fromFloatToString(value: float): string {
+        return value as string;
+    }
+
+    fn fromIntegerToBoolean(value: int): bool {
+        if (value <= 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
     
     fn fromIntegerToFloat(value: int): float {
         return value as float;
     }
 
-    fn fromFloatToString(value: float): string {
-        return value as string;
-    }
-    
     fn fromIntegerToString(value: int): string {
         return value as string;
+    }
+
+    fn fromStringToBoolean(value: string): bool {
+        if (value == "true" || value == "1") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    fn fromStringToInteger(value: string): int {
+        return operator::calculator("$value + 0", 0) as int;
+    }
+
+    fn fromStringToFloat(value: string): float {
+        return value as float;
     }
 }

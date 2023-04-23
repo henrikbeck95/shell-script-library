@@ -1,7 +1,7 @@
 module randomTest {
     //The following should not be set a result test because they are random numbers
-    random::generate_number_from_interval_set(1, 10);
-    random::generate_number_from_interval_set(10, 1);
-    random::generate_number_from_interval_set(-10, 1);
-    random::generate_number_from_interval_set(1, -10);
+    random::generateNumberFromIntervalSet(1, 10);
+    random::generateNumberFromIntervalSet(10, 1);
+    random::generateNumberFromIntervalSet(-10, 1);
+    random::generateNumberFromIntervalSet(1, -10);
 }

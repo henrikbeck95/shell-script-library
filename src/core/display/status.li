@@ -1,8 +1,8 @@
 module status {
     fn empty(){
-        text::formatStyleBold(
-            text::colorBackgroundBrightMagenta(
-                text::colorForegroundBrightWhite("\\(°‿o)/¯ This is an empty function. Please fill it with some instructions")
+        print::formatStyleBold(
+            print::colorBackgroundBrightMagenta(
+                print::colorForegroundBrightWhite("\\(°‿o)/¯ This is an empty function. Please fill it with some instructions")
             )
         );
     }
@@ -10,9 +10,9 @@ module status {
     fn error(textMessage: string){
         var textIcon: string = "¯\\_(ツ)_/¯"
 
-        text::formatStyleBold(
-            text::colorBackgroundBrightRed(
-                text::colorForegroundBrightWhite("${textIcon} FAILURE! ${textMessage} ${textIcon}")
+        print::formatStyleBold(
+            print::colorBackgroundBrightRed(
+                print::colorForegroundBrightWhite("${textIcon} FAILURE! ${textMessage} ${textIcon}")
             )
         );
     }
@@ -20,9 +20,9 @@ module status {
     fn success(textMessage: string){
         var textIcon: string = "***"
 
-        text::formatStyleBold(
-            text::colorBackgroundBrightGreen(
-                text::colorForegroundBrightWhite("${textIcon} ${textMessage} ${textIcon}")
+        print::formatStyleBold(
+            print::colorBackgroundBrightGreen(
+                print::colorForegroundBrightWhite("${textIcon} ${textMessage} ${textIcon}")
             )
         );
     }
@@ -30,9 +30,9 @@ module status {
     fn warning(textMessage: string){
         var textIcon: string = "!!!"
 
-        text::formatStyleBold(
-            text::colorBackgroundBrightYellow(
-                text::colorForegroundBrightWhite("${textIcon} ${textMessage} ${textIcon}")
+        print::formatStyleBold(
+            print::colorBackgroundBrightYellow(
+                print::colorForegroundBrightWhite("${textIcon} ${textMessage} ${textIcon}")
             )
         );
     }

@@ -1,0 +1,32 @@
+module parseTest {
+    assert(parse::fromBooleanToInteger(false) == 0);
+    assert(parse::fromBooleanToInteger(true) == 1);
+    assert(parse::fromBooleanToString(false) == "false");
+    assert(parse::fromBooleanToString(true) == "true");
+
+    assert(parse::fromIntegerToBoolean(-1) == false);
+    assert(parse::fromIntegerToBoolean(0) == false);
+    assert(parse::fromIntegerToBoolean(1) == true);
+    assert(parse::fromIntegerToBoolean(2) == true);
+    assert(parse::fromIntegerToFloat(4) == 4);
+    assert(parse::fromIntegerToString(3) == "3");
+
+    assert(parse::fromFloatToInteger(3) == 3);
+    assert(parse::fromFloatToInteger(3.4) == 3);
+    assert(parse::fromFloatToString(3) == "3");
+    assert(parse::fromFloatToString(3.4) == "3.4");
+
+    assert(parse::fromStringToBoolean("false") == false);
+    assert(parse::fromStringToBoolean("0") == false);
+    assert(parse::fromStringToBoolean("something") == false);
+    assert(parse::fromStringToBoolean("true") == true);
+    assert(parse::fromStringToBoolean("1") == true);
+
+    assert(parse::fromStringToInteger("3") == 3);
+    assert(parse::fromStringToInteger("3.4") == 3);
+    assert(parse::fromStringToInteger("3.141592") == 3);
+    assert(parse::fromStringToInteger("3.941592") == 4);
+
+    assert(parse::fromStringToFloat("3") == 3);
+    assert(parse::fromStringToFloat("3.4") == 3.4);
+}

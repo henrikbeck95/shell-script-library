@@ -1,4 +1,6 @@
 /// Softwares: 
 
+require './lang/_commands.li';
 require './lang/alias.li';
 require './lang/commentary.li';
+require './lang/parse.li';

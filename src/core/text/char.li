@@ -1,4 +1,5 @@
 module char {
+    /// @annotation_must_be_improved
     fn charGetElementFirstFromDisplay(valueText: string): string {
         var aux: string = "";
 
@@ -10,6 +11,7 @@ module char {
         return aux;
     }
 
+    /// @annotation_must_be_improved
     fn charGetElementLastFromDisplay(valueText: string): string {
         var aux: string = "";
 
@@ -23,46 +25,21 @@ module char {
     // fn charInsert...() {}
 
     fn charRemoveNonNumericAllFromDisplay(valueText: string): int {
-        var RESULT: int;
-
-        sh {
-            %RESULT=$(echo "$%valueText" | sed 's/[^0-9]*//g')
-        }
-
-        return RESULT;
+        return (valueText |> @sed(r's/[^0-9]*//g')) as int;
     }
 
     //fn charRemoveNonNumericAllFromFile() {}
 
     fn charRemoveMatchAllFromDisplay(valueText: string, valueCharactersToBeRemoved: string): string {
-        var aux: string = "";
-
-        sh {
-            %aux=$(echo "$%valueText" | tr -d "$%valueCharactersToBeRemoved")
-        }
-
-        return aux;
+        return (valueText |> @tr('-d', valueCharactersToBeRemoved));
     }
 
     fn charRemoveFirstAllFromDisplay(valueText: string): string {
-        var aux: string = "";
-
-        sh {
-            %aux=$(echo "$%valueText" | cut -c 2-)
-        }
-
-        return aux;
+        return (valueText |> @cut('-c', '2-'));
     }
 
     fn charRemoveLastAllFromDisplay(valueText: string): string {
-        var aux: string = "";
-
-        sh {
-            # %aux=$(echo "$%valueText" | sed 's/://g')
-            %aux=$(echo "$%valueText" | sed 's/.$//')
-        }
-
-        return aux;
+        return (valueText |> @sed(r's/.$//'));
     }
 
     /// @annotation_must_be_improved
@@ -90,56 +67,22 @@ module char {
     //fn charRemoveSpaceBlankAllFromFile() {}
 
     fn charReplaceCaseAllFromUpperToLowerFromDisplay(valueTextContent: string): string {
-        var aux: string = "";
-
-        sh {
-            %aux="${%valueTextContent,,}" || %aux=$(echo "$%valueTextContent" | sed 's/[A-Z]/\L&/g')
-            #%aux=$(echo "$%valueTextContent" | awk '{print tolower($0)}')
-        }
-
-        return aux;
+        return (valueTextContent |> @sed(r's/[A-Z]/\L&/g'));
     }
 
     fn charReplaceCaseAllFromLowerToUpperFromDisplay(valueTextContent: string): string {
-        var aux: string = "";
-
-        sh {
-           %aux="${%valueTextContent^^}" || %aux=$(echo "$%valueTextContent" | sed 's/[a-z]/\U&/g')
-            #%aux=$(echo "$%valueTextContent" | awk '{print toupper($0)}')
-        }
-
-        return aux;
+        return (valueTextContent |> @sed(r's/[a-z]/\U&/g'));
     }
 
     fn charReplaceSlashAllFromForwardToBackwardFromDisplay(valueText: string): string {
-        var aux: string = "";
-
-        sh {
-            #%aux="${%valueText/\//\\}"
-            %aux=$(echo "$%valueText" | sed 's/\//\\/g')
-        }
-
-        return aux;
+        return (valueText |> @sed(r's/\//\\/g'));
     }
 
     fn charReplaceSlashAllFromBackwardToForwardFromDisplay(valueText: string): string {
-        var aux: string = "";
-
-        sh {
-            #%aux="${%valueText/\\//}"
-            %aux=$(echo "$%valueText" | sed 's/\\/\//g')
-        }
-
-        return aux;
+        return (valueText |> @sed(r's/\\/\//g'));
     }    
 
     fn charReplaceSpaceAllFromColonToSpaceFromDisplay(valueText: string): string {
-        var aux: string = "";
-
-        sh {
-            %aux=$(echo $%valueText | sed 's/:\|-/ /g;')
-        }
-
-        return aux;
+        return (valueText |> @sed(r's/:\|-/ /g;'));
     }
 }

@@ -1,0 +1,76 @@
+module printTest {
+    var textMessage: string = "Take me down to the Paradise City"
+
+    print::colorBackgroundBrightBlack(textMessage);
+    print::colorBackgroundBrightRed(textMessage);
+    print::colorBackgroundBrightGreen(textMessage);
+    print::colorBackgroundBrightYellow(textMessage);
+    print::colorBackgroundBrightBlue(textMessage);
+    print::colorBackgroundBrightMagenta(textMessage);
+    print::colorBackgroundBrightCyan(textMessage);
+    print::colorBackgroundBrightWhite(textMessage);
+
+    print::colorBackgroundOpaqueBlack(textMessage);
+    print::colorBackgroundOpaqueRed(textMessage);
+    print::colorBackgroundOpaqueGreen(textMessage);
+    print::colorBackgroundOpaqueGreen(3 as string);
+    print::colorBackgroundOpaqueYellow(textMessage);
+    print::colorBackgroundOpaqueBlue(textMessage);
+    print::colorBackgroundOpaqueMagenta(textMessage);
+    print::colorBackgroundOpaqueCyan(textMessage);
+    print::colorBackgroundOpaqueWhite(textMessage);
+
+    print::colorForegroundBrightBlack(textMessage);
+    print::colorForegroundBrightRed(textMessage);
+    print::colorForegroundBrightGreen(textMessage);
+    print::colorForegroundBrightYellow(textMessage);
+    print::colorForegroundBrightBlue(textMessage);
+    print::colorForegroundBrightMagenta(textMessage);
+    print::colorForegroundBrightCyan(textMessage);
+    print::colorForegroundBrightWhite(textMessage);
+
+    print::colorForegroundOpaqueBlack(textMessage);
+    print::colorForegroundOpaqueRed(textMessage);
+    print::colorForegroundOpaqueGreen(textMessage);
+    print::colorForegroundOpaqueYellow(textMessage);
+    print::colorForegroundOpaqueBlue(textMessage);
+    print::colorForegroundOpaqueMagenta(textMessage);
+    print::colorForegroundOpaqueCyan(textMessage);
+    print::colorForegroundOpaqueWhite(textMessage);
+
+    // ---
+
+    print::formatStyleBold(textMessage);
+    print::formatStyleDefault(textMessage, 0, 0);
+    print::formatStyleDim(textMessage);
+    print::formatStyleHidden(textMessage);
+    print::formatStyleInverse(textMessage);
+    print::formatStyleItalic(textMessage);
+    print::formatStyleReset(textMessage);
+    print::formatStyleStrikethrough(textMessage);
+    print::formatStyleUnderline(textMessage);
+
+    print::formatStyleInverse(
+        print::formatStyleItalic(
+            print::formatStyleStrikethrough(
+                print::formatStyleBold(
+                    print::colorBackgroundBrightGreen(
+                        print::colorForegroundBrightYellow(textMessage)
+                    )
+                )
+            )
+        )
+    );
+
+    print::formatStyleInverse(
+        print::formatStyleItalic(
+            print::formatStyleStrikethrough(
+                print::formatStyleBold(
+                    print::colorBackgroundOpaqueGreen(
+                        print::colorForegroundOpaqueYellow(textMessage)
+                    )
+                )
+            )
+        )
+    );
+}

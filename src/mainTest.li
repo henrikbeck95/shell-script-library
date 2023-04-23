@@ -1,13 +1,18 @@
 require './main.li';
 
+var repetition: int = 20;
+
+require './core/langTest.li';
+separator(repetition, "<+>");
+
 //require './core/displayTest.li';
-//println("<+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+>");
+//separator(repetition, "<+>");
 
 require './core/mathTest.li';
-println("<+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+>");
+separator(repetition, "<+>");
 
 require './core/textTest.li';
-println("<+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+>");
+separator(repetition, "<+>");
 
 require './libs/sysTest.li';
-println("<+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+><+>");
+separator(repetition, "<+>");

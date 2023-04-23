@@ -16,4 +16,6 @@ module strTest {
     //str::stringReplaceMatchAllFromFile("/home/henrikbeck95/Downloads/shell_script_library/testing.txt", "Henrik Beck", "Mr. Beck, H.", true);
     //str::stringReplaceMatchLineFromFile("/home/henrikbeck95/Downloads/shell_script_library/testing.txt", 4, "REPLACED LINE", false);
     //str::stringReplaceMatchLineFromFile("/home/henrikbeck95/Downloads/shell_script_library/testing.txt", 4, "REPLACED LINE", true);
+
+    assert(str::stringReplaceMatchFirstFromDisplay("Henrik Beck Henrik Beck Henrik Beck", "Beck", "BECK") == "Henrik BECK Henrik Beck Henrik Beck");
 }

@@ -1,4 +1,4 @@
-module text {
+module print {
     // Colors
 
     fn colorBackgroundBrightBlack(text: string): string {

@@ -1,5 +1,5 @@
 module random{
-    fn generate_number_from_interval_set(numberA: int, numberB: int): float {
+    fn generateNumberFromIntervalSet(numberA: int, numberB: int): float {
         if numberA == numberB {
             return numberA;
         } else {
@@ -14,14 +14,9 @@ module random{
                 intervalEnd = numberA;
             }
 
-            var AUX: int = 0;
+            var numberRandom: int = @hexdump('-n', 2, '-e', '/2 "%u"', '/dev/urandom') as int;
 
-            //Generate the random number
-            sh {
-                %AUX="$RANDOM"
-            }
-
-            return (AUX % (intervalEnd - intervalBegin)) + intervalBegin;
+            return (numberRandom % (intervalEnd - intervalBegin)) + intervalBegin;
         }
     }
 }

@@ -1,0 +1,4 @@
+require './lang.li';
+
+println("Lang - Parse section");
+require './lang/parseTest.li';

@@ -1,5 +1,15 @@
 /// Use jQ as Array parse between the functions for calling and returning values.
 
+fn main() {
+    var areas: []string = ['game', 'web', 'tools', 'science', 'systems', 'embedded', 'drivers', 'GUI', 'mobile'];
+
+    for i in areas {
+        println("Hello, ${i} developers!");
+    }
+}
+
+main();
+
 module array {
     fn outputAll(JSON_OUTPUT: string): string {
         var AUX: string = ""
