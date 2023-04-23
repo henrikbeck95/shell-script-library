@@ -41,3 +41,6 @@ require './core/text.li';
 
 // Libraries modules
 require './libs/sys.li';
+
+// Commands shortcuts
+require './shortcuts/display.li';

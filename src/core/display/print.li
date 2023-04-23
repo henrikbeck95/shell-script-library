@@ -138,10 +138,10 @@ module print {
         }
     }
 
-    fn defaultCarriageReturn(timeDelay: float, textMessage: any) {
+    fn defaultCarriageReturn(timeDelay: float, textMessage: string) {
         @sleep(timeDelay);
         defaultClear();
-        printing(textMessage);
+        print::default(textMessage);
     }
 
     fn defaultClear() {

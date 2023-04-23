@@ -1,4 +1,4 @@
-// Print
+/// This module exists to simplify the way to call the commands from this entire repository.
 
 /// Clear the current line
 fn printClear() {
@@ -26,22 +26,3 @@ fn printSeparator(frequency: int, character: any = "#") {
 fn printTab(textMessage: any) {
     print::defaultTabular(textMessage as string);
 }
-
-// ???
-
-/// @deprecated, @empty(), @error(), @success(), @warning(), @mustBeFixed, @mustBeImproved, @mustBeTested, @requiresRoot()
-
-/// @calc(), @cp @cpOverride, @download(), @edit(), @ln(), @lnOverride, @mkdip(), @mv(), @mvOverride(), @print(), @println(), @rm(), @touch()
-
-/*
-fn edit(value: string) {
-    @nvim(value);
-}
-
-//@lalala("Lalalala");
-
-
-@edit('/tmp/123.txt');
-
-//@systemctl('status', 'bluetooth');
-*/

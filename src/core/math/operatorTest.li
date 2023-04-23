@@ -11,11 +11,11 @@ module operatorTest {
 
     var xyz: float = operator::calculator("10/3", 10);
     assert(3.333333333 == 3.333333333); 
-    printingln(xyz);
+    print::defaultNewLine(xyz as string);
     //assert(xyz == 3.333333333);
     //assert(operator::calculator("10/3") == 3.333333333);
     //assert(operator::calculator("10^2", 4)) == 100);
     //print("aaaaaaaaaaaa: ${operator::calculator("10^2")}");
-    //printingln(operator::calculator("10/3", 10));
+    //print::defaultNewLine(operator::calculator("10/3", 10));
     //assert(operator::calculator("10/3", 10) == 3.333333333);
 }

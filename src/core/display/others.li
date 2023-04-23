@@ -7,7 +7,7 @@ module others {
                 %aux=$(date)
             }
 
-            printr(1, aux);
+            print::defaultCarriageReturn(1, aux);
         }
     }
 }

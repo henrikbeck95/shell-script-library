@@ -5,9 +5,9 @@ module progress{
         var VALUE_PERCENTAGE: float = (VALUE_CURRENT / VALUE_FINISH) * 100;
 
         if VALUE_PERCENTAGE == 100 {
-            printr(0.2, "Completed!");
+            print::defaultCarriageReturn(0.2, "Completed!");
         } else {
-            printr(0.2, "${VALUE_CURRENT}/${VALUE_FINISH} = $VALUE_PERCENTAGE %");
+            print::defaultCarriageReturn(0.2, "${VALUE_CURRENT}/${VALUE_FINISH} = $VALUE_PERCENTAGE %");
         }
     }
 }

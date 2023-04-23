@@ -16,3 +16,6 @@ print::defaultSeparator(repetition, "<+>");
 
 require './libs/sysTest.li';
 print::defaultSeparator(repetition, "<+>");
+
+//require './shortcuts/display.li';
+//print::defaultSeparator(repetition, "<+>");
