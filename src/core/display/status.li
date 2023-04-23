@@ -7,7 +7,7 @@ module status {
         );
     }
 
-    fn error(textMessage: string){
+    fn error(textMessage: string) {
         var textIcon: string = "¯\\_(ツ)_/¯"
 
         print::formatStyleBold(
@@ -17,7 +17,7 @@ module status {
         );
     }
 
-    fn success(textMessage: string){
+    fn success(textMessage: string) {
         var textIcon: string = "***"
 
         print::formatStyleBold(
@@ -27,7 +27,7 @@ module status {
         );
     }
 
-    fn warning(textMessage: string){
+    fn warning(textMessage: string) {
         var textIcon: string = "!!!"
 
         print::formatStyleBold(

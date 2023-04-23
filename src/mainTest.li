@@ -19,3 +19,9 @@ print::defaultSeparator(repetition, "<+>");
 
 //require './shortcuts/display.li';
 //print::defaultSeparator(repetition, "<+>");
+
+//require './shortcuts/math.li';
+//print::defaultSeparator(repetition, "<+>");
+
+//require './shortcuts/text.li';
+//print::defaultSeparator(repetition, "<+>");

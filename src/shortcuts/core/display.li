@@ -1,0 +1,94 @@
+/// This module exists to simplify the way to call the commands from this entire repository.
+
+/// Clear the current line
+fn printClear() {
+    print::defaultClear();
+}
+
+/// Cotowali programming language does not permit to override functions
+fn printing(textMessage: any) {
+    print::default(textMessage as string);
+}
+
+/// Cotowali programming language does not permit to override functions
+fn printingln(textMessage: any) {
+    print::defaultNewLine(textMessage as string);
+}
+
+fn printr(timeDelay: float, textMessage: any) {
+   print::defaultCarriageReturn(timeDelay, textMessage as string);
+}
+
+fn printSeparator(frequency: int, character: any = "#") {
+    print::defaultSeparator(frequency, character as string);
+}
+
+fn printTab(textMessage: any) {
+    print::defaultTabular(textMessage as string);
+}
+
+// Status
+
+/// This function has not been implemented yet
+fn printEmpty() {
+    status::empty();
+}
+
+/// This function is dedicated to advise users about his own error
+fn printError(textMessage: any) {
+    status::error(textMessage as string);
+}
+
+/// This function is dedicated to advise users about a completed action
+fn printSuccess(textMessage: any) {
+    status::success(textMessage as string);
+}
+
+/// This function is dedicated to advise users or set as a title section
+fn printWarning(textMessage: any) {
+    status::warning(textMessage as string);
+}
+
+// Status - Function
+
+/// This function is going to be removed in favor of another one
+fn deprecated() {
+    status::warning("This is a deprecated functions");
+}
+
+/// This function has a detected problem to be fixed
+fn mustBeFixed() {
+    status::error("This function must be fixed");
+}
+
+/// This function has a detected problem and will not be fixed
+fn mustBeIgnored() {
+    status::error("This function must be fixed");
+}
+
+/// This functions is not following the POSIX compatibility
+fn mustBeImproved() {
+    status::warning("This function must be improved");
+}
+
+/// This function is going to be removed without any alternative
+fn mustBeRemoved() {
+    status::warning("This function must be removed");
+}
+
+/// This function has been implemented without being tested
+fn mustBeTested() {
+    status::warning("This function must be tested");
+}
+
+// Computer actions
+
+/// This function is dedicated to advise user about the computer reboot action is required
+fn requireReboot() {
+    status::warning("Reboot machine is required!");
+}
+
+/// This function is dedicated to advise user the root previlegded is required
+fn requireRoot() {
+    status::warning("Root previledges is required!");
+}

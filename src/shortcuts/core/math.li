@@ -1,0 +1,7 @@
+fn calc(mathExpression: string, valueFloatPoint: int = 10): float {
+    return operator::calculator(mathExpression, valueFloatPoint);
+}
+
+fn math(mathExpression: string, valueFloatPoint: int = 10): float {
+    return operator::calculator(mathExpression, valueFloatPoint);
+}

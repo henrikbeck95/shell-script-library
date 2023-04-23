@@ -31,8 +31,6 @@
  * - [x][ ] utils_run.li 
 */
 
-/// @annotation_must_be_improved
-
 // Core modules
 require './core/lang.li';
 require './core/display.li';
@@ -43,4 +41,4 @@ require './core/text.li';
 require './libs/sys.li';
 
 // Commands shortcuts
-require './shortcuts/display.li';
+require './shortcuts/core.li';

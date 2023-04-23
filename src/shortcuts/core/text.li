@@ -1,0 +1,19 @@
+/// Get String length
+fn getLength(valueTextContent: string): int {
+    return str::stringGetLength(valueTextContent);
+}
+
+/// Replace all match values on display from old string to the newest one
+fn substring(valueText: string, valueTextOld: string, valueTextNew: string): string {
+    return str::stringReplaceMatchAllFromDisplay(valueText, valueTextOld, valueTextNew);
+}
+
+/// Convert text to lower case
+fn toLower(valueTextContent: string): string {
+    return char::charReplaceCaseAllFromUpperToLowerFromDisplay(valueTextContent);
+}
+
+/// Convert text to upper case
+fn toUpper(valueTextContent: string): string {
+    return char::charReplaceCaseAllFromLowerToUpperFromDisplay(valueTextContent);
+}

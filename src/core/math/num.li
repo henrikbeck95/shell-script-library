@@ -1,5 +1,6 @@
 module num {
 	//fn isFloat() {}
+	
 	//fn isInteger() {}
 
 	fn isEven(value: float): bool {
