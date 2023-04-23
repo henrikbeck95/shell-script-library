@@ -1,75 +1,26 @@
 module formatDateTest {
     // Calendar
 
-    assert(formatDate::getCalendarDayMonth() == "23/04");
-    assert(formatDate::getCalendarDayMonthYear() == "04/2023");
-    assert(formatDate::getCalendarMonthDay() == "04/23");
-    assert(formatDate::getCalendarMonthDayYear() == "04/23/2023");
-    assert(formatDate::getCalendarYearMonthDay() == "2023/04/23");
-    //assert(formatDate::aaaaaaa() == "");
-    //assert(formatDate::aaaaaaa() == "");
-    //assert(formatDate::aaaaaaa() == "");
-    //assert(formatDate::aaaaaaa() == "");
-    //assert(formatDate::aaaaaaa() == "");
-    //assert(formatDate::aaaaaaa() == "");
-    //assert(formatDate::aaaaaaa() == "");
+    print::defaultNewLine("Calendar day-month: ${formatDate::getCalendarDayMonth()}");
+    print::defaultNewLine("Calendar day-month-year: ${formatDate::getCalendarDayMonthYear()}");
+    print::defaultNewLine("Calendar month-day: ${formatDate::getCalendarMonthDay()}");
+    print::defaultNewLine("Calendar month-day-year: ${formatDate::getCalendarMonthDayYear()}");
+    print::defaultNewLine("Calendar year-month-day: ${formatDate::getCalendarYearMonthDay()}");
 
-    //fn getCalendarDayMonth(): string {
-    //    return "${date::getDay()}/${date::getMonth()}";
-    //}
+    // Clock
 
-    //fn getCalendarDayMonthYear(): string {
-    //    return "${date::getDay()}/${date::getMonth()}/${date::getYearFull()}";
-    //}
- 
-    //fn getCalendarMonthDay(): string {
-    //    return "${date::getMonth()}/${date::getDay()}";
-    //}
-    
-    //fn getCalendarMonthDayYear(): string {
-    //    return "${date::getMonth()}/${date::getDay()}/${date::getYearFull()}";
-    //}
+    print::defaultNewLine("Clock hour12-minutes-seconds: ${formatDate::getClockHour12MinutesSeconds()}");
+    print::defaultNewLine("Clock hour24-minutes-seconds: ${formatDate::getClockHour24MinutesSeconds()}");
+    print::defaultNewLine("Clock minutes-seconds: ${formatDate::getClockMinutesSeconds()}");
 
-    //fn getCalendarYearMonthDay(): string {
-    //    return "${date::getYearFull()}/${date::getMonth()}/${date::getDay()}";
-    //}
+    // Clock + meridian
 
-    //// Clock
+    print::defaultNewLine("Clock hour-minutes-seconds-meridian: ${formatDate::getClockHourMinutesSecondsMeridian()}");
+    print::defaultNewLine("Clock meridian-hour-minutes-seconds: ${formatDate::getClockMeridianHourMinutesSeconds()}");
+    print::defaultNewLine("Clock minutes-seconds-meridian: ${formatDate::getClockMinutesSecondsMeridian()}");
+    print::defaultNewLine("Clock meridian-minutes-seconds: ${formatDate::getClockMeridianMinutesSeconds()}");
 
-    //fn getClockHour12MinutesSeconds(): string {
-    //    return "$${date::getHours12()}:${date::getMinutes()}:${date::getSeconds()}";
-    //}
+    // Now
 
-    //fn getClockHour24MinutesSeconds(): string {
-    //    return "$${date::getHours12()}:${date::getMinutes()}:${date::getSeconds()}";
-    //}
-
-    //fn getClockMinutesSeconds(): string {
-    //    return "$${date::getHours12()}:${date::getMinutes()}:${date::getSeconds()}";
-    //}
-
-    //// Clock + meridian
-
-    //fn getClockHourMinutesSecondsMeridian(): string {
-    //    return "${getClockHour12MinutesSeconds()} ${date::getMeridian()}";
-    //}
-
-    //fn getClockMeridianHourMinutesSeconds(): string {
-    //    return "${date::getMeridian()} ${date::getClockHour12MinutesSeconds()}";
-    //}
-
-    //fn getClockMinutesSecondsMeridian(): string {
-    //    return "${getClockMinutesSeconds()} ${date::getMeridian()}";
-    //}
-
-    //fn getClockMeridianMinutesSeconds(): string {
-    //    return "${date::getMeridian()} ${date::getClockMinutesSeconds()}";
-    //}
-
-    //// Now
-
-    ///// Perfect for implementing on log files
-    //fn getNow(): string {
-    //    return "${getCalendarYearMonthDay()}-${getClockHour24MinutesSeconds()}:${getNanoseconds()}";
-    //}
+    print::defaultNewLine("Now: ${formatDate::getNow()}");
 }

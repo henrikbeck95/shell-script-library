@@ -24,15 +24,15 @@ module formatDate {
     // Clock
 
     fn getClockHour12MinutesSeconds(): string {
-        return "$${date::getHours12()}:${date::getMinutes()}:${date::getSeconds()}";
+        return "${date::getHours12()}:${date::getMinutes()}:${date::getSeconds()}";
     }
 
     fn getClockHour24MinutesSeconds(): string {
-        return "$${date::getHours12()}:${date::getMinutes()}:${date::getSeconds()}";
+        return "${date::getHours24()}:${date::getMinutes()}:${date::getSeconds()}";
     }
 
     fn getClockMinutesSeconds(): string {
-        return "$${date::getHours12()}:${date::getMinutes()}:${date::getSeconds()}";
+        return "${date::getMinutes()}:${date::getSeconds()}";
     }
 
     // Clock + meridian
@@ -42,7 +42,7 @@ module formatDate {
     }
 
     fn getClockMeridianHourMinutesSeconds(): string {
-        return "${date::getMeridian()} ${date::getClockHour12MinutesSeconds()}";
+        return "${date::getMeridian()} ${getClockHour12MinutesSeconds()}";
     }
 
     fn getClockMinutesSecondsMeridian(): string {
@@ -50,13 +50,13 @@ module formatDate {
     }
 
     fn getClockMeridianMinutesSeconds(): string {
-        return "${date::getMeridian()} ${date::getClockMinutesSeconds()}";
+        return "${date::getMeridian()} ${getClockMinutesSeconds()}";
     }
 
     // Now
 
     /// Perfect for implementing on log files
     fn getNow(): string {
-        return "${getCalendarYearMonthDay()}-${getClockHour24MinutesSeconds()}:${getNanoseconds()}";
+        return "${date::getYearFull()}_${date::getMonth()}_${date::getDay()}-${date::getHours24()}_${date::getMinutes()}_${date::getSeconds()}";
     }
 }
