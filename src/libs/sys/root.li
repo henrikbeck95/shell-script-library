@@ -1,0 +1,10 @@
+module root {
+	//@annotation_must_be_fixed
+	fn passwordChange(password: string){
+		if (hasPreviledgesRoot() == true) {
+			sh {
+				(echo "${%password}" ; echo "${%password}") | passwd
+			}
+		}
+	}
+}
