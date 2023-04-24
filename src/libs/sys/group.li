@@ -1,4 +1,4 @@
-module group{
+module group {
     //fn createGroup(): bool {}
 
     fn getAll(): string {

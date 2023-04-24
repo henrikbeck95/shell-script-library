@@ -1,5 +1,5 @@
 module os {
-    fn propertyTagSearch(valueTag: string): string{
+    fn propertyTagSearch(valueTag: string): string {
         var aux: string = "";
 
         /// For Linux

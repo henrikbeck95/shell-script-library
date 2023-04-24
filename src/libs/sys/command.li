@@ -1,0 +1,36 @@
+module command{
+    fn has_command(COMMAND: string): bool {
+        var code: int
+
+        sh {
+            #command -v "$SOFTWARE_NAME" >/dev/null
+            type $%COMMAND > /dev/null 2>&1
+            %code=$?
+        }
+
+        pwsh {
+            get-command $%COMMAND > /dev/null 2>&1
+
+            if ($?) {
+                %code = 0
+            } else {
+                %code = 1
+            }
+        }
+
+        return code == 0
+    }
+
+    fn require_command(COMMAND: string) {
+        if has_command(COMMAND) {
+            return
+        }
+
+        required_command_not_found(COMMAND)
+    }
+
+    fn required_command_not_found(COMMAND: string) {
+        eprintln("$COMMAND: command not found")
+        exit(127)
+    }
+}

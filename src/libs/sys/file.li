@@ -1,5 +1,11 @@
 /// Softwares: 
 module file {
+    fn clear(pathFile: string) {
+        sh {
+            cat /dev/null > "$%pathFile"
+        }
+    }
+
     /*
     //@annotation_must_be_fixed
     //@annotation_must_be_tested

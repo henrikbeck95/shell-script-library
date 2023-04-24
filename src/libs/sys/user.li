@@ -1,0 +1,147 @@
+module user {
+	fn create(username: string, nameFull: string, isRoot: bool = false) {
+		if (os::isAlpine() == true) {
+			sh {
+				# Create a new user
+				adduser -g "${%nameFull}" "${%username}"
+			}
+
+			if (isRoot == true) {
+				sh {
+					# Adding him to the wheel group
+					adduser "${%username}" wheel
+				}
+			}
+		} else {
+			sh {
+				# Create a new user
+				useradd --create-home --comment "${%nameFull}" "${%username}"
+			}
+
+			if (isRoot == true) {
+				sh {
+					# Adding him to the wheel group or sudo group
+					usermod --append --groups wheel "${%username}" || usermod --append --groups sudo "${%username}"
+				}
+			}
+		}
+	}
+
+	fn delete(username: string) {
+		if (os::isAlpine() == true) {
+			sh {
+				deluser --remove-home "${%username}"
+			}
+		} else {
+			sh {
+				userdel -r "${%username}"
+			}
+		}
+	}
+
+	fn getCurrentUsername(): string {
+		var username: string = "";
+
+		sh {
+			%username=$(whoami)
+		}
+
+		return username;
+	}
+	
+	fn hasFullName(username: string): bool {
+		var aux: string = "";
+
+		sh {
+			%aux=$(awk -v word="$%username" 'BEGIN {FS = ":"} $5 == word {print $5}' /etc/passwd)
+		}
+
+		if (aux == "") {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	fn hasPreviledgesRoot(): bool {
+		var aux: int = -1;
+
+		sh {
+			%aux="$UID"
+		}
+
+		if (aux == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	fn hasUsername(username: string): bool {
+		var aux: string = "";
+
+		sh {
+			%aux=$(awk -v word="$%username" 'BEGIN {FS = ":"} $1 == word {print $1}' /etc/passwd)
+		}
+
+		if (aux == "") {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	fn list(): string {
+		if (kernel::isLinux()) {
+			return @awk('-F', ":", '{print $1}', "/etc/passwd")
+		} else {
+			return "unknown";
+		}
+	}
+	
+	fn passwordChangeCurrent(password: string) {
+		var username: string = getCurrentUsername();
+
+		passwordChangeSpecific(username, password);
+	}
+
+	fn passwordChangeSpecific(username: string, password: string) {
+		if (hasPreviledgesRoot() == true) {
+			sh {
+				(echo "${%password}" ; echo "${%password}") | passwd "${%username}"
+			}
+		}
+	}
+
+	fn searchNameFullFromUsername(username: string): string{
+		var aux: string = "";
+
+		sh {
+			%aux=$(awk -v word="$%username" 'BEGIN {FS = ":"} $1 == word {print $5}' /etc/passwd)
+		}
+
+		return aux;
+	}
+
+	fn searchUsernameFromNameFull(nameFull: string): string{
+		var aux: string = "";
+
+		sh {
+			%aux=$(awk -v word="$%nameFull" 'BEGIN {FS = ":"} $5 == word {print $1}' /etc/passwd)
+		}
+
+		return aux;
+	}
+
+	fn updateFullName(username: string, nameFull: string) {
+		sh {
+			chfn --full-name "${%nameFull}" "${%username}"
+		}
+	}
+
+	fn updateLogin(username: string) {
+		sh {
+			usermod --login "${%username}"
+		}
+	}
+}

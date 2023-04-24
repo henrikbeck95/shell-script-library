@@ -1,0 +1,5 @@
+/// The user module has been tested under containers for securance.
+///
+/// All the commands have been running using the following containers:
+/// podman run --rm -it docker.io/library/alpine:latest
+/// podman run --rm -it docker.io/library/debian:latest

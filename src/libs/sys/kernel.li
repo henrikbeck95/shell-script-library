@@ -3,7 +3,7 @@ module kernel {
         var aux: string = "";
 
         sh {
-            %aux=$(uname -s);
+            %aux=$(uname -s)
         }
 
         if aux == "Darwin" {
