@@ -1,0 +1,160 @@
+module asdf {
+    /// plugin == "nodejs"
+    fn getPluginUrl(String plugin): String {
+        if (plugin == "") {
+            return "";
+        //} else if (plugin == "") {
+        //    return "";
+        //} else if (plugin == "dart") {
+        //    return "";
+        //} else if (plugin == "docker-compose") {
+        //    return "";
+        //} else if (plugin == "flutter") {
+        //    return "";
+        //} else if (plugin == "golang") {
+        //    return "";
+        //} else if (plugin == "groovy") {
+        //    return "";
+        } else if (plugin == "java") {
+            return "https://github.com/halcyon/asdf-java.git";
+        //} else if (plugin == "kotlin") {
+        //    return "";
+        //} else if (plugin == "lua") {
+        //    return "";
+        } else if (plugin == "nodejs") {
+            return "https://github.com/asdf-vm/asdf-nodejs.git";
+        //} else if (plugin == "perl") {
+        //    return "";
+        //} else if (plugin == "php") {
+        //    return "";
+        //} else if (plugin == "postgres") {
+        //    return "";
+        //} else if (plugin == "python") {
+        //    return "";
+        //} else if (plugin == "redis") {
+        //    return "";
+        //} else if (plugin == "ruby") {
+        //    return "";
+        //} else if (plugin == "rust") {
+        //    return "";
+        //} else if (plugin == "scala") {
+        //    return "";
+        //} else if (plugin == "") {
+        //    return "";
+        } else {
+            return "";
+        }
+    }
+
+    /// plugin == "nodejs"
+    /// url == "https://github.com/asdf-vm/asdf-nodejs.git"
+    fn pluginAdd(String plugin, String url) {
+        var url: String = getPluginUrl(plugin);
+        
+        sh {
+            asdf plugin add "$%plugin" "$%url" || asdf plugin-add "$%plugin" "$%url"
+        }
+    }
+
+    /*
+    /// plugin == "nodejs"
+    fn pluginRemove(String plugin) {
+        sh {
+            asdf ...
+        }
+    }
+    */
+    
+    /// version == v0.12.0
+    /// shell == "bash" || shell == "zsh"
+    fn setupInstall (String version, String shell) {
+        sh {
+            git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch "$%version"
+
+            echo '. "$HOME/.asdf/asdf.sh"' >> ~/.bashrc
+
+            echo '. "$HOME/.asdf/completions/asdf.bash"' >> ~/.bashrc
+        }
+    }
+
+    /// version == v0.12.0
+    /// shell == "bash" || shell == "zsh"
+    /*
+    fn setupUninstall (String version, String shell) {
+        sh {
+            rm -fr ~/.asdf
+
+            #echo '. "$HOME/.asdf/asdf.sh"' >> ~/.bashrc
+
+            #echo '. "$HOME/.asdf/completions/asdf.bash"' >> ~/.bashrc
+        }
+    }
+    */
+
+    /*
+    /// plugin == "nodejs"
+    /// version == "lts"
+    fn versionUninstall(String plugin, String version) {
+        sh {
+            asdf ... "$%plugin" "$%version"
+        }
+    }
+    */
+
+    /// plugin == "nodejs"
+    /// version == "lts"
+    fn versionInstall(String plugin, String version) {
+        /*
+        // Java dependencies
+        bash v5.0
+        curl
+        sha256sum (only on Linux)
+        unzip
+        jq (only for updating the release data)
+        */
+
+        sh {
+            asdf install "$%plugin" "$%version"
+        }
+    }
+
+    /// plugin == "nodejs"
+    /// version == "lts"
+    fn versionSetGlobal(String plugin, String version) {
+        sh {
+            asdf global "$%plugin" "$%version"
+        }
+    }
+
+    /// plugin == "nodejs"
+    /// version == "lts"
+    fn versionSetLocal(String plugin, String version) {
+        sh {
+            asdf local "$%plugin" "$%version"
+        }
+    }
+
+    /*
+    /// plugin == "nodejs"
+    /// version == "lts"
+    fn versionUninstall(String plugin, String version) {
+        sh {
+            asdf ... "$%plugin" "$%version"
+        }
+    }
+    */
+
+    /// plugin == "nodejs"
+    /// version == "lts"
+    /// isGlobal == "global"
+    fn installPluginSpecificVersion(String plugin, String version, String scope = "global") {
+        pluginAdd(String plugin);
+        versionInstall(plugin, version);
+
+        if (scope == "global") {
+            versionSetGlobal(plugin, version);
+        } else if (scope == "local") {
+            versionSetLocal(plugin, version);
+        }
+    }
+}
