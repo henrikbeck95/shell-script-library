@@ -1,0 +1,13 @@
+require './_asdf.li';
+
+//asdf::setupInstall("v0.12.0", "bash");
+//asdf::installPluginSpecificVersion("java", "adoptopenjdk-8.0.372+7", "local");
+//asdf::installPluginSpecificVersion("java", "adoptopenjdk-11.0.19+7", "local");
+//asdf::installPluginSpecificVersion("java", "adoptopenjdk-17.0.7+7", "local");
+//asdf::installPluginSpecificVersion("java", "adoptopenjdk-jre-8.0.372+7", "local");
+//asdf::installPluginSpecificVersion("java", "adoptopenjdk-jre-11.0.19+7", "local");
+//asdf::installPluginSpecificVersion("java", "adoptopenjdk-jre-17.0.7+7", "local");
+//asdf::installPluginSpecificVersion("java", "graalvm-22.3.2+java17", "local");
+//asdf::installPluginSpecificVersion("nodejs", "lts", "local");
+
+//asdf::setupUninstall("bash");
