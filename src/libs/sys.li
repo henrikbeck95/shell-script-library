@@ -1,1 +1,20 @@
+
+//require './sys/architecture.li';
 require './sys/battery.li';
+require './sys/command.li';
+require './sys/container.li';
+//require './sys/device.li';
+require './sys/directory.li';
+//require './sys/file.li';
+//require './sys/firmware.li';
+//require './sys/group.li';
+//require './sys/init.li';
+//require './sys/kernel.li';
+//require './sys/memory.li';
+//require './sys/open.li';
+//require './sys/os.li';
+require './sys/process.li';
+//require './sys/root.li';
+//require './sys/symlink.li';
+//require './sys/user.li';
+//require './sys/virtualization.li';

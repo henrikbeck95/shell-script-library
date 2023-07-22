@@ -76,7 +76,7 @@ module printTest {
     print::defaultNewLine("");
     print::defaultTabular(textMessage);
     print::defaultNewLine("");
-    print::defaultTabular("#:Name:Surname\n1:Henrik:Beck\n2:Somebody:Someone");   
+    print::defaultTabular("#:Name:Surname\n1:Henrik:Beck\n2:Somebody:Someone");
     print::defaultNewLine("");
 
     // Format

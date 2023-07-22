@@ -1,8 +1,9 @@
 module notification{
     var textMessage: string = "I wanna rock!";
     var timeDuration: int = 1500;
+    var textIcon: string = "";
 
-    notification::low(textMessage, timeDuration, "");
-    notification::normal(textMessage, timeDuration, "");
-    notification::warning(textMessage, timeDuration, "");
+    notification::low(textMessage, timeDuration, textIcon);
+    notification::normal(textMessage, timeDuration, textIcon);
+    notification::warning(textMessage, timeDuration, textIcon);
 }

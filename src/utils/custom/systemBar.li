@@ -1,0 +1,43 @@
+module systemBar {
+    fn waybarStart() {
+		sh {
+			waybar &
+		}
+	}
+	
+	fn waybarStop(verbose: bool = false) {
+		process::stopForced("waybar", verbose);
+	}
+
+	/// MUST BE IMPROVED
+	fn mainStart() {
+		var application: string = "waybar";
+
+		if (application == "") {
+			eprint("None application has found!");
+		} else if (application == "waybar") {
+			waybarStart();
+		} else {
+			eprint("None application has found!");
+		}
+
+		//var textMessage: string = "I wanna rock!";
+		//var timeDuration: int = 1500;
+		//var textIcon: string = "";
+
+		//notification::low(textMessage, timeDuration, textIcon);
+	}
+
+	/// MUST BE IMPROVED
+	fn mainStop(verbose: bool = false) {
+		var application: string = "waybar";
+
+		if (application == "") {
+			eprint("None application has found!");
+		} else if (application == "waybar") {
+			waybarStop(verbose);
+		} else {
+			eprint("None application has found!");
+		}
+	}
+}

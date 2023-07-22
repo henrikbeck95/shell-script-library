@@ -3,36 +3,36 @@ module download {
     
     //fn directorySilence() {}
 
-    fn fileNoise(PATH_URL: string, PATH_DESTINY: string = "") {
+    fn fileNoise(pathUrl: string, pathDestiny: string = "") {
         //Should verify if there is an internet connection first
 
-        println("Downloading file from: ${PATH_URL}")
+        println("Downloading file from: ${pathUrl}")
 
-        if PATH_DESTINY == "" {
-            PATH_DESTINY = directory::get_current_path()
+        if (pathDestiny == "") {
+            pathDestiny = directory::getCurrentPath();
         }
 
-        directory::create(PATH_DESTINY)
+        //directory::create(pathDestiny);
 
         sh {
-            curl -C -L -O "$%PATH_URL" -o "$%PATH_DESTINY" || wget -c "$%PATH_URL" -O "$%PATH_DESTINY"
+            curl -C -L -O "${%pathUrl}" -o "${%pathDestiny}" || wget -c "${%pathUrl}" -O "${%pathDestiny}"
         }
     }
 
-    fn fileSilence(PATH_URL: string, PATH_DESTINY: string = "") {
+    fn fileSilence(pathUrl: string, pathDestiny: string = "") {
         //Should verify if there is an internet connection first
 
-        println("Downloading file from: ${PATH_URL}")
+        println("Downloading file from: ${pathUrl}")
 
-        if PATH_DESTINY == "" {
-            PATH_DESTINY = directory::get_current_path()
+        if (pathDestiny == "") {
+            pathDestiny = directory::getCurrentPath();
         }
 
-        directory::create(PATH_DESTINY)
+        //directory::create(pathDestiny);
 
         sh {
-            curl --silent -C -L -O "$%PATH_URL" -o "$%PATH_DESTINY" || 
-            wget --quiet -c "$%PATH_URL" -O "$%PATH_DESTINY"
+            curl --silent -C -L -O "${%pathUrl}" -o "${%pathDestiny}" || 
+            wget --quiet -c "${%pathUrl}" -O "${%pathDestiny}"
         }
     }
 
@@ -41,36 +41,36 @@ module download {
     //fn torrentSilence() {}
 
     //@annotation_must_be_tested
-    fn websiteNoise(PATH_URL: string, PATH_DESTINY: string = "") {
-        if PATH_DESTINY == "" {
-            PATH_DESTINY = directory::get_current_path()
+    fn websiteNoise(pathUrl: string, pathDestiny: string = "") {
+        if (pathDestiny == "") {
+            pathDestiny = directory::getCurrentPath();
         }
 
-        directory::create(PATH_DESTINY)
+        directory::create(pathDestiny);
 
-        if (system::command::has_command("wget") == true) {
+        if (command::has_command("wget") == true) {
             sh {
-                cd "$%PATH_DESTINY/"
-                wget -r -erobots=off "$%PATH_URL"
-                #wget -r -p -U Mozilla --wait=10 --limit-rate=35K $PATH_URL
+                cd "${%pathDestiny}/"
+                wget -r -erobots=off "${%pathUrl}"
+                #wget -r -p -U Mozilla --wait=10 --limit-rate=35K $pathUrl
                 cd -
             }
         }
     }
 
     //@annotation_must_be_tested
-    fn websiteSilence(PATH_URL: string, PATH_DESTINY: string = "") {
-        if PATH_DESTINY == "" {
-            PATH_DESTINY = directory::get_current_path()
+    fn websiteSilence(pathUrl: string, pathDestiny: string = "") {
+        if (pathDestiny == "") {
+            pathDestiny = directory::getCurrentPath();
         }
 
-        directory::create(PATH_DESTINY)
+        directory::create(pathDestiny);
 
-        if (system::command::has_command("wget") == true) {
+        if (command::has_command("wget") == true) {
             sh{
-                cd "$%PATH_DESTINY/"
-                wget --quiet -r -erobots=off "$%PATH_URL"
-                #wget --quiet -r -p -U Mozilla --wait=10 --limit-rate=35K $PATH_URL
+                cd "${%pathDestiny}/"
+                wget --quiet -r -erobots=off "${%pathUrl}"
+                #wget --quiet -r -p -U Mozilla --wait=10 --limit-rate=35K $pathUrl
                 cd -
             }
         }

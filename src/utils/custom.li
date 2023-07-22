@@ -1,0 +1,5 @@
+require './custom/background.li';
+require './custom/clipboard.li';
+require './custom/screenFilter.li';
+require './custom/systemBar.li';
+require './custom/wallpaper.li';

@@ -1,4 +1,5 @@
 module dateTest {
+    print::defaultNewLine("Time amount seconds of current day: ${date::getAmountSecondsOfCurrentDay()}");
     print::defaultNewLine("Time nanoseconds: ${date::getNanoseconds()}");
     print::defaultNewLine("Time seconds: ${date::getSeconds()}");
     print::defaultNewLine("Time minutes: ${date::getMinutes()}");

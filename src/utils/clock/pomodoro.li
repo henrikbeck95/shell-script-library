@@ -1,0 +1,43 @@
+module pomodoro {
+    fn main(pathFileAudio: string, timeSecondsDuration: int, hasSoundVolume: bool = false) {
+        if (timeSecondsDuration >= 0) {
+            begin(timeSecondsDuration);
+        } else {
+            print::colorForegroundBrightRed("Error! Provide a valid integer as the duration of the Pomodoro in seconds");
+        }
+
+        finish(pathFileAudio, hasSoundVolume);
+    }
+
+    fn begin(timeSecondsDuration: int) {
+        var VALUE_BEGIN: int = 0;
+        var VALUE_FINISH: int = timeSecondsDuration;
+
+        print::colorForegroundBrightBlue("Pomodo timer progress!");
+
+        for i in range(VALUE_BEGIN, VALUE_FINISH + 1) {
+            //progress::statusPercentageBar(i, VALUE_FINISH);
+            progress::statusPercentageValue(i, VALUE_FINISH);
+
+            sh {
+                sleep 1
+            }
+        }
+
+        print::defaultClear();
+    }
+
+    fn finish(pathFileAudio: string, hasSoundVolume: bool) {
+        var textMessage: string = "Time is up!";
+        var timeDuration: int = 1500;
+        var textIcon: string = "";
+
+        /// Alert the Pomodoro is completed
+        print::colorForegroundBrightBlue(textMessage);
+        notification::warning(textMessage, timeDuration, textIcon);
+
+        if (hasSoundVolume == true) {
+            audio::play(pathFileAudio);
+        }
+    }
+}

@@ -98,9 +98,9 @@ module directory {
     //@annotation_must_be_tested
     /// Override the content
     fn moveAggressive(pathOrigin: string, pathDestiny: string){
-        if has_folder(pathOrigin) == true {
+        if hasFolder(pathOrigin) == true {
             sh {
-                mv -avr "$%pathOrigin" "$%pathDestiny"
+                mv -avr "${%pathOrigin}" "${%pathDestiny}"
             }
         }
     }
@@ -110,21 +110,21 @@ module directory {
     fn moveHard(pathOrigin: string, pathDestiny: string){
         //Remove the old directory if it exists and then overwrite it.
 
-        if has_folder(pathDestiny) == false {
+        if (hasFolder(pathDestiny) == false) {
             moveSoft(pathOrigin, pathDestiny);
         } else {
-            remove(pathDestiny)
+            //remove(pathDestiny);
             moveSoft(pathOrigin, pathDestiny);
         }
     }
 
     //@annotation_must_be_tested
-    fn moveSoft(pathOrigin: string, pathDestiny: string){
+    fn moveSoft(pathOrigin: string, pathDestiny: string) {
         //Move directory only if path directory exists but do not overwrite it.
 
-        if has_folder(pathOrigin) == true {
+        if (hasFolder(pathOrigin) == true) {
             sh {
-                mv "$%pathOrigin" "$%pathDestiny"
+                mv "${%pathOrigin}" "${%pathDestiny}"
             }
         }
     }

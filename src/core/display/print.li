@@ -169,15 +169,24 @@ module print {
         println(aux);
     }
 
-    fn defaultTabular(textMessage: string) {
+    fn defaultTabular(textMessage: string, charDividor: string = "|") {
         sh {
             echo "$%textMessage" | \
                 tr : , | \
-                sed -e 's/^/| /' \
-                -e 's/,/,| /g' \
-                -e 's/$/,|/' | \
+                sed -e "s/^/${%charDividor} /" \
+                -e "s/,/,${%charDividor} /g" \
+                -e "s/$/,${%charDividor}/" | \
                 column -t -s,
         }
+        
+        //sh {
+        //    echo "$%textMessage" | \
+        //        tr : , | \
+        //        sed -e 's/^/| /' \
+        //        -e 's/,/,| /g' \
+        //        -e 's/$/,|/' | \
+        //        column -t -s,
+        //}
     }
 
     // Format

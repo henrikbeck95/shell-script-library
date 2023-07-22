@@ -1,0 +1,46 @@
+module task {
+    //fn taskwarriorNoteCreate() {}
+    
+    //fn taskwarriorNoteDelete() {}
+
+    //fn taskwarriorNoteRead() {}
+    
+    //fn taskwarriorNoteUpdate() {}
+
+    fn taskwarriorServerDown(containerEngine: string, containerName: string) {
+        print::colorForegroundBrightRed("Stopping the TaskWarrior-WebUI...");
+
+        container::defaultContainerStop(containerEngine, containerName);
+    }
+    
+    fn taskwarriorServerInstall(containerEngine: string, containerImage: string) {
+        print::colorForegroundBrightGreen("Installing the TaskWarrior-WebUI...");
+
+        container::defaultImageDownload(containerEngine, containerImage);
+    }
+    
+    fn taskwarriorServerList(containerEngine: string) {
+        container::defaultContainerList(containerEngine);
+    }
+    
+    fn taskwarriorServerUp(containerEngine: string, containerImage: string, containerName: string, containerPortHost: int) {
+        var containerPortContainer: int = 80;
+
+        print::colorForegroundBrightGreen("Starting the TaskWarrior-WebUI...");
+
+        sh {
+            ${%containerEngine} run --rm -d \
+                -p ${%containerPortHost}:${%containerPortContainer} \
+                -v $HOME/.task/:/.task:rw \
+                -v $HOME/.taskrc:/.taskrc:ro \
+                --name ${%containerName} \
+                ${%containerImage}
+        }
+    }
+
+    fn taskwarriorServerShell(containerEngine: string, containerName: string, containerShell: string) {
+        print::colorForegroundBrightYellow("Initializing the TaskWarrior-WebUI shell mode...");
+
+        container::defaultContainerExecute(containerEngine, containerName, containerShell);
+    }
+}

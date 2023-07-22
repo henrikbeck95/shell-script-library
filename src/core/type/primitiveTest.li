@@ -1,0 +1,80 @@
+require './primitive.li';
+
+module primitiveTest {
+    fn main() {
+        var auxBoolean: bool = true;
+        var auxFloat: float = 0.1;
+        var auxInteger: int = 0;
+        var auxString: string = "Shell Script Library";
+
+        /// Testing boolean values
+        assert(primitive::isBoolean(auxBoolean) == true);
+        assert(primitive::isBoolean(auxFloat) == false);
+        assert(primitive::isBoolean(auxInteger) == false);
+        assert(primitive::isBoolean(auxString) == false);
+
+        /// Testing float values
+        assert(primitive::isFloat(auxBoolean) == false);
+        assert(primitive::isFloat(auxFloat) == true);
+        assert(primitive::isFloat(auxInteger) == false);
+        assert(primitive::isFloat(auxString) == false);
+
+        /// Testing integer values
+        assert(primitive::isInteger(auxBoolean) == false);
+        assert(primitive::isInteger(auxFloat) == false);
+        assert(primitive::isInteger(auxInteger) == true);
+        assert(primitive::isInteger(auxString) == false);
+
+        /// Testing number values
+        assert(primitive::isNumber(auxBoolean) == false);
+        assert(primitive::isNumber(auxFloat) == true);
+        assert(primitive::isNumber(auxInteger) == true);
+        assert(primitive::isNumber(auxString) == false);
+
+        /// Testing string values
+        assert(primitive::isString(auxBoolean) == false);
+        assert(primitive::isString(auxFloat) == false);
+        assert(primitive::isString(auxInteger) == false);
+        assert(primitive::isString(auxString) == true);
+
+        /// Testing any values
+        var auxAnyBoolean: any = true;
+        var auxAnyFloat: any = 1.1;
+        var auxAnyInteger: any = 1;
+        var auxAnyString: any = "testing";
+
+        assert(primitive::isBoolean(auxAnyBoolean) == true);
+        assert(primitive::isBoolean(auxAnyFloat) == false);
+        assert(primitive::isBoolean(auxAnyInteger) == false);
+        assert(primitive::isBoolean(auxAnyString) == false);
+
+        assert(primitive::isFloat(auxAnyBoolean) == false);
+        assert(primitive::isFloat(auxAnyFloat) == true);
+        assert(primitive::isFloat(auxAnyInteger) == false);
+        assert(primitive::isFloat(auxAnyString) == false);
+
+        assert(primitive::isInteger(auxAnyBoolean) == false);
+        assert(primitive::isInteger(auxAnyFloat) == false);
+        assert(primitive::isInteger(auxAnyInteger) == true);
+        assert(primitive::isInteger(auxAnyString) == false);
+
+        assert(primitive::isNumber(auxAnyBoolean) == false);
+        assert(primitive::isNumber(auxAnyFloat) == true);
+        assert(primitive::isNumber(auxAnyInteger) == true);
+        assert(primitive::isNumber(auxAnyString) == false);
+
+        assert(primitive::isString(auxAnyBoolean) == false);
+        assert(primitive::isString(auxAnyFloat) == false);
+        assert(primitive::isString(auxAnyInteger) == false);
+        assert(primitive::isString(auxAnyString) == true);
+
+        /// Testing string values
+        assert(primitive::isBoolean(0) == false);
+        assert(primitive::isFloat("1.1") == true);
+        assert(primitive::isInteger("1") == true);
+        assert(primitive::isNumber("1") == true);
+        assert(primitive::isString(2) == false);
+    }
+}
+
+primitiveTest::main();

@@ -1,4 +1,15 @@
 module date {
+    fn getAmountSecondsOfCurrentDay(): string {
+        var timeStartOfDay: int
+        var timeCurrent: int = @date('+%s') as int;
+
+        sh {
+            %timeStartOfDay=$(date -d "$(date +%%Y-%%m-%%d)" +%%s)
+        }
+
+		return (timeCurrent - timeStartOfDay) as string;
+    }
+
     fn getNanoseconds(): string {
         return @date('+%N');
     }

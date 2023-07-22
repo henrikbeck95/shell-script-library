@@ -1,0 +1,26 @@
+module compress {
+  fn main() {}
+
+  fn 7z() {}
+  fn tar() {}
+  fn tarBz2() {}
+  fn tarGz() {}
+  fn rar() {}
+  fn zip() {}
+}
+
+module extract {
+  fn main() {}
+
+  fn 7z() {}
+  
+  fn tar(pathFile: string, pathDirectoryOutput: string) {
+    sh {
+      mkdir -p /tmp/hello
+
+      tar xvf hello.tar --directory /tmp/hello
+    }
+  }
+
+  fn zip() {}
+}

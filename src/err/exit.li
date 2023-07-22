@@ -1,0 +1,8 @@
+module exit {
+    fn doesNotHaveRootPreviledges() {
+        if (! user::hasPreviledgesRoot()) {
+            status::error("You must be ROOT for preduring this step");
+            exit(127);
+        }
+    }
+}

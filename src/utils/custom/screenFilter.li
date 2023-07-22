@@ -1,0 +1,43 @@
+module screenFilter {
+    fn redshiftStart() {
+		sh {
+			redshift &
+		}
+	}
+	
+	fn redshiftStop(verbose: bool = false) {
+		process::stopForced("redshift", verbose);
+	}
+
+	/// MUST BE IMPROVED
+	fn mainStart() {
+		var application: string = "redshift";
+
+		if (application == "") {
+			eprint("None application has found!");
+		} else if (application == "redshift") {
+			redshiftStart();
+		} else {
+			eprint("None application has found!");
+		}
+
+		//var textMessage: string = "I wanna rock!";
+		//var timeDuration: int = 1500;
+		//var textIcon: string = "";
+
+		//notification::low(textMessage, timeDuration, textIcon);
+	}
+
+	/// MUST BE IMPROVED
+	fn mainStop(verbose: bool = false) {
+		var application: string = "redshift";
+
+		if (application == "") {
+			eprint("None application has found!");
+		} else if (application == "redshift") {
+			redshiftStop(verbose);
+		} else {
+			eprint("None application has found!");
+		}
+	}
+}

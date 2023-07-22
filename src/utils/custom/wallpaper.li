@@ -1,0 +1,148 @@
+module wallpaper {
+	/// MUST BE IMPROVED
+	fn generateMessageLog(pathFileImage: string, pathFileJson: string, pathFileLog: string, index: int, timeSecondsAmount: float, timeSecondsCurrent: int, timeSecondsDuration: float) {
+		//var messageLogDate: string = formatDate::getNow();
+		var messageLogDate: string = "${formatDate::getCalendarYearMonthDay()} ${formatDate::getClockMeridianHourMinutesSeconds()}";
+
+        print::formatStyleInverse(
+            print::formatStyleItalic(
+                print::formatStyleStrikethrough(
+                    print::formatStyleBold(
+                        print::colorBackgroundOpaqueWhite(
+                            print::colorForegroundOpaqueRed(messageLogDate)
+                        )
+                    )
+                )
+            )
+        ); //" >> "$pathFileLog"
+
+		print::defaultTabular("Description:Value\n---:---\nIndex:${index}\nFile image:${pathFileImage}\nFile JSON:${pathFileJson}\nTime current seconds:${timeSecondsCurrent}\nTime duration:${timeSecondsDuration}\nTime amount:${timeSecondsAmount}
+		"); //" >> "$pathFileLog"
+
+		print::defaultSeparator(100, "#"); //" >> "$pathFileLog"
+	}
+
+	fn getPathFileImage(pathFileJson: string, index: int): string {
+		var aux: string;
+
+		sh {
+			%aux=$(cat "${%pathFileJson}" | jq -r "[.background.static[${%index}].file] | .[]")
+		}
+
+		return aux;
+	}
+
+	fn getArrayLength(pathFileJson: string): int {
+		var aux: string = "";
+
+		sh {
+			%aux=$(cat "${%pathFileJson}" | jq -r "[.background.static[].file]" | jq length)
+		}
+
+		println("AUX: ${aux}");
+
+		return aux as int;
+	}
+
+	/// MUST BE TESTED
+	fn getTimeCurrentSeconds(): int {
+        /*
+        var timeSeconds: int = 0;
+		var timeTotal: int = 86400;
+
+        timeSeconds = date::getAmountSecondsOfCurrentDay() as int;
+		
+        return timeSeconds % timeTotal;
+        */
+
+        return date::getAmountSecondsOfCurrentDay() as int;
+	}
+
+	fn getTimeTotalDuration(pathFileJson: string, index: int): float {
+		var aux: float = 0;
+		
+		sh {
+			%aux=$(cat "${%pathFileJson}" | jq -r "[.background.static[${%index}].duration] | .[]")
+		}
+
+		return aux;
+	}
+
+	/// MUST BE IMPROVED
+	fn setDynamic(themeDelaySeconds: int, themePathDirectory: string, themeName: string) {
+		var arrayLength: int = 0;
+		var i: int = 0;
+		var timeSecondsAmount: float = 0; // timeSecondsToBeSwitched?
+		var timeSecondsCurrent: int = 0;
+		var timeSecondsDuration: float = 0;
+		var pathFileImage: string = "";
+		var pathFileJson: string = "/tmp/dot-wallpaper.json" // MUST BE RENAMED TO BE GENERIC
+		var pathFileLog: string = "/tmp/dot-wallpaper.log" // MUST BE RENAMED TO BE GENERIC
+		var pathFileXml: string = "${themePathDirectory}/${themeName}.xml"
+
+		convertData::fromXmlToJson(pathFileXml, pathFileJson);
+		arrayLength = getArrayLength(pathFileJson);
+        
+        i = calculateInitialValueIndex(pathFileJson);
+		
+		while (i < (arrayLength - 1)) {
+			timeSecondsCurrent = getTimeCurrentSeconds();
+			timeSecondsDuration = getTimeTotalDuration(pathFileJson, i);
+			timeSecondsAmount += timeSecondsDuration;
+			pathFileImage = getPathFileImage(pathFileJson, i);
+
+            generateMessageLog(pathFileImage, pathFileJson, pathFileLog, i, timeSecondsAmount, timeSecondsCurrent, timeSecondsDuration);
+
+			setStatic(pathFileImage);
+
+			while (true) {
+				timeSecondsCurrent = getTimeCurrentSeconds();
+
+				if (timeSecondsCurrent < timeSecondsAmount) {
+					sh {
+						sleep "${%themeDelaySeconds}"
+					}
+				} else {
+					break;
+				}
+
+				if (i == (arrayLength - 2)) {
+					timeSecondsAmount = 0;
+					i = 0;
+				} else {
+					i += 1;
+				}
+			}
+		}
+	}
+
+    // MUST BE IMPROVED
+    fn calculateInitialValueIndex(pathFileJson: string): int {
+        var arrayLength: int = 0;
+        var i: int = 0;
+        var timeSum: float = 0;
+        var timeCurrentSeconds: int = 0;
+        var timeTotalDuration: float = 0;
+
+        arrayLength = getArrayLength(pathFileJson); // 9
+        timeCurrentSeconds = getTimeCurrentSeconds(); // 8345
+
+        while (i < arrayLength) {
+            timeTotalDuration += getTimeTotalDuration(pathFileJson, i); // 9000 (2000 + 3000 + 4000)
+
+            if (timeCurrentSeconds > timeTotalDuration) {
+                i += 1; // 2
+            } else {
+                break;
+            }
+        }
+
+        return arrayLength - 3;
+        //return i; // 2
+    }
+
+	fn setStatic(pathFileImage: string) {
+		background::mainStop(false);
+		background::mainStart(pathFileImage);
+	}
+}

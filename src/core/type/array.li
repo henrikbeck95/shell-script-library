@@ -1,0 +1,131 @@
+require '../text.li'
+require './primitive.li'
+
+/// Define the JSON array as a string
+/// Required Jq tool
+module array {
+    fn create(arrayCustom: string): string {
+        if (arrayCustom == "") {
+            return "[]";
+        }
+
+        var aux: string = "";
+
+        sh {
+            #%aux=$(echo "${%arrayCustom}" | jq -c '.')
+
+            %aux=$(jq -c -n --argjson json_string "${%arrayCustom}" '$json_string')
+        }
+
+        return aux;
+    }
+
+    fn delete(arrayCustom: string, index: int): string {
+        var aux: string = "";
+        
+        sh {
+            %aux=$(echo "${%arrayCustom}" | jq -c "del(.[${%index}])")
+        }
+
+        return aux;
+    }
+
+    fn getElementFromIndex(arrayCustom: string, index: int): string {
+        var aux: string;
+
+        sh {
+            %aux=$(echo "${%arrayCustom}" | jq ".[${%index}]")
+            
+            #%aux=$(echo "${%arrayCustom}" | jq -r '.[0]')
+            #%aux=$(jq -n --argjson arr "${%arrayCustom}" '$arr[0]')
+        }
+        
+        if (primitive::isString(aux) == true && aux != 'null') {
+            aux = char::charRemoveFirstAllFromDisplay(aux);
+            aux = char::charRemoveLastAllFromDisplay(aux);
+        }
+
+        return aux as string;
+    }
+
+    fn getIndexFromElement(arrayCustom: string, element: any): string {
+        var aux: string;
+        
+        sh {
+            %aux=$(echo "${%arrayCustom}" | jq --arg element "$%element" "index($%element)")
+        }
+
+        return aux;
+    }
+
+    fn insert(arrayCustom: string, elementNewest: any, index: int): string {
+        var aux: string;
+
+        if (index == -1) {
+            index += length(arrayCustom) + 1;
+        }
+
+        if (primitive::isString(elementNewest) == true) {
+            elementNewest = "\"${elementNewest}\"";
+        }
+
+        sh {
+            #%aux=$(echo "${%arrayCustom}" | jq -c --argjson elementNewest "${%elementNewest}" ".[2:2] += [$%elementNewest]")
+            %aux=$(echo "${%arrayCustom}" | jq -c --argjson elementNewest "${%elementNewest}" ".[${%index}:${%index}] += [$%elementNewest]")
+        }
+        
+        return aux;
+    }
+
+    fn length(arrayCustom: string): int {
+        var aux: int = 0;
+
+        sh {
+            %aux=$(echo "${%arrayCustom}" | jq '. | length')
+        }
+
+        return aux;
+    }
+
+    fn pop(arrayCustom: string): string {
+        return delete(arrayCustom, -1);
+    }
+
+    fn push(arrayCustom: string, elementNewest: any): string {
+        return insert(arrayCustom, elementNewest, -1);
+    }
+
+    fn sort(arrayCustom: string): string {
+        var aux: string;
+        
+        sh {
+            %aux=$(echo "${%arrayCustom}" | jq -c 'sort')
+        }
+        
+        return aux;
+    }
+    
+    fn sortReverse(arrayCustom: string): string {
+        var aux: string;
+        
+        sh {
+            %aux=$(echo "${%arrayCustom}" | jq -c 'sort | reverse')
+        }
+        
+        return aux;
+    }
+
+    fn update(arrayCustom: string, index: int, valueNewest: any): string {
+        var aux: string = "";
+
+        if (primitive::isString(valueNewest) == true) {
+            valueNewest = "\"${valueNewest}\"";
+        }
+        
+        sh {
+            %aux=$(echo "${%arrayCustom}" | jq -c ".[${%index}] = ${%valueNewest}")
+        }
+
+        return aux;
+    }
+}

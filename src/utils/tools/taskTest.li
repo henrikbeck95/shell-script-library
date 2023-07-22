@@ -1,0 +1,21 @@
+module taskTest {
+    fn main() {
+        //var containerEngine: string = "docker";
+        var containerEngine: string = "podman";
+        var containerImage: string = "docker.io/dcsunset/taskwarrior-webui"
+        var containerName: string = "taskwarrior-webui"
+        var containerPortHost: int = 8080;
+        var containerShell: string = "/bin/sh";
+
+        //task::taskwarriorNoteCreate() {}
+        //task::taskwarriorNoteDelete() {}
+        //task::taskwarriorNoteRead() {}
+        //task::taskwarriorNoteUpdate() {}
+        
+        //task::taskwarriorServerList(containerEngine);
+        //task::taskwarriorServerInstall(containerEngine, containerImage);
+        //task::taskwarriorServerUp(containerEngine, containerImage, containerName, containerPortHost);
+        //task::taskwarriorServerShell(containerEngine, containerName, containerShell);
+        //task::taskwarriorServerDown(containerEngine, containerName);
+    }
+}

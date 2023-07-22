@@ -1,5 +1,6 @@
 module notification{
     fn send(commandExecute: string) {
+        /// Linux
         sh {
             if [ $UID -ne 0 ]; then
                 eval notify-send "$%commandExecute"
@@ -23,6 +24,9 @@ module notification{
                     #notify-send "$ARGUMENTS"
             fi
         }
+
+        /// MacOS
+        // sh { osasscript -e 'display notification "'"$uuid"'"' with title "UUID copied to the clipboard"' }
     }
     
     fn low(textMessage: string, timeDuration: int = 1500, textIcon: string = "") {

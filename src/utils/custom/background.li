@@ -1,0 +1,73 @@
+module background {
+	// DISCOVERY WHICH BACKGROUND APPLICATION IS BEING USED AND RETURN AS STRING
+	//fn discoveryWhichOne() {}
+
+	fn fehStart(pathFileImage: string) {}
+	
+	fn fehStop(verbose: bool = false) {}
+
+	fn gnomeStart(pathFileImage: string) {}
+	
+	fn gnomeStop(verbose: bool = false) {}
+	
+	fn nitrogenStart(pathFileImage: string) {}
+
+	fn nitrogenStop(verbose: bool = false) {}
+
+	/// MUST BE IMPROVED
+	fn swayStart(pathFileImage: string) {
+		sh {
+			swaybg -m fill -i "${%pathFileImage}" &
+			#swaybg -m fill -i "${%pathFileImage}"  > /dev/null 2>&1 & # Invisible message
+			#swaybg -m fill -i "${%pathFileImage}" 2>/dev/null & # Invisible message
+		}
+	}
+	
+	fn swayStop(verbose: bool = false) {
+		process::stopForced("swaybg", verbose);
+	}
+
+	/// MUST BE IMPROVED
+	fn mainStart(pathFileImage: string) {
+		var application: string = "sway";
+
+		if (application == "") {
+			eprint("None application has found!");
+		} else if (application == "feh") {
+			fehStart(pathFileImage);
+		} else if (application == "gnome") {
+			gnomeStart(pathFileImage);
+		} else if (application == "nitrogen") {
+			nitrogenStart(pathFileImage);
+		} else if (application == "sway") {
+			swayStart(pathFileImage);
+		} else {
+			eprint("None application has found!");
+		}
+
+		//var textMessage: string = "I wanna rock!";
+		//var timeDuration: int = 1500;
+		//var textIcon: string = "";
+
+		//notification::low(textMessage, timeDuration, textIcon);
+	}
+
+	/// MUST BE IMPROVED
+	fn mainStop(verbose: bool = false) {
+		var application: string = "sway";
+
+		if (application == "") {
+			eprint("None application has found!");
+		} else if (application == "feh") {
+			fehStop(verbose);
+		} else if (application == "gnome") {
+			gnomeStop(verbose);
+		} else if (application == "nitrogen") {
+			nitrogenStop(verbose);
+		} else if (application == "sway") {
+			swayStop(verbose);
+		} else {
+			eprint("None application has found!");
+		}
+	}
+}

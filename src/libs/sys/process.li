@@ -1,0 +1,26 @@
+module process {
+	/// MUST BE IMPROVED
+    /// softwareName = htop
+    /// sigterm = 9
+    fn stopMain(softwareName: string, sigterm: int, verbose: bool = false) {
+		if (verbose == true) {
+			sh {
+				killall -"${%sigterm}" "${%softwareName}"
+			}
+		} else {
+			sh {
+				#killall -"${%sigterm}" "${%softwareName}" 2>/dev/null # Hide the error message
+				killall -"${%sigterm}" "${%softwareName}" > /dev/null 2>&1 # Invisible message
+				#pkill -"${%sigterm}" "${%softwareName}" > /dev/null 2>&1 # Invisible message
+			}
+		}
+    }
+        
+	fn stopForced(softwareName: string, verbose: bool = false) {
+        stopMain(softwareName, 9, verbose);
+	}
+
+	fn stopSoft(softwareName: string, verbose: bool = false) {
+        stopMain(softwareName, 15, verbose);
+	}
+}

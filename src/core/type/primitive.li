@@ -1,0 +1,82 @@
+module primitive {
+    fn isBoolean(value: any): bool {
+        var aux: bool;
+
+        sh {
+            if [ "${%value}" = "true" ] || [ "${%value}" = "false" ]; then
+                %aux=true
+            else
+                %aux=false
+            fi
+        }
+
+        return aux;
+    }
+    
+    fn isInteger(value: any): bool {
+        var aux: bool;
+
+        sh {
+            if [ "${%value}" -eq "${%value}" ] 2>/dev/null; then
+                %aux=true
+            else
+                %aux=false
+            fi
+        }
+
+        return aux;
+    }
+    
+    fn isFloat(value: any): bool {
+        var aux: bool;
+
+        if (isBoolean(value) == true) {
+            return false;
+        }
+
+        sh {
+            #if echo "${%value}" | grep -Eq '^[-+]?[0-9]+([.][0-9]+)?$'; then
+            if echo "${%value}" | awk 'NF==1 && $0 ~ /^[+-]?[0-9]*[.][0-9]+$/ { exit 0 } { exit 1 }'; then
+                %aux=true
+            else
+                %aux=false
+            fi
+        }
+
+        return aux;
+    }
+
+    fn isNumber(value: any): bool {
+        if (isInteger(value) == true || isFloat(value) == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    fn isString(value: any): bool {
+        if (isBoolean(value) == true || isNumber(value) == true) {
+            return false
+        } else {
+            return true;
+        }
+
+        /*
+        var aux: bool;
+
+        if (isBoolean(value) == true) {
+            return false;
+        }
+
+        sh {
+            if [ -n "${%value}" ] && [ -z "$(printf '%%s' "${%value}" | tr -d '[:alpha:]')" ]; then
+                %aux=true
+            else
+                %aux=false
+            fi
+        }
+
+        return aux;
+        */
+    }
+}

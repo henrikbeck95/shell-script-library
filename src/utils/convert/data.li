@@ -1,10 +1,17 @@
 module convertData {
     //fn fromJsonToXml() {}
+
     //fn fromJsonToYaml() {}
     
-    //fn fromXmlToJson() {}
+	fn fromXmlToJson(pathFileXml: string, pathFileJson: string) {
+		sh {
+			cat "${%pathFileXml}" | xq . > "${%pathFileJson}"
+		}
+	}
+
     //fn fromXmlToYaml() {}
 
     //fn fromYamlToJson() {}
+
     //fn fromYamlToXml() {}
 }

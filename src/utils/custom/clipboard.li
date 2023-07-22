@@ -1,0 +1,43 @@
+module clipboard {
+    fn wlPasteStart() {
+		sh {
+			wl-paste --watch cliphist store &
+		}
+	}
+	
+	fn wlPasteStop(verbose: bool = false) {
+		process::stopForced("wl-paste", verbose);
+	}
+
+	/// MUST BE IMPROVED
+	fn mainStart() {
+		var application: string = "wl-paste";
+
+		if (application == "") {
+			eprint("None application has found!");
+		} else if (application == "wl-paste") {
+			wlPasteStart();
+		} else {
+			eprint("None application has found!");
+		}
+
+		//var textMessage: string = "I wanna rock!";
+		//var timeDuration: int = 1500;
+		//var textIcon: string = "";
+
+		//notification::low(textMessage, timeDuration, textIcon);
+	}
+
+	/// MUST BE IMPROVED
+	fn mainStop(verbose: bool = false) {
+		var application: string = "wl-paste";
+
+		if (application == "") {
+			eprint("None application has found!");
+		} else if (application == "wl-paste") {
+			wlPasteStop(verbose);
+		} else {
+			eprint("None application has found!");
+		}
+	}
+}

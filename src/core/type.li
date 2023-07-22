@@ -1,0 +1,4 @@
+/// This module is dedicated to check primitive types from language support.
+
+require './type/array.li';
+require './type/primitive.li';

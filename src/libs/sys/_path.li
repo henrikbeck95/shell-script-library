@@ -1,0 +1,15 @@
+/*
+module path {
+    var separator = '/'
+    var list_separator = ':'
+
+    if platform::is_windows() {
+      separator = '\\'
+      list_separator = ';'
+    }
+
+    fn join(parts: ...string): string {
+      return parts.join(separator)
+    }
+}
+*/

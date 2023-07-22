@@ -11,10 +11,20 @@ require './core/lang.li';
 require './core/display.li';
 require './core/math.li';
 require './core/text.li';
+require './core/type.li';
 
 // Libraries modules
+require './libs/audio.li';
+require './libs/request.li';
 require './libs/sys.li';
 require './libs/unit.li';
+
+// Utilities modules
+require './utils/clock.li';
+require './utils/convert.li';
+require './utils/custom.li';
+require './utils/format.li';
+require './utils/tools.li';
 
 // Commands shortcuts
 require './shortcuts/core.li';

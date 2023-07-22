@@ -1,31 +1,52 @@
 module container {
-    fn defaultImageBackup(TOOL: string, IMAGE_NAME: string, IMAGE_VERSION: string, PATH_DESTINY: string) {
-        sh { "${%TOOL}" save -o ${%PATH_DESTINY}/${%IMAGE_NAME}.tgz ${%IMAGE_NAME}:${%IMAGE_VERSION} }
+    /// Container - Containers
+
+    fn defaultContainerList(containerEngine: string) {
+        sh { "${%containerEngine}" container ls }
     }
 
-    fn defaultImageDownload(TOOL: string, IMAGE_NAME: string) {
-        sh { "${%TOOL}" pull "${%IMAGE_NAME}" }
+    fn defaultContainerExecute(containerEngine: string, containerName: string, pathShell: string) {
+        sh { "${%containerEngine}" exec -it "${%containerName}" "${%pathShell}" }
     }
 
-    fn defaultImageExecute(TOOL: string, IMAGE_NAME: string) {
-        sh { "${%TOOL}" run -it "${%IMAGE_NAME}" }
+    fn defaultContainerRun(containerEngine: string, containerName: string, pathShell: string) {
+        sh { "${%containerEngine}" run -it "${%containerName}" "${%pathShell}" }
     }
 
-    fn defaultImageList(TOOL: string) {
-        sh { "${%TOOL}" image ls }
+    fn defaultContainerStop(containerEngine: string, containerName: string) {
+        sh { "${%containerEngine}" container stop "${%containerName}" }
     }
 
-    fn defaultImageRemove(TOOL: string, IMAGE_NAME: string) {
-        sh { "${%TOOL}" image rm "${%IMAGE_NAME}" }
+    /// Container - Images
+
+    fn defaultImageBackup(containerEngine: string, imageName: string, imageVersion: string, pathDestiny: string) {
+        sh { "${%containerEngine}" save -o ${%pathDestiny}/${%imageName}.tgz ${%imageName}:${%imageVersion} }
     }
 
-    fn distroboxImageDownload(IMAGE_NAME: string, IMAGE_VERSION: string) {
-        sh { distrobox-create --name "${%IMAGE_NAME}" --image "${%IMAGE_VERSION}" }
+    fn defaultImageDownload(containerEngine: string, imageName: string) {
+        sh { "${%containerEngine}" pull "${%imageName}" }
     }
 
-    fn distroboxImageEnter(IMAGE_NAME: string, IMAGE_VERSION: string) {
-        sh { distrobox-enter --name "${%IMAGE_NAME}" }
+    /*fn defaultImageExport(containerEngine: string, CONTAINER_NAME: string) {
+      sh { "${%containerEngine}" export "${%CONTAINER_NAME}" > "${%CONTAINER_NAME.tar}" }
+    }
+    */
+
+    fn defaultImageList(containerEngine: string) {
+        sh { "${%containerEngine}" image ls }
     }
 
-    //fn istroboxImageRemove(IMAGE_NAME: string, IMAGE_VERSION: string) {}
+    fn defaultImageRemove(containerEngine: string, imageName: string) {
+        sh { "${%containerEngine}" image rm "${%imageName}" }
+    }
+
+    fn distroboxImageDownload(imageName: string, imageVersion: string) {
+        sh { distrobox-create --name "${%imageName}" --image "${%imageVersion}" }
+    }
+
+    fn distroboxImageEnter(imageName: string, imageVersion: string) {
+        sh { distrobox-enter --name "${%imageName}" }
+    }
+
+    //fn distroboxImageRemove(imageName: string, imageVersion: string) {}
 }

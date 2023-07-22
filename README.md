@@ -35,18 +35,40 @@ Collection of Shell Script functions for abstracting the development process, sp
 
 ### Warnings
 
+1. **Shell Script Library** does not have focus on script performance, instead of it this project has the aims of providing fast and easy development ecosystem integrated with a more security error treatments.
+
 1. **Shell Script Library** has the intention to provide an entire ecosystem whose understand the action is set to be done with a few commands but looking for the best possible scenario to solve the problem.
 
 1. Have in mind some Shell Script commands may change according to the operating system. The **Shell Script Library** understands this problem exists and works hard for providing a unique interface. In others words, the developer does not need to think in every possible scenario whose his script file will be run. Bit by bit this library is implementing solutions to solve this kind of problem.
 
 1. Once your source code is developed using the **Shell Script Library** you do not to worry about updates breaks up. You can set a specific version from this library or even use the latest one available. Using the latest one may be not recommended for production but the biggest advantage is coding using `Cotowali` programming language and be able to receive new feature and fix issues without changing a single line from the source code.
 
-1. Besides the **Shell Script Library** pursuits the `POSIX`. By the way all the implemented functions have been tested so far **only** on `Linux` platform. But the syntax we are developing the source code is following the `POSIX` compatible (only in specifics cases we are still `Bashism` but we are going to refactor it). In the future we have plans to test the functions on `BSD` and `MacOS` before we test on `Windows` platform.
+1. Besides the **Shell Script Library** pursuits the `POSIX`. By the way all the implemented functions have been tested so far **only** on `Linux` platform. But the syntax we are developing the source code is following the `POSIX` compatible (only in specifics cases we are still `Bashism` but we are going to refactor it). In the future we have plans to test the functions on `Busybox` tools, `BSD` and `MacOS` before we do the final test on `Windows` platform using `Git Bash`.
 
-## Final words 
+1. The **Shell Script Library** order of priorities
+    1. [ ] Integrated the ecosystem with a more security protocols and error treatments for any possible cases.
+    1. [ ] Provide immutable experience for developing solutions.
+    1. [ ] Solve problems with algorithms using the `Shell Script` language.
+    1. [ ] Provide an entire ecosystem for faster development with a simple syntax.
+    1. [ ] Implement `POSIX` compatibility instead of `Bashism`.
+    1. [ ] Improve the script performance.
+    1. [ ] Solve possible incompatibilities from others operating system based on `UNIX` beyond Linux distributions.
+
+<!--
+## Contribute
+
+- The ways you can contribute to this project
+    1. [ ] Developing new features. or improving the ones whose already exists.
+    1. [ ] Improving the solutions whose already exists.
+-->
+
+## Final words
+
+The **Shell Script Library** has the intention to provide an entire ecosystem whose understand the action is set to be done with a few commands but looking for the best possible scenario to solve the problem.
 
 - The step by step to the happiness:
     1. [x] Import the **Shell Script Library**.
     1. [x] Code less and better by using the **Shell Script Library**.
     1. [x] Get all the hard work done with a few steps.
+    1. [x] Consider to contribute with this project.
     1. [x] Smile! You have saved time by enjoying this robust ecosystem whose have tested methods for improving the securance.
