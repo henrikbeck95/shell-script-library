@@ -1,5 +1,5 @@
 require './type.li';
 
 println("Type - Parse section");
-require './type/arrayTest.li';
+require './type/jsonStringTest.li';
 require './type/primitiveTest.li';
